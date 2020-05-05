@@ -1,0 +1,18 @@
+#extend("index"):
+    #export("body"):
+        <section id="blog" class="wrapper">
+            <h2>Blog</h2>
+        
+            #for(item in items):
+            <article>
+                <a href="/#(item.post.slug)">
+                    <img src="#(item.post.image)">
+                    <h3>#(item.post.title) (#(item.post.date))</h3>
+                    <p>#(item.post.excerpt)</p>
+                    <p class="category">#(item.category.title)</p>
+                </a>
+            </article>
+            #endfor
+        </section>
+    #endexport
+#endextend
