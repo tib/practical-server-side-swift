@@ -1,0 +1,10 @@
+#extend("index"):
+    #export("body"):
+        <section class="wrapper">
+            <h2>#(header)</h2>
+        </section>
+        <section class="wrapper">
+            <p>#(message)</p>
+        </section>
+    #endexport
+#endextend

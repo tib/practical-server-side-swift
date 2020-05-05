@@ -1,0 +1,16 @@
+#extend("index"):
+    #export("body"):
+        <section id="blog" class="wrapper">
+            <img src="#(post.image)">
+            <h2>#(post.title) (#(post.date))</h2>
+            <p>#(post.excerpt)</p>
+            #if(post.category != nil):
+                <p class="category">#(post.category)</p>
+            #else:
+                <p class="category">Uncategorized</p>
+            #endif
+            <hr>
+            <p>#(post.content)</p>
+        </section>
+    #endexport
+#endextend
