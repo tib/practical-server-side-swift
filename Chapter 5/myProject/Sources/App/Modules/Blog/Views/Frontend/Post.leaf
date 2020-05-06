@@ -1,4 +1,4 @@
-#extend("index"):
+#extend("Frontend/Index"):
     #export("body"):
         <section id="blog" class="wrapper">
             <img src="#(item.post.image)">

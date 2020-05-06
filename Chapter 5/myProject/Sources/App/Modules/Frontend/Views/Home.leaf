@@ -1,4 +1,4 @@
-#extend("index"):
+#extend("Frontend/Index"):
     #export("body"):
         <section class="wrapper">
             <h2>#(header)</h2>

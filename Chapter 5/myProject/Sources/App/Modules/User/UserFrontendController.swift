@@ -7,7 +7,7 @@ struct UserFrontendController {
             let title: String
         }
         let context = Context(title: "myPage - Sign in")
-        return req.view.render("login", context)
+        return req.view.render("User/Frontend/Login", context)
     }
     
     func login(req: Request) throws -> Response {
