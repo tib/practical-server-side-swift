@@ -1,0 +1,15 @@
+#extend("Frontend/Index"):
+    #export("body"):
+        <section class="wrapper">
+            <form action="/sign-in" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="" class="field">
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" value="" class="field">
+
+                <input type="submit" class="submit" value="Submit">
+            </form>
+        </section>
+    #endexport
+#endextend

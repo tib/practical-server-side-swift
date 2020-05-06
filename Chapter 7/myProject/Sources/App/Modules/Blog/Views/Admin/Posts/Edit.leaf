@@ -1,0 +1,59 @@
+#extend("Admin/Index"):
+    #export("body"):
+        <div class="wrapper">
+            <h2><a href="/admin/blog/posts">Posts</a> / #if(edit.id != null):Edit#else:Create#endif</h2>
+            #if(edit.id != nil):
+            <a href="/#(edit.slug.value)" target="_blank">Preview</a>
+            #endif
+        </div>
+
+        <form id="post-edit-form" class="wrapper" method="post" action="/admin/blog/posts/#if(edit.id != nil):#(edit.id)#else:new#endif">
+            <input type="hidden" name="id" value="#(edit.id)">
+
+            <section>
+                <label for="title">Title <span class="required">(required)</span></label>
+                <input id="title" type="text" name="title" value="#(edit.title.value)" class="field">
+                #if(edit.title.error != nil):
+                <span class="error">#(edit.title.error)</span>
+                #endif
+            </section>
+
+            <section>
+                <label for="slug">Slug <span class="required">(required)</span></label>
+                <input id="slug" type="text" name="slug" value="#(edit.slug.value)" class="field">
+                #if(edit.slug.error != nil):
+                <span class="error">#(edit.slug.error)</span>
+                #endif
+            </section>
+
+            <section>
+                <label for="excerpt">Excerpt</label>
+                <textarea name="excerpt" class="small">#(edit.excerpt.value)</textarea>
+                #if(edit.excerpt.error != nil):
+                <span class="error">#(edit.excerpt.error)</span>
+                #endif
+            </section>
+
+            <section>
+                <label for="content">Content</label>
+                <textarea id="content" name="content" class="large" >#(edit.content.value)</textarea>
+                #if(edit.content.error != nil):
+                <span class="error">#(edit.content.error)</span>
+                #endif
+            </section>
+
+            <section>
+                <label for="date">Date  <span class="required">(yyyy)</label></span>
+                <input type="text" name="date" value="#(edit.date.value)" class="field">
+                #if(edit.date.error != nil):
+                <span class="error">#(edit.date.error)</span>
+                #endif
+            </section>
+
+            <section>
+                <input type="submit" class="submit" value="Save">
+            </section>
+        </form>
+
+    #endexport
+#endextend
