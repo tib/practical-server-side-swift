@@ -1,0 +1,23 @@
+#extend("Admin/Index"):
+    #export("body"):
+        <div class="wrapper">
+            <h2><a href="/admin/blog/categories">Categories</a> / #if(edit.id != null):Edit#else:Create#endif</h2>
+        </div>
+
+        <form id="category-edit-form" class="wrapper" method="post" action="/admin/blog/categories/#if(edit.id != nil):#(edit.id)#else:new#endif" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="#(edit.id)">
+
+            <section>
+                <label for="title">Title <span class="required">(required)</span></label>
+                <input id="title" type="text" name="title" value="#(edit.title.value)" class="field">
+                #if(edit.title.error != nil):
+                <span class="error">#(edit.title.error)</span>
+                #endif
+            </section>
+            
+            <section>
+                <input type="submit" class="submit" value="Save">
+            </section>
+        </form>
+    #endexport
+#endextend

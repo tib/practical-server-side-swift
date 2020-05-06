@@ -1,0 +1,12 @@
+#extend("Admin/Index"):
+    #export("body"):
+        <section class="wrapper">
+            <h2>#(header)</h2>
+        </section>
+        <section class="wrapper">
+            <p>#(message)</p>
+            <a href="/admin/blog/posts">Blog posts</a> &middot;
+            <a href="/admin/blog/categories">Blog categories</a>
+        </section>
+    #endexport
+#endextend

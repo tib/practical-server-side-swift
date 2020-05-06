@@ -16,16 +16,19 @@ struct BlogPostAdminController {
             }
     }
 
+    func beforeRender(req: Request, form: BlogPostEditForm) -> EventLoopFuture<Void> {
+        BlogCategoryModel.query(on: req.db).all()
+        .mapEach(\.formFieldOption)
+        .map { form.categoryId.options = $0 }
+    }
+
     func render(req: Request, form: BlogPostEditForm) -> EventLoopFuture<View> {
         struct Context<T: Encodable>: Encodable {
             let edit: T
         }
-        return BlogCategoryModel.query(on: req.db).all()
-            .mapEach(\.formFieldOption)
-            .flatMap { options in
-                form.categoryId.options = options
-                return req.view.render("Blog/Admin/Posts/Edit", Context(edit: form))
-            }
+        return self.beforeRender(req: req, form: form).flatMap {
+            req.view.render("Blog/Admin/Posts/Edit", Context(edit: form))
+        }
     }
 
     func createView(req: Request) throws -> EventLoopFuture<View> {
