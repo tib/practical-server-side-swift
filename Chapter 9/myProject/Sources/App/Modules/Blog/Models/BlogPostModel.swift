@@ -75,3 +75,88 @@ extension BlogPostModel: ViewContextRepresentable {
     var viewContext: ViewContext { .init(model: self) }
     var viewIdentifier: String { self.id!.uuidString }
 }
+
+extension BlogPostModel: ApiRepresentable {
+
+    struct ListItem: Content {
+        var id: UUID
+        var title: String
+        var slug: String
+        var image: String
+        var excerpt: String
+        var date: Date
+    }
+
+    struct GetContent: Content {
+        var id: UUID
+        var title: String
+        var slug: String
+        var image: String
+        var excerpt: String
+        var date: Date
+        var content: String
+    }
+    
+    struct UpsertContent: ValidatableContent {
+        var title: String
+        var slug: String
+        var image: String
+        var excerpt: String
+        var date: Date
+        var content: String
+    }
+
+    struct PatchContent: ValidatableContent {
+        var title: String?
+        var slug: String?
+        var image: String?
+        var excerpt: String?
+        var date: Date?
+        var content: String?
+    }
+    
+    var listContent: ListItem {
+        .init(id: self.id!,
+              title: self.title,
+              slug: self.slug,
+              image: self.image,
+              excerpt: self.excerpt,
+              date: self.date)
+    }
+
+    var getContent: GetContent {
+        .init(id: self.id!,
+              title: self.title,
+              slug: self.slug,
+              image: self.image,
+              excerpt: self.excerpt,
+              date: self.date,
+              content: self.content)
+    }
+    
+    private func upsert(_ content: UpsertContent) throws {
+        self.title = content.title
+        self.slug = content.slug
+        self.image = content.image
+        self.excerpt = content.excerpt
+        self.date = content.date
+        self.content = content.content
+    }
+
+    func create(_ content: UpsertContent) throws {
+        try self.upsert(content)
+    }
+
+    func update(_ content: UpsertContent) throws {
+        try self.upsert(content)
+    }
+
+    func patch(_ content: PatchContent) throws {
+        self.title = content.title ?? self.title
+        self.slug = content.slug ?? self.slug
+        self.image = content.image ?? self.image
+        self.excerpt = content.excerpt ?? self.excerpt
+        self.date = content.date ?? self.date
+        self.content = content.content ?? self.content
+    }
+}
