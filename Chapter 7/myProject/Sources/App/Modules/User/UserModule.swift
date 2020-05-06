@@ -2,6 +2,8 @@ import Vapor
 import Fluent
 
 struct UserModule: Module {
+
+    static var name: String = "user"
     
     var router: RouteCollection? { UserRouter() }
     
