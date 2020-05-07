@@ -1,9 +1,11 @@
 import Vapor
 import Fluent
+import ViperKit
 
-final class UserModel: Model {
+final class UserModel: ViperModel {
+    typealias Module = UserModule
         
-    static let schema = "user_users"
+    static let name = "users"
 
     struct FieldKeys {
         static var email: FieldKey { "email" }
@@ -34,6 +36,4 @@ extension UserModel: SessionAuthenticatable {
     var sessionID: SessionID { self.id! }
 }
 
-extension UserModel: Authenticatable {
-    
-}
+

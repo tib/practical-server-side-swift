@@ -18,6 +18,7 @@ let package = Package(
         //.package(url: "https://github.com/binarybirds/liquid-aws-s3-driver.git", from: "1.0.0"),
         .package(url: "https://github.com/binarybirds/view-kit.git", from: "1.0.0"),
         .package(url: "https://github.com/binarybirds/content-api.git", from: "1.0.0"),
+        .package(url: "https://github.com/binarybirds/viper-kit.git", from: "1.0.0"),
     ],
     targets: [
         .target(name: "App", dependencies: [
@@ -30,6 +31,7 @@ let package = Package(
             //.product(name: "LiquidAwsS3Driver", package: "liquid-aws-s3-driver"),
             .product(name: "ViewKit", package: "view-kit"),
             .product(name: "ContentApi", package: "content-api"),
+            .product(name: "ViperKit", package: "viper-kit"),
             .product(name: "Vapor", package: "vapor"),
         ]),
         .target(name: "Run", dependencies: ["App"]),

@@ -1,7 +1,8 @@
 import Vapor
 import Fluent
+import ViperKit
 
-struct UtilityModule: Module {
+struct UtilityModule: ViperModule {
 
     static var name: String = "utility"
 

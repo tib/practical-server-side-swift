@@ -263,6 +263,15 @@
         }
       },
       {
+        "package": "viper-kit",
+        "repositoryURL": "https://github.com/binarybirds/viper-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "b285d16afc629afbdf5767b16c594a780682b344",
+          "version": "1.2.2"
+        }
+      },
+      {
         "package": "websocket-kit",
         "repositoryURL": "https://github.com/vapor/websocket-kit.git",
         "state": {
