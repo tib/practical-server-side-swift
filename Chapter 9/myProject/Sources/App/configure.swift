@@ -10,7 +10,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     app.routes.defaultMaxBodySize = "10mb"
-    app.fileStorages.use(.local(publicUrl: "http://localhost:8080/",
+    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
 
@@ -23,7 +23,7 @@ public func configure(_ app: Application) throws {
                                       fileio: app.fileio)
 
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
-    
+
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)

@@ -1,4 +1,5 @@
 import Vapor
+import ViewKit
 
 final class BlogCategoryEditForm: Form {
     typealias Model = BlogCategoryModel

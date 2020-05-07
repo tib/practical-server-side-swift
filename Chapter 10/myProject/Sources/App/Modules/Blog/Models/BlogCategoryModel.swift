@@ -1,5 +1,7 @@
 import Vapor
 import Fluent
+import ViewKit
+import ContentApi
 
 final class BlogCategoryModel: Model {
 

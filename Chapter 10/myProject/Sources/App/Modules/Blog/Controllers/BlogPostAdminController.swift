@@ -1,6 +1,7 @@
 import Vapor
 import Fluent
 import Liquid
+import ViewKit
 
 struct BlogPostAdminController: AdminViewController {
 

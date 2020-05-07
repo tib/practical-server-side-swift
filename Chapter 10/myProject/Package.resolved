@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "content-api",
+        "repositoryURL": "https://github.com/binarybirds/content-api.git",
+        "state": {
+          "branch": null,
+          "revision": "e1c7d49a571758a1e897de4285e9392338443f2e",
+          "version": "1.0.4"
+        }
+      },
+      {
         "package": "fluent",
         "repositoryURL": "https://github.com/vapor/fluent.git",
         "state": {
@@ -242,6 +251,15 @@
           "branch": null,
           "revision": "74bbf36fe0378fafe5413762affe8db6b871a380",
           "version": "4.5.1"
+        }
+      },
+      {
+        "package": "view-kit",
+        "repositoryURL": "https://github.com/binarybirds/view-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "400e23a06b6ae44352c874018f169e069069cf8b",
+          "version": "1.1.2"
         }
       },
       {

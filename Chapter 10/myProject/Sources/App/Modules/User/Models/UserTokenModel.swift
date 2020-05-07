@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import ContentApi
 
 final class UserTokenModel: Model {
     static let schema = "user_tokens"

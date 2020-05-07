@@ -11,7 +11,7 @@ public func configure(_ app: Application) throws {
 
     //...
     app.routes.defaultMaxBodySize = "10mb"
-    app.fileStorages.use(.local(publicUrl: "http://localhost:8080/",
+    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
 

@@ -3,10 +3,15 @@ import Fluent
 import FluentPostgresDriver
 import Liquid
 import LiquidLocalDriver
+//import LiquidAwsS3Driver
 import Vapor
 
 extension Environment {
     static let pgUrl = URL(string: Self.get("DB_URL")!)!
+    static let appUrl = URL(string: Self.get("APP_URL")!)!
+//    static let awsKey = Self.get("AWS_KEY")!
+//    static let awsSecret = Self.get("AWS_SECRET")!
+
 }
 
 public func configure(_ app: Application) throws {
@@ -14,9 +19,15 @@ public func configure(_ app: Application) throws {
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     app.routes.defaultMaxBodySize = "10mb"
-    app.fileStorages.use(.local(publicUrl: "http://localhost:8080/",
+    app.fileStorages.use(.local(publicUrl: Environment.appUrl.absoluteString,
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
+
+//    app.fileStorages.use(.awsS3(key: Environment.awsKey,
+//                                    secret: Environment.awsSecret,
+//                                    bucket: "vaportestbucket",
+//                                    region: .uswest1), as: .awsS3)
+
 
     app.views.use(.leaf)
     app.leaf.cache.isEnabled = app.environment.isRelease

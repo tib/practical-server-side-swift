@@ -1,4 +1,5 @@
 import Vapor
+import ViewKit
 
 final class BlogPostEditForm: Form {
     typealias Model = BlogPostModel
