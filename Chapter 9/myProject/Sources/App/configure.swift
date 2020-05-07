@@ -9,7 +9,6 @@ public func configure(_ app: Application) throws {
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    //...
     app.routes.defaultMaxBodySize = "10mb"
     app.fileStorages.use(.local(publicUrl: "http://localhost:8080/",
                                 publicPath: app.directory.publicDirectory,
@@ -27,7 +26,7 @@ public func configure(_ app: Application) throws {
     
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
-    app.middleware.use(SessionsMiddleware(session: app.sessions.driver))
+    app.middleware.use(app.sessions.middleware)
 
     let modules: [Module] = [
         UserModule(),

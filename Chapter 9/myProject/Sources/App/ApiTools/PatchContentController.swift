@@ -25,7 +25,7 @@ extension PatchContentController {
     }
     
     func setupPatchRoute(routes: RoutesBuilder) {
-        routes.put(self.idPathComponent, use: self.patch)
+        routes.patch(self.idPathComponent, use: self.patch)
     }
 }
 

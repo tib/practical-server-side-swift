@@ -24,10 +24,10 @@ public func configure(_ app: Application) throws {
                                       fileio: app.fileio)
 
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
-    
+
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
-    app.middleware.use(SessionsMiddleware(session: app.sessions.driver))
+    app.middleware.use(app.sessions.middleware)
 
     let modules: [Module] = [
         UserModule(),
