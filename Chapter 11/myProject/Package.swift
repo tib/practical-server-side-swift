@@ -19,6 +19,8 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/view-kit.git", from: "1.0.0"),
         .package(url: "https://github.com/binarybirds/content-api.git", from: "1.0.0"),
         .package(url: "https://github.com/binarybirds/viper-kit.git", from: "1.0.0"),
+        //...
+        .package(url: "https://github.com/binarybirds/spec.git", from: "1.0.0"),
     ],
     targets: [
         .target(name: "App", dependencies: [
@@ -37,7 +39,7 @@ let package = Package(
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [
             .target(name: "App"),
-            .product(name: "XCTVapor", package: "vapor"),
+            .product(name: "Spec", package: "spec"),
         ])
     ]
 )
