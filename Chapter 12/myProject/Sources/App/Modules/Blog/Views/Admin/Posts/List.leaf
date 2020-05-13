@@ -1,0 +1,31 @@
+#extend("Admin/Index"):
+    #export("body"):
+        <div class="wrapper">
+            <h2>Posts</h2>
+            <a href="/admin/blog/posts/new">Create</a>
+        </div>
+
+        <table class="wrapper">
+            <thead>
+                <tr>
+                    <th class="small">Image</th>
+                    <th>Title</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            #for(item in list):
+                <tr>
+                    <td class="small"><img src="#(item.image)"></td>
+                    <td>#(item.title)</td>
+                    <td class="actions">
+                        <a href="/#(item.slug)" target="_blank">Preview</a> &middot;
+                        <a href="/admin/blog/posts/#(item.id)">Edit</a> &middot;
+                        <a id="#(item.id)" href="#" onClick="confirmDelete('/admin/blog/posts/', this.id);">Delete</a>
+                    </td>
+                </tr>
+            #endfor
+            </tbody>
+        </table>
+    #endexport
+#endextend
