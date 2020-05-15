@@ -6,11 +6,13 @@
 //  Copyright © 2020. Tibor Bodecs. All rights reserved.
 //
 
+@_exported import VIPER
 import Foundation
 
 final class App {
 
-    let services = ServiceBuilder()
+    let services: ServiceBuilderInterface
+    let modules: ModuleBuilderInterface
 
     // MARK: - singleton
 
@@ -18,6 +20,9 @@ final class App {
 
     private init() {
         // do nothing...
+        
+        self.services = ServiceBuilder()
+        self.modules = ModuleBuilder()
     }
 
     // MARK: - api
@@ -25,4 +30,5 @@ final class App {
     func setup() {
         self.services.setup()
     }
+    
 }
