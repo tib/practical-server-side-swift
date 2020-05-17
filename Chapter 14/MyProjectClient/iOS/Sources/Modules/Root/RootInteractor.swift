@@ -6,12 +6,28 @@
 //
 
 import Foundation
+import Combine
+import MyProjectApi
 
-final class RootInteractor: InteractorInterface {
+final class RootInteractor: ServiceInteractor, InteractorInterface {
 
     weak var presenter: RootPresenterInteractorInterface!
 }
 
 extension RootInteractor: RootInteractorPresenterInterface {
+    
+    func list() -> AnyPublisher<RootEntity, Error> {
+        self.services.api.getBlogPosts()
+        .map { page -> RootEntity in
+            let domain = "http://localhost:8080"
+            return .init(items: page.items.map { .init(id: $0.id,
+                                                       title: $0.title,
+                                                       imageUrl: domain + $0.image,
+                                                       url: domain + $0.slug) })
+        }
+        .mapError { $0 as Error }
+        .eraseToAnyPublisher()
+        
+    }
 
 }

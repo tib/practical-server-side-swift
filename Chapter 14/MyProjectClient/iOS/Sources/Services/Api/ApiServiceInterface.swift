@@ -11,11 +11,16 @@ import Combine
 import MyProjectApi
 
 struct Page<T: Decodable>: Decodable {
-    var metadata: Int
-    var list: [T]
+    struct Metadata: Decodable {
+        let page: Int
+        let per: Int
+        let total: Int
+    }
+    let metadata: Metadata
+    let items: [T]
 }
 
 protocol ApiServiceInterface: ServiceInterface {
 
-    func getBlogPosts() -> AnyPublisher<Page<BlogPostListObject>, Error>
+    func getBlogPosts() -> AnyPublisher<Page<BlogPostListObject>, HTTP.Error>
 }

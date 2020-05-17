@@ -7,21 +7,20 @@
 
 import Foundation
 import UIKit
+import Combine
 import SafariServices
+import MyProjectApi
 
 final class RootView: UIViewController, ViewInterface {
     
     var presenter: RootPresenterViewInterface!
+    var entity: RootEntity?
     
     weak var tableView: UITableView!
     weak var activityIndicatorView: UIActivityIndicatorView!
     weak var failureButton: UIButton!
     
-    var items: [String: [String]] = [
-        "Originals": ["👽", "🐱", "🐔", "🐶", "🦊", "🐵", "🐼", "🐷", "💩", "🐰","🤖", "🦄"],
-        "iOS 11.3": ["🐻", "🐲", "🦁", "💀"],
-        "iOS 12": ["🐨", "🐯", "👻", "🦖"],
-    ]
+    var operations: [String: AnyCancellable] = [:]
     
     override func loadView() {
         super.loadView()
@@ -36,12 +35,35 @@ final class RootView: UIViewController, ViewInterface {
             self.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
         ])
         self.tableView = tableView
+        
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            self.view.centerXAnchor.constraint(equalTo: activityIndicatorView.centerXAnchor),
+            self.view.centerYAnchor.constraint(equalTo: activityIndicatorView.centerYAnchor),
+        ])
+        
+        self.activityIndicatorView = activityIndicatorView
+        
+        let failureButton = UIButton(type: .system)
+        failureButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(failureButton)
+        NSLayoutConstraint.activate([
+            self.view.leadingAnchor.constraint(equalTo: failureButton.leadingAnchor, constant: 8),
+            self.view.trailingAnchor.constraint(equalTo: failureButton.trailingAnchor, constant: -8),
+            self.view.centerYAnchor.constraint(equalTo: failureButton.centerYAnchor),
+            failureButton.heightAnchor.constraint(equalToConstant: 44),
+        ])
+
+        self.failureButton = failureButton
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "MyProject"
+        self.view.backgroundColor = .systemBackground
         
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: "CustomCell")
         
@@ -49,81 +71,88 @@ final class RootView: UIViewController, ViewInterface {
         self.tableView.delegate = self
         self.tableView.separatorStyle = .singleLine
         self.tableView.separatorInset = .zero
-
+                
         self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
+        
+        self.failureButton.addTarget(self, action: #selector(self.refresh), for: .touchUpInside)
         
         self.presenter.start()
     }
     
     @objc func refresh() {
-                
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.presenter.reload()
     }
     
-    // MARK: - helpers
-    
-    func key(for section: Int) -> String {
-        let keys = Array(self.items.keys).sorted { first, last -> Bool in
-            if first == "Originals" {
-                return true
-            }
-            return first < last
-        }
-        let key = keys[section]
-        return key
-    }
-    
-    func items(in section: Int) -> [String] {
-        let key = self.key(for: section)
-        return self.items[key]!
-    }
-    
-    func item(at indexPath: IndexPath) -> String {
-        let items = self.items(in: indexPath.section)
-        return items[indexPath.item]
-    }
 }
 
 extension RootView: RootViewPresenterInterface {
 
+    func displayLoading() {
+        self.activityIndicatorView.startAnimating()
+
+        self.failureButton.isHidden = true
+        self.tableView.isHidden = true
+        self.activityIndicatorView.isHidden = false
+    }
+    
+    func display(_ entity: RootEntity) {
+        self.entity = entity
+        self.tableView.reloadData()
+
+        self.failureButton.isHidden = true
+        self.tableView.isHidden = false
+        self.activityIndicatorView.isHidden = true
+    }
+    
+    func display(_ error: Error) {
+        self.failureButton.setTitle("Something went wrong, try again.", for: .normal)
+        
+        self.failureButton.isHidden = false
+        self.tableView.isHidden = true
+        self.activityIndicatorView.isHidden = true
+    }
 }
 
 
 extension RootView: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.items.keys.count
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items(in: section).count
+        return self.entity?.items.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = self.item(at: indexPath)
+        let item = self.entity!.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomCell
-        cell.titleLabel.text = item
+        
+        cell.titleLabel.text = item.title
+        cell.coverView.image = UIImage(named: "Default")
+
+        let url = URL(string: "http://localhost:8080" + item.imageUrl)!
+
+        self.operations["cell-\(indexPath.row)"]?.cancel()
+        self.operations["cell-\(indexPath.row)"] = URLSession.shared
+            .downloadTaskPublisher(for: url)
+            .map { UIImage(contentsOfFile: $0.url.path) ?? UIImage(named: "Default")  }
+            .replaceError(with: UIImage(named: "Default"))
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.image, on: cell.coverView)
+
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.key(for: section)
-    }
-    
 }
 
 extension RootView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 128
+        return tableView.bounds.width * 0.7
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
-        let urlString = "https://theswiftdev.com/whats-new-in-swift-5-3/"
+        let item = self.entity!.items[indexPath.row]
+        
+        let urlString = "http://localhost:8080/" + item.url
 
         if let url = URL(string: urlString) {
             let vc = SFSafariViewController(url: url)

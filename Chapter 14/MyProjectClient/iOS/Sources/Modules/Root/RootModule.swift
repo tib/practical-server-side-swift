@@ -6,6 +6,8 @@
 //
 import Foundation
 import UIKit
+import Combine
+import MyProjectApi
 
 // MARK: - router
 
@@ -25,18 +27,21 @@ protocol RootPresenterInteractorInterface: PresenterInteractorInterface {
 
 protocol RootPresenterViewInterface: PresenterViewInterface {
     func start()
+    func reload()
 }
 
 // MARK: - interactor
 
 protocol RootInteractorPresenterInterface: InteractorPresenterInterface {
-
+    func list() -> AnyPublisher<RootEntity, Error>
 }
 
 // MARK: - view
 
 protocol RootViewPresenterInterface: ViewPresenterInterface {
-
+    func displayLoading()
+    func display(_ entity: RootEntity)
+    func display(_: Error)
 }
 
 
