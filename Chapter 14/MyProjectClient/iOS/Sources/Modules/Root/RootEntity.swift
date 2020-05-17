@@ -13,8 +13,8 @@ struct RootEntity {
     struct Item {
         let id: UUID
         let title: String
-        let imageUrl: String
-        let url: String
+        let imageUrl: URL
+        let url: URL
     }
 
     let items: [Item]

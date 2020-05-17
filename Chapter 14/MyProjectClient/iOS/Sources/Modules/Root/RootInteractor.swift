@@ -22,8 +22,8 @@ extension RootInteractor: RootInteractorPresenterInterface {
             let domain = "http://localhost:8080"
             return .init(items: page.items.map { .init(id: $0.id,
                                                        title: $0.title,
-                                                       imageUrl: domain + $0.image,
-                                                       url: domain + $0.slug) })
+                                                       imageUrl: URL(string: domain + $0.image)!,
+                                                       url: URL(string: domain + "/" + $0.slug)!) })
         }
         .mapError { $0 as Error }
         .eraseToAnyPublisher()

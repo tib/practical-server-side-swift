@@ -82,7 +82,6 @@ final class RootView: UIViewController, ViewInterface {
     @objc func refresh() {
         self.presenter.reload()
     }
-    
 }
 
 extension RootView: RootViewPresenterInterface {
@@ -113,7 +112,6 @@ extension RootView: RootViewPresenterInterface {
     }
 }
 
-
 extension RootView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -124,16 +122,15 @@ extension RootView: UITableViewDataSource {
         let item = self.entity!.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! CustomCell
         
+        let defaultImage = UIImage(named: "Default")!
         cell.titleLabel.text = item.title
-        cell.coverView.image = UIImage(named: "Default")
-
-        let url = URL(string: "http://localhost:8080" + item.imageUrl)!
+        cell.coverView.image = defaultImage
 
         self.operations["cell-\(indexPath.row)"]?.cancel()
         self.operations["cell-\(indexPath.row)"] = URLSession.shared
-            .downloadTaskPublisher(for: url)
-            .map { UIImage(contentsOfFile: $0.url.path) ?? UIImage(named: "Default")  }
-            .replaceError(with: UIImage(named: "Default"))
+            .downloadTaskPublisher(for: item.imageUrl)
+            .map { UIImage(contentsOfFile: $0.url.path) ?? defaultImage  }
+            .replaceError(with: defaultImage)
             .receive(on: DispatchQueue.main)
             .assign(to: \.image, on: cell.coverView)
 
@@ -151,15 +148,10 @@ extension RootView: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = self.entity!.items[indexPath.row]
-        
-        let urlString = "http://localhost:8080/" + item.url
-
-        if let url = URL(string: urlString) {
-            let vc = SFSafariViewController(url: url)
-            vc.modalPresentationStyle = .overFullScreen
-            vc.delegate = self
-            present(vc, animated: true)
-        }
+        let vc = SFSafariViewController(url: item.url)
+        vc.modalPresentationStyle = .overFullScreen
+        vc.delegate = self
+        present(vc, animated: true)
     }
 }
 
