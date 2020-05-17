@@ -20,10 +20,13 @@ extension RootInteractor: RootInteractorPresenterInterface {
         self.services.api.getBlogPosts()
         .map { page -> RootEntity in
             let domain = "http://localhost:8080"
-            return .init(items: page.items.map { .init(id: $0.id,
-                                                       title: $0.title,
-                                                       imageUrl: URL(string: domain + $0.image)!,
-                                                       url: URL(string: domain + "/" + $0.slug)!) })
+            return .init(items: page.items.map {
+                .init(id: $0.id,
+                      title: $0.title,
+                      imageUrl: URL(string: domain + $0.image)!,
+                      url: URL(string: domain + "/" + $0.slug)!)
+                
+            })
         }
         .mapError { $0 as Error }
         .eraseToAnyPublisher()

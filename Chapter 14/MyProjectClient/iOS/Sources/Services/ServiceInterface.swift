@@ -15,6 +15,6 @@ protocol ServiceInterface: class {
 extension ServiceInterface {
 
     func setup() {
-        // do nothing...
+        
     }
 }

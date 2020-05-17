@@ -14,21 +14,14 @@ final class App {
     let services: ServiceBuilderInterface
     let modules: ModuleBuilderInterface
 
-    // MARK: - singleton
-
     static let shared = App()
 
     private init() {
-        // do nothing...
-        
         self.services = ServiceBuilder()
         self.modules = ModuleBuilder()
     }
 
-    // MARK: - api
-
     func setup() {
         self.services.setup()
     }
-    
 }

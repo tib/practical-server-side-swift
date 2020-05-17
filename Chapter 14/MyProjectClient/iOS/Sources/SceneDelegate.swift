@@ -8,23 +8,26 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+class SceneDelegate: UIResponder {
+    
     var window: UIWindow?
+}
 
+extension SceneDelegate: UIWindowSceneDelegate {
+    
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions)
     {
-         if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            let rootView = App.shared.modules.root()
-            let rootVC = UINavigationController(rootViewController: rootView)
-            window.rootViewController = rootVC
-            self.window = window
-            window.makeKeyAndVisible()
+        guard let windowScene = scene as? UIWindowScene else {
+            return
         }
+        let window = UIWindow(windowScene: windowScene)
+        let rootView = App.shared.modules.root()
+        let rootVC = UINavigationController(rootViewController: rootView)
+        window.rootViewController = rootVC
+        self.window = window
+        window.makeKeyAndVisible()
     }
-
 }
 
