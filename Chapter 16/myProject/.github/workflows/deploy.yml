@@ -1,0 +1,43 @@
+name: deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy_aws_ecs:
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: AWS - Config
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_KEY }} --profile default
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET }} --profile default
+          aws configure set region ${{ secrets.AWS_REGION }} --profile default
+
+      - name: AWS ECR - Login
+        run: |
+          LOGIN_COMMAND=$(aws ecr get-login --no-include-email --region ${{ secrets.AWS_REGION }})
+          $LOGIN_COMMAND
+
+      - name: Docker - Build image
+        run: |
+          docker build \
+            --build-arg AWS_RDS_HOST=${{secrets.AWS_RDS_HOST}} \
+            --build-arg AWS_RDS_USER=${{secrets.AWS_RDS_USER}} \
+            --build-arg AWS_RDS_PASS=${{secrets.AWS_RDS_PASS}} \
+            --build-arg AWS_RDS_DB=${{secrets.AWS_RDS_DB}} \
+            --build-arg FS_NAME=${{secrets.FS_NAME}} \
+            --build-arg FS_REGION=${{secrets.FS_REGION}} \
+            --build-arg AWS_KEY=${{secrets.AWS_KEY}} \
+            --build-arg AWS_SECRET=${{secrets.AWS_SECRET}} \
+            -t "${{ secrets.AWS_ECR_IMAGE_NAME }}:latest" -f Dockerfile .
+
+      - name: Docker - Push image
+        run: docker push "${{ secrets.AWS_ECR_IMAGE_NAME }}:latest"
+
+      - name: AWS ECS - deploy image
+        run: |
+          aws ecs update-service --cluster "${{ secrets.AWS_ECS_CLUSTER }}" \
+            --service "${{ secrets.AWS_ECS_SERVICE }}" \
+            --force-new-deployment
+

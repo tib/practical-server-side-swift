@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex">
+        <title>#(title)</title>
+        <link rel="stylesheet" href="/css/frontend.css">
+        <link rel="stylesheet" href="/css/admin.css">
+
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <header>
+            <a href="/" id="logo">
+                <img src="/images/logo.png">
+                <h1>myPage - admin</h1>
+            </a>
+
+            <nav id="navigation">
+                <a href="/" target="_blank">Site</a> &middot;
+                <a href="/admin">Admin</a> &middot;
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+
+        <main>
+            <div id="main-content">
+                #import("body")
+            </div>
+        </main>
+
+        <script src="/javascript/admin.js"></script>
+    </body>
+</html>
