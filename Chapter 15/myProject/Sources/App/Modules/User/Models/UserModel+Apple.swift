@@ -30,13 +30,3 @@ extension UserModel {
         }
     }
 }
-/*
-curl -i -X POST "http://localhost:8081/api/user/sign-in-with-apple" \
--H "Accept: application/json" \
--H "Content-Type: application/json" \
---data-binary @- << EOF
-{
-  "id_token": ""
-}
-EOF
-*/
