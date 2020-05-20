@@ -45,4 +45,38 @@ final class MyProjectApiService: ApiServiceInterface {
         }
         .eraseToAnyPublisher()
     }
+
+    func siwa(token: String) -> AnyPublisher<UserToken, HTTP.Error> {
+        struct Body: Codable {
+            enum CodingKeys: String, CodingKey {
+                case idToken = "id_token"
+            }
+
+            let idToken: String
+        }
+
+        let url = URL(string: self.baseUrl + "/user/sign-in-with-apple")!
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTP.Method.post.rawValue.uppercased()
+        request.httpBody = try! JSONEncoder().encode(Body(idToken: token))
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+        .tryMap { data, response in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw HTTP.Error.invalidResponse
+            }
+            guard httpResponse.statusCode == 200 else {
+                throw HTTP.Error.statusCode(httpResponse.statusCode)
+            }
+            return data
+        }
+        .decode(type: UserToken.self, decoder: JSONDecoder())
+        .mapError { error -> HTTP.Error in
+            if let httpError = error as? HTTP.Error {
+                return httpError
+            }
+            return HTTP.Error.unknown(error)
+        }
+        .eraseToAnyPublisher()
+    }
 }

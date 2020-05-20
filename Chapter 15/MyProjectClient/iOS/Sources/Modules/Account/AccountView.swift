@@ -13,6 +13,7 @@ final class AccountView: UIViewController, ViewInterface {
 
     var presenter: AccountPresenterViewInterface!
     weak var siwaButton: ASAuthorizationAppleIDButton!
+    weak var logoutButton: UIButton!
 
     override func loadView() {
         super.loadView()
@@ -28,6 +29,18 @@ final class AccountView: UIViewController, ViewInterface {
             self.siwaButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -70.0),
             self.siwaButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
+        //...
+        let logoutButton = UIButton(type: .system)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(logoutButton)
+        self.logoutButton = logoutButton
+
+        NSLayoutConstraint.activate([
+            self.logoutButton.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 50.0),
+            self.logoutButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -50.0),
+            self.logoutButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -70.0),
+            self.logoutButton.heightAnchor.constraint(equalToConstant: 50.0)
+        ])
     }
 
     override func viewDidLoad() {
@@ -37,7 +50,9 @@ final class AccountView: UIViewController, ViewInterface {
         self.view.backgroundColor = .systemBackground
         
         self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
-        
+            
+        self.logoutButton.setTitle("Logout", for: .normal)
+        self.logoutButton.addTarget(self, action: #selector(self.logout), for: .touchUpInside)
         self.siwaButton.addTarget(self, action: #selector(self.siwa), for: .touchUpInside)
         
         self.presenter.start()
@@ -46,7 +61,11 @@ final class AccountView: UIViewController, ViewInterface {
     @objc func close() {
         self.presenter.close()
     }
-    
+
+    @objc func logout() {
+        self.presenter.logout()
+    }
+
     @objc func siwa() {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
@@ -60,6 +79,15 @@ final class AccountView: UIViewController, ViewInterface {
 
 extension AccountView: AccountViewPresenterInterface {
 
+    func displayLogin() {
+        self.siwaButton.isHidden = false
+        self.logoutButton.isHidden = true
+    }
+
+    func displayLogout() {
+        self.siwaButton.isHidden = true
+        self.logoutButton.isHidden = false
+    }
 }
 
 extension AccountView: ASAuthorizationControllerPresentationContextProviding {
@@ -79,7 +107,7 @@ extension AccountView: ASAuthorizationControllerDelegate {
         else {
             return
         }
-        print(token)
+        self.presenter.signIn(token: token)
     }
     
     func authorizationController(controller: ASAuthorizationController,

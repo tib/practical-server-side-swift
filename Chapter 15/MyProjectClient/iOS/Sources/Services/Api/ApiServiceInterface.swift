@@ -20,7 +20,12 @@ struct Page<T: Decodable>: Decodable {
     let items: [T]
 }
 
+struct UserToken: Decodable {
+    let value: String
+}
+
 protocol ApiServiceInterface: ServiceInterface {
 
     func getBlogPosts() -> AnyPublisher<Page<BlogPostListObject>, HTTP.Error>
+    func siwa(token: String) -> AnyPublisher<UserToken, HTTP.Error>
 }

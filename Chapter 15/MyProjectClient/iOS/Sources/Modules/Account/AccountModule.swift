@@ -6,6 +6,7 @@
 //
 import Foundation
 import UIKit
+import Combine
 
 // MARK: - router
 
@@ -26,18 +27,21 @@ protocol AccountPresenterInteractorInterface: PresenterInteractorInterface {
 protocol AccountPresenterViewInterface: PresenterViewInterface {
     func start()
     func close()
+    func signIn(token: String)
+    func logout()
 }
 
 // MARK: - interactor
 
 protocol AccountInteractorPresenterInterface: InteractorPresenterInterface {
-    
+    func signIn(token: String) -> AnyPublisher<String, Error>
 }
 
 // MARK: - view
 
 protocol AccountViewPresenterInterface: ViewPresenterInterface {
-
+    func displayLogin()
+    func displayLogout()
 }
 
 

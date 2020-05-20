@@ -30,7 +30,6 @@ extension RootInteractor: RootInteractorPresenterInterface {
         }
         .mapError { $0 as Error }
         .eraseToAnyPublisher()
-        
     }
 
 }
