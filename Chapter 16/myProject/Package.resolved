@@ -2,6 +2,24 @@
   "object": {
     "pins": [
       {
+        "package": "apns",
+        "repositoryURL": "https://github.com/vapor/apns",
+        "state": {
+          "branch": null,
+          "revision": "f4a1605b8d406fadf9bd571d91087bbd6ebe24b4",
+          "version": "1.0.0-rc.1"
+        }
+      },
+      {
+        "package": "apnswift",
+        "repositoryURL": "https://github.com/kylebrowning/APNSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "9f4c2a2d7c7a1229f540f5a266bcb55a5f2d94e6",
+          "version": "2.0.0-rc1"
+        }
+      },
+      {
         "package": "async-http-client",
         "repositoryURL": "https://github.com/swift-server/async-http-client.git",
         "state": {
