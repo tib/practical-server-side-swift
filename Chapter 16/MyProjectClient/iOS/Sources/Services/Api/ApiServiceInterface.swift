@@ -28,4 +28,5 @@ protocol ApiServiceInterface: ServiceInterface {
 
     func getBlogPosts() -> AnyPublisher<Page<BlogPostListObject>, HTTP.Error>
     func siwa(token: String) -> AnyPublisher<UserToken, HTTP.Error>
+    func register(deviceToken: String, bearerToken: String) -> AnyPublisher<Void, HTTP.Error>
 }

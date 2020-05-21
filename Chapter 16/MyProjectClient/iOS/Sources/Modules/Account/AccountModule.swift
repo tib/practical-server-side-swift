@@ -29,12 +29,14 @@ protocol AccountPresenterViewInterface: PresenterViewInterface {
     func close()
     func signIn(token: String)
     func logout()
+    func registerUserDevice(_ block: @escaping (() -> Void))
 }
 
 // MARK: - interactor
 
 protocol AccountInteractorPresenterInterface: InteractorPresenterInterface {
     func signIn(token: String) -> AnyPublisher<String, Error>
+    func register(deviceToken: String, bearerToken: String) -> AnyPublisher<Void, Error>
 }
 
 // MARK: - view

@@ -6,7 +6,8 @@
         <section class="wrapper">
             <p>#(message)</p>
             <a href="/admin/blog/posts">Blog posts</a> &middot;
-            <a href="/admin/blog/categories">Blog categories</a>
+            <a href="/admin/blog/categories">Blog categories</a> &middot;
+            <a href="/admin/user/push">Push notification</a>
         </section>
     #endexport
 #endextend

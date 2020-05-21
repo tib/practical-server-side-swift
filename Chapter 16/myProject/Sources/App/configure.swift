@@ -7,8 +7,19 @@ import ViewKit
 import ViperKit
 import Vapor
 import JWT
+import APNS
 
 public func configure(_ app: Application) throws {
+
+    app.apns.configuration = try .init(
+        authenticationMethod: .jwt(
+            key: .private(pem: Data(Environment.apnsKey.utf8)),
+            keyIdentifier: .init(string: Environment.apnsKeyId),
+            teamIdentifier: Environment.apnsTeamId
+        ),
+        topic: Environment.apnsTopic,
+        environment: .sandbox
+    )
 
     let configuration = PostgresConfiguration(
         hostname: Environment.dbHost,

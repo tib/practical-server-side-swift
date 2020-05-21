@@ -64,4 +64,24 @@ extension AccountPresenter: AccountPresenterViewInterface {
         UserDefaults.standard.synchronize()
         self.view.displayLogin()
     }
+    
+    func registerUserDevice(_ block: @escaping (() -> Void)) {
+        guard
+            let bearerToken = UserDefaults.standard.string(forKey: "user-token"),
+            let deviceToken = UserDefaults.standard.string(forKey: "device-token")
+        else {
+            return
+        }
+        self.operations["device"] = self.interactor.register(deviceToken: deviceToken, bearerToken: bearerToken)
+        .sink(receiveCompletion: { [weak self] completion in
+            switch completion {
+            case .finished:
+                print("Device registered.")
+            case .failure(let error):
+                print(error)
+            }
+            self?.operations.removeValue(forKey: "device")
+            block()
+        }) { _ in }
+    }
 }

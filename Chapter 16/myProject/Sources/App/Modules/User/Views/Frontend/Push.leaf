@@ -1,0 +1,41 @@
+#extend("Admin/Index"):
+    #export("body"):
+        <div class="wrapper">
+            <h2>Push notification</h2>
+        </div>
+
+        
+
+        <form id="push-form" class="wrapper" method="post" action="/admin/user/push" enctype="multipart/form-data">
+            
+            <section>
+                <label for="title">Title</label>
+                <input id="title" type="text" name="title" value="#(title)" class="field">
+            </section>
+
+            <section>
+                <label for="message">Message</label>
+                <input id="message" type="text" name="message" value="#(message)" class="field">
+            </section>
+
+            <section>
+                <label for="userId">User</label>
+                <select name="userId">
+                #for(item in users):
+                    <option #if(item.key == userId): selected="selected" #endif value="#(item.key)">#(item.label)</option>
+                #endfor
+                </select>
+            </section>
+            <br>
+            <section>
+                <input type="submit" class="submit" value="Send">
+            </section>
+            <br>
+            <section>
+                #(status)
+            </section>
+
+        </form>
+
+    #endexport
+#endextend

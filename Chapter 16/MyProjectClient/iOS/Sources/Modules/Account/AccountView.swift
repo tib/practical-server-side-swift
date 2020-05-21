@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AuthenticationServices
+import UserNotifications
 
 final class AccountView: UIViewController, ViewInterface {
 
@@ -50,6 +51,7 @@ final class AccountView: UIViewController, ViewInterface {
         self.view.backgroundColor = .systemBackground
         
         self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .close, target: self, action: #selector(self.close))
+        self.navigationItem.leftBarButtonItem = .init(barButtonSystemItem: .fastForward, target: self, action: #selector(self.notif))
             
         self.logoutButton.setTitle("Logout", for: .normal)
         self.logoutButton.addTarget(self, action: #selector(self.logout), for: .touchUpInside)
@@ -64,6 +66,13 @@ final class AccountView: UIViewController, ViewInterface {
 
     @objc func logout() {
         self.presenter.logout()
+    }
+    
+    @objc func notif() {
+        let notif = UNUserNotificationCenter.current()
+        notif.requestAuthorization(options: [.badge, .sound, .alert]) { granted, error in
+            // check if granted or error happened
+        }
     }
 
     @objc func siwa() {

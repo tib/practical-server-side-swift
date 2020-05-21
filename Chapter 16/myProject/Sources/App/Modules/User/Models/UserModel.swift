@@ -19,6 +19,7 @@ final class UserModel: ViperModel {
     @Field(key: FieldKeys.email) var email: String
     @Field(key: FieldKeys.password) var password: String
     @Field(key: FieldKeys.appleId) var appleId: String?
+    @Children(for: \.$user) var devices: [UserDeviceModel]
     
     init() { }
     
