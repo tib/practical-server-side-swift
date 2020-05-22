@@ -25,14 +25,14 @@ struct UserAdminController {
                                       userId: userId,
                                       status: status,
                                       users: $0)
-                return req.view.render("User/Frontend/Push", context)
+                return req.view.render("User/Admin/Push", context)
         }
     }
 
     func pushView(req: Request) throws -> EventLoopFuture<View> {
         self.renderPushView(req)
     }
-    
+
     func push(req: Request) throws -> EventLoopFuture<View> {
         struct Input: Decodable {
             let title: String

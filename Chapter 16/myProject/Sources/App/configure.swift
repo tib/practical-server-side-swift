@@ -18,7 +18,7 @@ public func configure(_ app: Application) throws {
             teamIdentifier: Environment.apnsTeamId
         ),
         topic: Environment.apnsTopic,
-        environment: .sandbox
+        environment: .production
     )
 
     let configuration = PostgresConfiguration(

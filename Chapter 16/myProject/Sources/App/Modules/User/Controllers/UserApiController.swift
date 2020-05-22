@@ -24,7 +24,7 @@ struct UserApiController {
             UserTokenModel.create(on: req.db, for: user.id!).map { $0.getContent }
         }
     }
-    
+    //...
     func registerDevice(req: Request) throws -> EventLoopFuture<HTTPStatus> {
         guard let user = req.auth.get(UserModel.self) else {
             throw Abort(.unauthorized)

@@ -64,7 +64,7 @@ extension AccountPresenter: AccountPresenterViewInterface {
         UserDefaults.standard.synchronize()
         self.view.displayLogin()
     }
-    
+    //...
     func registerUserDevice(_ block: @escaping (() -> Void)) {
         guard
             let bearerToken = UserDefaults.standard.string(forKey: "user-token"),

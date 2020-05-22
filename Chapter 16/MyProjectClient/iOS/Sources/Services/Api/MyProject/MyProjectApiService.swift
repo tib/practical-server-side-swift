@@ -80,7 +80,7 @@ final class MyProjectApiService: ApiServiceInterface {
         }
         .eraseToAnyPublisher()
     }
-    
+    //...
     func register(deviceToken: String, bearerToken: String) -> AnyPublisher<Void, HTTP.Error> {
         struct Body: Codable {
             let token: String
