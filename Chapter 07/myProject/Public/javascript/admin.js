@@ -3,11 +3,11 @@ function confirmDelete(path, id) {
      var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function() {
             if (xmlHttp.readyState != 4 || xmlHttp.status != 200) {
-                return
+                return;
             }
-            var element = document.getElementById(id)
-            var tr = element.parentElement.parentElement
-            tr.parentNode.removeChild(tr)
+            var element = document.getElementById(id);
+            var tr = element.parentElement.parentElement;
+            tr.parentNode.removeChild(tr);
         }
         xmlHttp.open("POST", path + id + "/delete", true);
         xmlHttp.send(null);

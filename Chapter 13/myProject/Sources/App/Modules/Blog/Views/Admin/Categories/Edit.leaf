@@ -1,7 +1,7 @@
 #extend("Admin/Index"):
     #export("body"):
         <div class="wrapper">
-            <h2><a href="/admin/blog/categories">Categories</a> / #if(edit.id != null):Edit#else:Create#endif</h2>
+            <h2><a href="/admin/blog/categories">Categories</a> / #if(edit.id != nil):Edit#else:Create#endif</h2>
         </div>
 
         <form id="category-edit-form" class="wrapper" method="post" action="/admin/blog/categories/#if(edit.id != nil):#(edit.id)#else:new#endif" enctype="multipart/form-data">

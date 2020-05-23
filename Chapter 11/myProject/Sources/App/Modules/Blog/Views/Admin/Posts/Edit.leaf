@@ -1,7 +1,7 @@
 #extend("Admin/Index"):
     #export("body"):
         <div class="wrapper">
-            <h2><a href="/admin/blog/posts">Posts</a> / #if(edit.id != null):Edit#else:Create#endif</h2>
+            <h2><a href="/admin/blog/posts">Posts</a> / #if(edit.id != nil):Edit#else:Create#endif</h2>
             #if(edit.id != nil):
             <a href="/#(edit.slug.value)" target="_blank">Preview</a>
             #endif
@@ -97,7 +97,7 @@
                 }
             }
 
-            document.getElementById("image")
+            document.getElementById('image')
             .onchange = function(event) {
                 const file = event.target.files[0];
                 const blobURL = URL.createObjectURL(file);
@@ -107,7 +107,7 @@
                     newElement.id = 'uploaded-image';
                     const sibling = document.getElementById('choose-button');
                     sibling.parentNode.insertBefore(newElement, sibling);
-                    element = newElement
+                    element = newElement;
                 }
                 element.src = blobURL;
             }
