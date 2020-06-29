@@ -8,6 +8,7 @@ struct BlogModule: Module {
     var migrations: [Migration] {
         [
             BlogMigration_v1_0_0(),
+            BlogMigrationSeed(),
         ]
     }
 }

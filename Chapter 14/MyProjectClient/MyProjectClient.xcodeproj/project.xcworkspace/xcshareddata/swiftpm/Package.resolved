@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "viper",
+        "repositoryURL": "https://github.com/CoreKit/VIPER",
+        "state": {
+          "branch": null,
+          "revision": "0b6ced7ad069991b233b2e9c89fedf7ce25fdf88",
+          "version": "3.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

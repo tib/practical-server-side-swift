@@ -16,7 +16,7 @@ struct BlogRouter: RouteCollection {
             UserModel.redirectMiddleware(path: "/")
         ])
         let blog = protected.grouped("admin", "blog")
-        //...
+
         self.postAdminController.setupRoutes(routes: blog, on: "posts")
         self.categoryAdminController.setupRoutes(routes: blog, on: "categories")
     }

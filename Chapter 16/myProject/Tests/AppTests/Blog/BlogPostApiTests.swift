@@ -3,8 +3,7 @@ import Spec
 import Fluent
 
 final class BlogPostApiTests: AppTestCase {
-    //...
-    
+
     func testGetPosts() throws {
         let app = try self.createTestApp()
         let token = try self.getApiToken(app)
@@ -41,7 +40,6 @@ final class BlogPostApiTests: AppTestCase {
                                                   content: "Lorem ipsum",
                                                   categoryId: c.id!.uuidString)
 
-        //...
         var total = 1
 
         try app
@@ -102,7 +100,7 @@ final class BlogPostApiTests: AppTestCase {
                                                   categoryId: post.category.id!.uuidString)
         
         try app
-            .describe("Create post should return ok")
+            .describe("Update post should return ok")
             .put("/api/blog/posts/\(post.id!.uuidString)")
             .body(newPost)
             .bearerToken(token)

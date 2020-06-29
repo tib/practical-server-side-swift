@@ -10,6 +10,7 @@ public func configure(_ app: Application) throws {
     app.views.use(.leaf)
     app.leaf.cache.isEnabled = app.environment.isRelease
     
+    
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
 
     let modules: [Module] = [

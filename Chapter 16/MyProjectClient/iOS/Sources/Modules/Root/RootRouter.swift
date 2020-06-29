@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class RootRouter: ModuleRouter, RouterInterface {
-    //...
+
     weak var presenter: RootPresenterRouterInterface!
 
     weak var viewController: UIViewController?

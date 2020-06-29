@@ -8,7 +8,7 @@ struct BlogRouter: ViperRouter {
     let categoryAdminController = BlogCategoryAdminController()
     
     func boot(routes: RoutesBuilder, app: Application) throws {
-        //...
+
         routes.get("blog", use: self.frontendController.blogView)
         routes.get(.anything, use: self.frontendController.postView)
 

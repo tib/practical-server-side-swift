@@ -13,7 +13,6 @@ extension Environment {
     static let awsSecret = Self.get("AWS_SECRET")!
     
     static let siwaId = Self.get("SIWA_ID")!
-    //...
     static let siwaAppId = Self.get("SIWA_APP_ID")!
     static let siwaRedirectUrl = Self.get("SIWA_REDIRECT_URL")!
     static let siwaTeamId = Self.get("SIWA_TEAM_ID")!

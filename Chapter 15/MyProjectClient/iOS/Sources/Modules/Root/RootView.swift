@@ -87,7 +87,6 @@ final class RootView: UIViewController, ViewInterface {
     @objc func account() {
         self.presenter.account()
     }
-    //...
 }
 
 extension RootView: RootViewPresenterInterface {

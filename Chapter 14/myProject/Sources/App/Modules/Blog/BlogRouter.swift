@@ -19,7 +19,6 @@ struct BlogRouter: ViperRouter {
         self.postAdminController.setupRoutes(routes: blog, on: "posts")
         self.categoryAdminController.setupRoutes(routes: blog, on: "categories")
 
-        //...
         let publicApi = routes.grouped("api", "blog")
         let privateApi = publicApi.grouped([
             UserTokenModel.authenticator(),

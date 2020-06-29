@@ -47,7 +47,7 @@ extension RootPresenter: RootPresenterViewInterface {
             self?.view.display(entity)
         }
     }
-    //...
+
     func account() {
         self.router.showAccount()
     }

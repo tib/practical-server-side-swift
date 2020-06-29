@@ -29,7 +29,7 @@ final class AccountView: UIViewController, ViewInterface {
             self.siwaButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -70.0),
             self.siwaButton.heightAnchor.constraint(equalToConstant: 50.0)
         ])
-        //...
+
         let logoutButton = UIButton(type: .system)
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(logoutButton)

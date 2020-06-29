@@ -29,8 +29,7 @@ extension AppDelegate: UIApplicationDelegate {
         return .init(name: "Default Configuration",
                      sessionRole: connectingSceneSession.role)
     }
-    //...
-    
+
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         print(token)
