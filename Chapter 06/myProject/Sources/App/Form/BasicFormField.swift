@@ -2,6 +2,7 @@ import Foundation
 import Leaf
 
 struct BasicFormField: LeafDataRepresentable {
+
     var value: String = ""
     var error: String?
 

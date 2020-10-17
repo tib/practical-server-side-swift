@@ -10,10 +10,10 @@ protocol FileIOLeafSource: LeafSource {
 
 extension FileIOLeafSource {
     func read(path: String, on eventLoop: EventLoop) -> EventLoopFuture<ByteBuffer> {
-        self.fileio.openFile(path: path, eventLoop: eventLoop)
+        fileio.openFile(path: path, eventLoop: eventLoop)
         .flatMapErrorThrowing { _ in throw LeafError(.noTemplateExists(path)) }
         .flatMap { handle, region in
-            self.fileio.read(fileRegion: region, allocator: .init(), eventLoop: eventLoop)
+            fileio.read(fileRegion: region, allocator: .init(), eventLoop: eventLoop)
             .flatMapThrowing { buffer in
                 try handle.close()
                 return buffer
@@ -35,6 +35,6 @@ struct ModuleViewsLeafSource: FileIOLeafSource {
         let components = template.split(separator: "/")
         let pathComponents = [String(components.first!), viewsFolderName] + components.dropFirst().map { String($0) }
         let moduleFile = modulesLocation + "/" + pathComponents.joined(separator: "/") + ext
-        return self.read(path: rootDirectory + moduleFile, on: eventLoop)
+        return read(path: rootDirectory + moduleFile, on: eventLoop)
     }
 }

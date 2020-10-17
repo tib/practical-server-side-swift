@@ -13,10 +13,10 @@ extension Module {
     var migrations: [Migration] { [] }
     
     func configure(_ app: Application) throws {
-        for migration in self.migrations {
+        for migration in migrations {
             app.migrations.add(migration)
         }
-        if let router = self.router {
+        if let router = router {
             try router.boot(routes: app.routes)
         }
     }

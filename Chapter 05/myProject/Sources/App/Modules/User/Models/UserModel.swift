@@ -31,7 +31,7 @@ final class UserModel: Model {
 extension UserModel: SessionAuthenticatable {
     typealias SessionID = UUID
 
-    var sessionID: SessionID { self.id! }
+    var sessionID: SessionID { id! }
 }
 
 extension UserModel: Authenticatable {

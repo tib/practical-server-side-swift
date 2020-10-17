@@ -42,6 +42,6 @@ final class BlogPostModel: Model {
         self.excerpt = excerpt
         self.date = date
         self.content = content
-        self.$category.id = categoryId
+        $category.id = categoryId
     }
 }

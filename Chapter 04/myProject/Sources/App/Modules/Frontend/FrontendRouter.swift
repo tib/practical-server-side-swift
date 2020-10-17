@@ -6,6 +6,6 @@ struct FrontendRouter: RouteCollection {
     
     func boot(routes: RoutesBuilder) throws {
         
-        routes.get(use: self.controller.homeView)
+        routes.get(use: controller.homeView)
     }
 }

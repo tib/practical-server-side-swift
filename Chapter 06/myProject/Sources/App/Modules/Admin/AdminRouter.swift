@@ -7,6 +7,6 @@ struct AdminRouter: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
 
         routes.grouped(UserModelSessionAuthenticator())
-            .get("admin", use: self.controller.homeView)
+            .get("admin", use: controller.homeView)
     }
 }

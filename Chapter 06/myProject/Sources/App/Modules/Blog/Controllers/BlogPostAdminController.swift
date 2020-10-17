@@ -24,13 +24,13 @@ struct BlogPostAdminController {
     }
     
     func createView(req: Request) throws -> EventLoopFuture<View> {
-        return self.render(req: req, form: .init())
+        return render(req: req, form: .init())
     }
     
     func create(req: Request) throws -> EventLoopFuture<Response> {
         let form = try BlogPostEditForm(req: req)
         guard form.validate() else {
-            return self.render(req: req, form: form).encodeResponse(for: req)
+            return render(req: req, form: form).encodeResponse(for: req)
         }
         let model = BlogPostModel()
         model.image = "/images/posts/01.jpg"
@@ -59,30 +59,30 @@ struct BlogPostAdminController {
     }
     
     func updateView(req: Request) throws -> EventLoopFuture<View>  {
-        try self.find(req).flatMap { model in
+        try find(req).flatMap { model in
             let form = BlogPostEditForm()
             form.read(from: model)
-            return self.render(req: req, form: form)
+            return render(req: req, form: form)
         }
     }
     
     func update(req: Request) throws -> EventLoopFuture<View> {
         let form = try BlogPostEditForm(req: req)
         guard form.validate() else {
-            return self.render(req: req, form: form)
+            return render(req: req, form: form)
         }
-        return try self.find(req)
+        return try find(req)
             .flatMap { model in
                 form.write(to: model)
                 return model.update(on: req.db)
             }
             .flatMap {
-                self.render(req: req, form: form)
+                render(req: req, form: form)
             }
     }
 
     func delete(req: Request) throws -> EventLoopFuture<String> {
-        try self.find(req).flatMap { item in
+        try find(req).flatMap { item in
             item.delete(on: req.db).map { item.id!.uuidString }
         }
     }

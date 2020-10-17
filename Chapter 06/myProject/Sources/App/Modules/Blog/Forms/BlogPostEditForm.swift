@@ -20,14 +20,14 @@ final class BlogPostEditForm: LeafDataRepresentable {
     var content = BasicFormField()
     
     var leafData: LeafData {
-        [
+        .dictionary([
             "id": .string(id),
             "title": title.leafData,
             "slug": slug.leafData,
             "excerpt": excerpt.leafData,
             "date": date.leafData,
             "content": content.leafData,
-        ]
+        ])
     }
 
     init() {}
@@ -35,55 +35,55 @@ final class BlogPostEditForm: LeafDataRepresentable {
     init(req: Request) throws {
         let context = try req.content.decode(Input.self)
         if !context.id.isEmpty {
-            self.id = context.id
+            id = context.id
         }
-        self.title.value = context.title
-        self.slug.value = context.slug
-        self.excerpt.value = context.excerpt
-        self.date.value = context.date
-        self.content.value = context.content
+        title.value = context.title
+        slug.value = context.slug
+        excerpt.value = context.excerpt
+        date.value = context.date
+        content.value = context.content
     }
     
     func validate() -> Bool {
         var valid = true
         
-        if self.title.value.isEmpty {
-            self.title.error = "Title is required"
+        if title.value.isEmpty {
+            title.error = "Title is required"
             valid = false
         }
-        if self.slug.value.isEmpty {
-            self.slug.error = "Slug is required"
+        if slug.value.isEmpty {
+            slug.error = "Slug is required"
             valid = false
         }
-        if self.excerpt.value.isEmpty {
-            self.excerpt.error = "Excerpt is required"
+        if excerpt.value.isEmpty {
+            excerpt.error = "Excerpt is required"
             valid = false
         }
-//        if self.date.formatter.date(from: self.date) == nil {
-//            self.date.error = "Invalid date"
-//            valid = false
-//        }
-        if self.content.value.isEmpty {
-            self.content.error = "Content is required"
+        if DateFormatter.custom.date(from: date.value) == nil {
+            date.error = "Invalid date"
+            valid = false
+        }
+        if content.value.isEmpty {
+            content.error = "Content is required"
             valid = false
         }
         return valid
     }
     
     func read(from model: BlogPostModel)  {
-        self.id = model.id!.uuidString
-        self.title.value = model.title
-        self.slug.value = model.slug
-        self.excerpt.value = model.excerpt
-        //self.date.value = DateFormatter.year.string(from: model.date)
-        self.content.value = model.content
+        id = model.id!.uuidString
+        title.value = model.title
+        slug.value = model.slug
+        excerpt.value = model.excerpt
+        date.value = DateFormatter.custom.string(from: model.date)
+        content.value = model.content
     }
     
     func write(to model: BlogPostModel) {
         model.title = title.value
         model.slug = slug.value
         model.excerpt = excerpt.value
-//        model.date = date.value
+        model.date = DateFormatter.custom.date(from: date.value)!
         model.content = content.value
     }
 }
