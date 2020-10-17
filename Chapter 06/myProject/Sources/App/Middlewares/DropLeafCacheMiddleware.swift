@@ -11,7 +11,9 @@ import Leaf
 struct DropLeafCacheMiddleware: Middleware {
     
     func respond(to req: Request, chainingTo next: Responder) -> EventLoopFuture<Response> {
-        LeafEngine.cache.dropAll()
+        if !req.application.environment.isRelease {
+            LeafEngine.cache.dropAll()
+        }
         return next.respond(to: req)
     }
 }

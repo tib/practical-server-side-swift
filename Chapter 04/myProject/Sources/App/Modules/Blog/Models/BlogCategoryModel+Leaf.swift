@@ -1,10 +1,10 @@
 import Leaf
 
-extension BlogCategoryModel {
+extension BlogCategoryModel: LeafDataRepresentable {
 
-    var viewContext: LeafData {
+    var leafData: LeafData { 
         .dictionary([
-            "id": .string(id!.uuidString),
+            "id": .string(id?.uuidString),
             "title": .string(title),
         ])
     }

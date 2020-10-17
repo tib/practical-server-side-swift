@@ -15,12 +15,11 @@ public func configure(_ app: Application) throws {
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected
-    
+
     if !app.environment.isRelease {
         app.middleware.use(DropLeafCacheMiddleware())
     }
 
-    //...
     let defaultSource = NIOLeafFiles(fileio: app.fileio,
                                      limits: .default,
                                      sandboxDirectory: detected,
@@ -32,25 +31,24 @@ public func configure(_ app: Application) throws {
                                               viewsFolderName: "Views",
                                               fileExtension: "html",
                                               fileio: app.fileio)
-    
+
     let multipleSources = LeafSources()
     try multipleSources.register(using: defaultSource)
     try multipleSources.register(source: "modules", using: modulesSource)
-    
+
     LeafEngine.sources = multipleSources
     app.views.use(.leaf)
-    //...
 
     let modules: [Module] = [
+        UserModule(),
         FrontendModule(),
         BlogModule(),
-        UserModule(),
     ]
 
     for module in modules {
         try module.configure(app)
     }
-    
-    
+
+
     try app.autoMigrate().wait()
 }

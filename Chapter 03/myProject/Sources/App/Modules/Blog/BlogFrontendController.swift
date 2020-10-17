@@ -1,4 +1,5 @@
 import Vapor
+import Leaf
 import LoremSwiftum
 
 struct BlogFrontendController {
@@ -15,14 +16,12 @@ struct BlogFrontendController {
                             content: Lorem.paragraph)
         }.sorted() { $0.date > $1.date }
     }()
-
+    
     func blogView(req: Request) throws -> EventLoopFuture<View> {
-        struct Context: Encodable {
-            let title: String
-            let posts: [BlogPost]
-        }
-        let context = Context(title: "myPage - Blog", posts: posts)
-        return req.view.render("blog", context)
+        return req.leaf.render(template: "blog", context: [
+            "title": "myPage - Blog",
+            "posts": .array(posts.map(\.leafData))
+        ])
     }
     
     func postView(req: Request) throws -> EventLoopFuture<Response> {
@@ -30,12 +29,9 @@ struct BlogFrontendController {
         guard let post = posts.first(where: { $0.slug == slug }) else {
             return req.eventLoop.future(req.redirect(to: "/"))
         }
-        
-        struct Context: Encodable {
-            let title: String
-            let post: BlogPost
-        }
-        let context = Context(title: "myPage - \(post.title)", post: post)
-        return req.view.render("post", context).encodeResponse(for: req)
+        return req.leaf.render(template: "post", context: [
+            "title": .string("myPage - \(post.title)"),
+            "post": post.leafData
+        ]).encodeResponse(for: req)
     }
 }

@@ -1,17 +1,17 @@
 import Leaf
 
-extension BlogPostModel {
+extension BlogPostModel: LeafDataRepresentable {
 
-    var viewContext: LeafData {
+    var leafData: LeafData {
         .dictionary([
-            "id": .string(id!.uuidString),
+            "id": .string(id?.uuidString),
             "title": .string(title),
             "slug": .string(slug),
             "image": .string(image),
             "excerpt": .string(excerpt),
-            "date": .double(date.timeIntervalSince1970),
+            "date": .double(date.timeIntervalSinceReferenceDate),
             "content": .string(content),
-            "category": $category.value != nil ? category.viewContext : .trueNil,
+            "category": $category.value != nil ? category.leafData : .dictionary(nil),
         ])
     }
 }

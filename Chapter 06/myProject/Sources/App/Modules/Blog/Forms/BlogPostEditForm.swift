@@ -1,6 +1,7 @@
 import Vapor
+import Leaf
 
-final class BlogPostEditForm: Encodable {
+final class BlogPostEditForm: LeafDataRepresentable {
 
     struct Input: Decodable {
         var id: String
@@ -18,8 +19,19 @@ final class BlogPostEditForm: Encodable {
     var date = BasicFormField()
     var content = BasicFormField()
     
+    var leafData: LeafData {
+        [
+            "id": .string(id),
+            "title": title.leafData,
+            "slug": slug.leafData,
+            "excerpt": excerpt.leafData,
+            "date": date.leafData,
+            "content": content.leafData,
+        ]
+    }
+
     init() {}
-    
+
     init(req: Request) throws {
         let context = try req.content.decode(Input.self)
         if !context.id.isEmpty {
@@ -30,24 +42,6 @@ final class BlogPostEditForm: Encodable {
         self.excerpt.value = context.excerpt
         self.date.value = context.date
         self.content.value = context.content
-    }
-    
-    func read(from model: BlogPostModel)  {
-        self.id = model.id!.uuidString
-        self.title.value = model.title
-        self.slug.value = model.slug
-        self.excerpt.value = model.excerpt
-        self.date.value = DateFormatter.year.string(from: model.date)
-        self.content.value = model.content
-    }
-
-    
-    func write(to model: BlogPostModel) {
-        model.title = self.title.value
-        model.slug = self.slug.value
-        model.excerpt = self.excerpt.value
-        model.date = DateFormatter.year.date(from: self.date.value)!
-        model.content = self.content.value
     }
     
     func validate() -> Bool {
@@ -65,14 +59,31 @@ final class BlogPostEditForm: Encodable {
             self.excerpt.error = "Excerpt is required"
             valid = false
         }
-        if DateFormatter.year.date(from: self.date.value) == nil {
-            self.date.error = "Invalid date"
-            valid = false
-        }
+//        if self.date.formatter.date(from: self.date) == nil {
+//            self.date.error = "Invalid date"
+//            valid = false
+//        }
         if self.content.value.isEmpty {
             self.content.error = "Content is required"
             valid = false
         }
         return valid
+    }
+    
+    func read(from model: BlogPostModel)  {
+        self.id = model.id!.uuidString
+        self.title.value = model.title
+        self.slug.value = model.slug
+        self.excerpt.value = model.excerpt
+        //self.date.value = DateFormatter.year.string(from: model.date)
+        self.content.value = model.content
+    }
+    
+    func write(to model: BlogPostModel) {
+        model.title = title.value
+        model.slug = slug.value
+        model.excerpt = excerpt.value
+//        model.date = date.value
+        model.content = content.value
     }
 }

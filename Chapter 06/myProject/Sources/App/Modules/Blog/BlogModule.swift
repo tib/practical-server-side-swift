@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 
 struct BlogModule: Module {
-    
+
     var router: RouteCollection? { BlogRouter() }
 
     var migrations: [Migration] {

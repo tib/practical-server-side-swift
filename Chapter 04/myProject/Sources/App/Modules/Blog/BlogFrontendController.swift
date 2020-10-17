@@ -5,18 +5,16 @@ import Leaf
 struct BlogFrontendController {
 
     func blogView(req: Request) throws -> EventLoopFuture<View> {
-
-        return BlogPostModel.query(on: req.db)
+        BlogPostModel.query(on: req.db)
             .sort(\.$date, .descending)
             .with(\.$category)
             .all()
-            .mapEach(\.viewContext)
+            .mapEach(\.leafData)
             .flatMap {
-                let context: LeafRenderer.Context = [
+                req.leaf.render(template: "blog", context: [
                     "title": .string("myPage - Blog"),
                     "posts": .array($0),
-                ]
-                return req.leaf.render(template: "blog", context: context)
+                ])
             }
     }
 
@@ -33,7 +31,7 @@ struct BlogFrontendController {
                 }
                 let context: LeafRenderer.Context = [
                     "title": .string("myPage - \(post.title)"),
-                    "post": post.viewContext,
+                    "post": post.leafData,
                 ]
                 return req.leaf.render(template: "post", context: context).encodeResponse(for: req)
             }

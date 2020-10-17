@@ -5,10 +5,9 @@ import Leaf
 struct UserFrontendController {
 
     func loginView(req: Request) throws -> EventLoopFuture<View> {
-        let context: LeafRenderer.Context = [
+        return req.leaf.render(template: "User/Frontend/Login", context: [
             "title": .string("myPage - Sign in"),
-        ]
-        return req.leaf.render(template: "User/Frontend/Login", context: context)
+        ])
     }
     
     func login(req: Request) throws -> Response {

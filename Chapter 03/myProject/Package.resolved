@@ -30,7 +30,7 @@
       },
       {
         "package": "leaf",
-        "repositoryURL": "https://github.com/tib/leaf.git",
+        "repositoryURL": "https://github.com/tib/leaf",
         "state": {
           "branch": "tau",
           "revision": "36f942427b5e70e9edd59db0b685a3bc2d48f011",
@@ -48,7 +48,7 @@
       },
       {
         "package": "LoremSwiftum",
-        "repositoryURL": "https://github.com/lukaskubanek/LoremSwiftum.git",
+        "repositoryURL": "https://github.com/lukaskubanek/LoremSwiftum",
         "state": {
           "branch": null,
           "revision": "eef89bf8b9937462f9c493789609897763b383e2",
@@ -147,7 +147,7 @@
       },
       {
         "package": "vapor",
-        "repositoryURL": "https://github.com/vapor/vapor.git",
+        "repositoryURL": "https://github.com/vapor/vapor",
         "state": {
           "branch": null,
           "revision": "29f5370b119593083674a4f7e6795ac2f4d884ef",
