@@ -49,6 +49,10 @@ main {
 #content {
     padding: 0px 16px;
 }
+#blog img {
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0 , 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
 #blog article {
     margin: 32px 0px;
 }

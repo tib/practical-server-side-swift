@@ -5,13 +5,23 @@ import Vapor
 
 public func configure(_ app: Application) throws {
 
+    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
+
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
+    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
+    LeafEngine.rootDirectory = detected
+    
+    LeafEngine.sources = .singleSource(NIOLeafFiles(fileio: app.fileio,
+                                                    limits: .default,
+                                                    sandboxDirectory: detected,
+                                                    viewDirectory: detected,
+                                                    defaultExtension: "html"))
+
+    if !app.environment.isRelease {
+        app.middleware.use(DropLeafCacheMiddleware())
+    }
     app.views.use(.leaf)
-    app.leaf.cache.isEnabled = app.environment.isRelease
-    
-    
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
 
     let modules: [Module] = [
         FrontendModule(),
@@ -21,4 +31,6 @@ public func configure(_ app: Application) throws {
     for module in modules {
         try module.configure(app)
     }
+
+    try app.autoMigrate().wait()
 }

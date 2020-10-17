@@ -5,9 +5,20 @@ public func configure(_ app: Application) throws {
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    app.views.use(.leaf)
-    app.leaf.cache.isEnabled = app.environment.isRelease
+    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
+    LeafEngine.rootDirectory = detected
+    
+    LeafEngine.sources = .singleSource(NIOLeafFiles(fileio: app.fileio,
+                                                    limits: .default,
+                                                    sandboxDirectory: detected,
+                                                    viewDirectory: detected,
+                                                    defaultExtension: "html"))
 
+    if !app.environment.isRelease {
+        app.middleware.use(DropLeafCacheMiddleware())
+    }
+    app.views.use(.leaf)
+    
     let routers: [RouteCollection] = [
         FrontendRouter(),
         BlogRouter(),
@@ -16,3 +27,4 @@ public func configure(_ app: Application) throws {
         try router.boot(routes: app.routes)
     }
 }
+

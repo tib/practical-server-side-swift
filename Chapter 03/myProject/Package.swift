@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
@@ -8,13 +8,16 @@ let package = Package(
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.14.0"),
-        .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0-rc"),
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.32.0"),
+        //.package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
+        .package(url: "https://github.com/tib/leaf.git", .branch("tau")),
+        .package(url: "https://github.com/lukaskubanek/LoremSwiftum.git", from: "2.2.1")
     ],
     targets: [
         .target(name: "App", dependencies: [
             .product(name: "Vapor", package: "vapor"),
             .product(name: "Leaf", package: "leaf"),
+            .product(name: "LoremSwiftum", package: "LoremSwiftum"),
         ]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [
