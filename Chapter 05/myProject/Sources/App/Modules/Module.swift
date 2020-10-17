@@ -2,6 +2,9 @@ import Vapor
 import Fluent
 
 protocol Module {
+    static var name: String { get }
+    var name: String { get }
+
     var router: RouteCollection? { get }
     var migrations: [Migration] { get }
     
@@ -9,6 +12,9 @@ protocol Module {
 }
 
 extension Module {
+
+    var name: String { Self.name }
+
     var router: RouteCollection? { nil }
     var migrations: [Migration] { [] }
     

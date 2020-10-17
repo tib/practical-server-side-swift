@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import Leaf
 
 final class BlogCategoryModel: Model {
 
@@ -21,20 +22,5 @@ final class BlogCategoryModel: Model {
         self.id = id
         self.title = title
     }
-}
-
-extension BlogCategoryModel {
-
-    struct ViewContext: Encodable {
-        var id: String
-        var title: String
-
-        init(model: BlogCategoryModel) {
-            self.id = model.id!.uuidString
-            self.title = model.title
-        }
-    }
-
-    var viewContext: ViewContext { .init(model: self) }
 }
 

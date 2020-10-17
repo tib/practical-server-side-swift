@@ -3,6 +3,8 @@ import Fluent
 
 struct BlogModule: Module {
     
+    static var name: String = "blog"
+    
     var router: RouteCollection? { BlogRouter() }
 
     var migrations: [Migration] {

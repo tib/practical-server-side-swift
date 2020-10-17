@@ -1,5 +1,5 @@
-import Foundation
 import Vapor
+import Leaf
 
 struct FrontendController {
     
@@ -8,16 +8,13 @@ struct FrontendController {
         if let user = req.auth.get(UserModel.self) {
             email = user.email
         }
-        struct Context: Encodable {
-            let title: String
-            let header: String
-            let message: String
-            let email: String?
-        }
-        let context = Context(title: "myPage - Home",
-                              header: "Hi there,",
-                              message: "welcome to my awesome page!",
-                              email: email)
-        return req.view.render("Frontend/Home", context)
+        let context: LeafRenderer.Context = [
+            "title": .string("myPage - Home"),
+            "header": .string("Hi there, "),
+            "message": .string("welcome to my awesome page!"),
+            "isLoggedIn": .bool(email != nil),
+            "email": .string(email),
+        ]
+        return req.leaf.render(template: "Frontend/Home", context: context)
     }
 }

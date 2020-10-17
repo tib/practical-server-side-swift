@@ -8,10 +8,10 @@ let package = Package(
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.32.0"),
-        //.package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
-        .package(url: "https://github.com/tib/leaf.git", .branch("tau")),
-        .package(url: "https://github.com/lukaskubanek/LoremSwiftum.git", from: "2.2.1")
+        .package(url: "https://github.com/vapor/vapor", from: "4.32.0"),
+        //.package(url: "https://github.com/vapor/leaf", from: "4.0.0"),
+        .package(url: "https://github.com/tib/leaf, .branch("tau")),
+        .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1")
     ],
     targets: [
         .target(name: "App", dependencies: [

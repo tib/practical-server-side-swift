@@ -1,13 +1,14 @@
 import Vapor
 import Fluent
+import Leaf
 
 struct UserFrontendController {
+
     func loginView(req: Request) throws -> EventLoopFuture<View> {
-        struct Context: Encodable {
-            let title: String
-        }
-        let context = Context(title: "myPage - Sign in")
-        return req.view.render("User/Frontend/Login", context)
+        let context: LeafRenderer.Context = [
+            "title": .string("myPage - Sign in"),
+        ]
+        return req.leaf.render(template: "User/Frontend/Login", context: context)
     }
     
     func login(req: Request) throws -> Response {
