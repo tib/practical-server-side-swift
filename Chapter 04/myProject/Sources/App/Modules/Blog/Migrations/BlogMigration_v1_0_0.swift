@@ -1,4 +1,3 @@
-import Foundation
 import Fluent
 
 struct BlogMigration_v1_0_0: Migration {

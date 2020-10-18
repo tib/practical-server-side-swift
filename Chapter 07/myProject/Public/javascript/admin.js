@@ -1,6 +1,6 @@
 function confirmDelete(path, id) {
-  if (confirm("Press ok to confirm delete.")) {
-     var xmlHttp = new XMLHttpRequest();
+    if (confirm("Press ok to confirm delete.")) {
+        var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function() {
             if (xmlHttp.readyState != 4 || xmlHttp.status != 200) {
                 return;
@@ -11,5 +11,5 @@ function confirmDelete(path, id) {
         }
         xmlHttp.open("POST", path + id + "/delete", true);
         xmlHttp.send(null);
-  }
+    }
 }

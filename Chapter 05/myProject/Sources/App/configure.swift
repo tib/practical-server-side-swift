@@ -1,7 +1,7 @@
+import Vapor
 import Leaf
 import Fluent
 import FluentSQLiteDriver
-import Vapor
 
 public func configure(_ app: Application) throws {
 

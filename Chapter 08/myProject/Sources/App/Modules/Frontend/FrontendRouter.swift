@@ -5,8 +5,7 @@ struct FrontendRouter: RouteCollection {
     let controller = FrontendController()
     
     func boot(routes: RoutesBuilder) throws {
-        routes.grouped(UserModelSessionAuthenticator())
-            .get(use: self.controller.homeView)
+        routes.grouped(UserModelSessionAuthenticator()).get(use: controller.homeView)
     }
 
 }

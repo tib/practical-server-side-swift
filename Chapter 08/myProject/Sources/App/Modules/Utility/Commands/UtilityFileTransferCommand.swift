@@ -20,7 +20,6 @@ final class UtilityFileTransferCommand: Command {
         
         let publicPath = app.directory.publicDirectory
         let assetsPath = publicPath + "/assets/"
-        
 
         do {
             let models = try BlogPostModel.query(on: app.db).all().wait()

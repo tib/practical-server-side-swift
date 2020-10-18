@@ -18,7 +18,7 @@ protocol Module {
 
 extension Module {
 
-    var name: String { Self.name }
+    static var name: String { Self.name }
 
     static var path: String { Self.name + "/" }
     var path: String { Self.path }
@@ -28,15 +28,14 @@ extension Module {
     var commandGroup: CommandGroup? { nil }
     
     func configure(_ app: Application) throws {
-        for migration in self.migrations {
+        for migration in migrations {
             app.migrations.add(migration)
         }
-        if let router = self.router {
+        if let router = router {
             try router.boot(routes: app.routes)
         }
-        if let commandGroup = self.commandGroup {
-            app.commands.use(commandGroup, as: self.name)
+        if let commandGroup = commandGroup {
+            app.commands.use(commandGroup, as: name)
         }
     }
 }
-

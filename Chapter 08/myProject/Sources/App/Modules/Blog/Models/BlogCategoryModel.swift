@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import Leaf
 
 final class BlogCategoryModel: Model {
 
@@ -20,28 +21,6 @@ final class BlogCategoryModel: Model {
     {
         self.id = id
         self.title = title
-    }
-}
-
-extension BlogCategoryModel: ViewContextRepresentable {
-
-    struct ViewContext: Encodable {
-        var id: String
-        var title: String
-
-        init(model: BlogCategoryModel) {
-            self.id = model.id!.uuidString
-            self.title = model.title
-        }
-    }
-
-    var viewContext: ViewContext { .init(model: self) }
-    var viewIdentifier: String { self.id!.uuidString }
-}
-
-extension BlogCategoryModel: FormFieldOptionRepresentable {
-    var formFieldOption: FormFieldOption {
-        .init(key: self.id!.uuidString, label: self.title)
     }
 }
 

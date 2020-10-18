@@ -9,4 +9,3 @@ extension BlogCategoryModel: LeafDataRepresentable {
         ])
     }
 }
-

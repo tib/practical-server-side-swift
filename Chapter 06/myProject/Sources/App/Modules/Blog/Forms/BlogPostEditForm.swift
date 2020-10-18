@@ -13,11 +13,11 @@ final class BlogPostEditForm: LeafDataRepresentable {
     }
     
     var id: String? = nil
-    var title = BasicFormField()
-    var slug = BasicFormField()
-    var excerpt = BasicFormField()
-    var date = BasicFormField()
-    var content = BasicFormField()
+    var title = StringFormField()
+    var slug = StringFormField()
+    var excerpt = StringFormField()
+    var date = StringFormField()
+    var content = StringFormField()
     
     var leafData: LeafData {
         .dictionary([

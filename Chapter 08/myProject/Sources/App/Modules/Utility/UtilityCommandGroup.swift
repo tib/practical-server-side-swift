@@ -6,13 +6,13 @@ struct UtilityCommandGroup: CommandGroup {
     let help: String
     
     var defaultCommand: AnyCommand? {
-        self.commands[UtilityFileTransferCommand.name]
+        commands[UtilityFileTransferCommand.name]
     }
 
     init() {
-        self.help = "Various utility tools"
+        help = "Various utility tools"
 
-        self.commands = [
+        commands = [
             UtilityFileTransferCommand.name: UtilityFileTransferCommand(),
         ]
     }

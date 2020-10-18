@@ -15,9 +15,9 @@ let package = Package(
     ],
     targets: [
         .target(name: "App", dependencies: [
-            .product(name: "Vapor", package: "vapor"),
             .product(name: "Leaf", package: "leaf"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
+            .product(name: "Vapor", package: "vapor"),
         ]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [

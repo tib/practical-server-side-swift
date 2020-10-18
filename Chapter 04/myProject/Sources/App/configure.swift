@@ -1,7 +1,7 @@
+import Vapor
 import Leaf
 import Fluent
 import FluentSQLiteDriver
-import Vapor
 
 public func configure(_ app: Application) throws {
 
@@ -11,7 +11,7 @@ public func configure(_ app: Application) throws {
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected
-    
+
     LeafEngine.sources = .singleSource(NIOLeafFiles(fileio: app.fileio,
                                                     limits: .default,
                                                     sandboxDirectory: detected,

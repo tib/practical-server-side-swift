@@ -8,7 +8,7 @@ let package = Package(
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor", from: "4.30.0"),
+        .package(url: "https://github.com/vapor/vapor", from: "4.32.0"),
         //.package(url: "https://github.com/vapor/leaf", from: "4.0.0"),
         .package(url: "https://github.com/tib/leaf", .branch("tau")),
         .package(url: "https://github.com/vapor/fluent", from: "4.0.0"),
@@ -20,8 +20,8 @@ let package = Package(
             .product(name: "Leaf", package: "leaf"),
             .product(name: "Fluent", package: "fluent"),
             .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
-            .product(name: "Vapor", package: "vapor"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
+            .product(name: "Vapor", package: "vapor"),
         ],
         exclude: [
             "Modules/Blog/Views",

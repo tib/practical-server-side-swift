@@ -20,8 +20,8 @@ let package = Package(
             .product(name: "Leaf", package: "leaf"),
             .product(name: "Fluent", package: "fluent"),
             .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
-            .product(name: "Vapor", package: "vapor"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
+            .product(name: "Vapor", package: "vapor"),
         ]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [

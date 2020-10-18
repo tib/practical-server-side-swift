@@ -1,35 +1,50 @@
+import Vapor
 import Leaf
 import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
-import Vapor
 
 public func configure(_ app: Application) throws {
 
-    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
+    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
+    
     app.routes.defaultMaxBodySize = "10mb"
     app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
 
-    app.views.use(.leaf)
-    app.leaf.cache.isEnabled = app.environment.isRelease
-
-    let source = ModularViewFiles(rootDirectory: app.directory.workingDirectory,
-                                  modulesDirectory: "Sources/App/Modules",
-                                  resourcesDirectory: "Resources",
-                                  viewsFolderName: "Views",
-                                  fileExtension: "leaf",
-                                  fileio: app.fileio)
-    app.leaf.sources = .singleSource(source)
-
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
-
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
+
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+
+    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
+    LeafEngine.rootDirectory = detected
+
+    if !app.environment.isRelease {
+        app.middleware.use(DropLeafCacheMiddleware())
+    }
+
+    let defaultSource = NIOLeafFiles(fileio: app.fileio,
+                                     limits: .default,
+                                     sandboxDirectory: detected,
+                                     viewDirectory: detected,
+                                     defaultExtension: "html")
+
+    let modulesSource = ModuleViewsLeafSource(rootDirectory: app.directory.workingDirectory,
+                                              modulesLocation: "Sources/App/Modules",
+                                              viewsFolderName: "Views",
+                                              fileExtension: "html",
+                                              fileio: app.fileio)
+
+    let multipleSources = LeafSources()
+    try multipleSources.register(using: defaultSource)
+    try multipleSources.register(source: "modules", using: modulesSource)
+
+    LeafEngine.sources = multipleSources
+    app.views.use(.leaf)
 
     let modules: [Module] = [
         UserModule(),
@@ -42,4 +57,6 @@ public func configure(_ app: Application) throws {
     for module in modules {
         try module.configure(app)
     }
+
+    try app.autoMigrate().wait()
 }
