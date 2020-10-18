@@ -138,12 +138,12 @@ extension AdminViewController where Model.IDValue == UUID {
             .flatMap { model in model.delete(on: req.db).map { model.id!.uuidString } }
     }
 
-    func setup(routes: RoutesBuilder,
-               on pathComponent: PathComponent,
-               create createPathComponent: PathComponent = "new",
-               delete deletePathComponent: PathComponent = "delete")
+    func setupRoutes(on builder: RoutesBuilder,
+                     as pathComponent: PathComponent,
+                     create createPathComponent: PathComponent = "new",
+                     delete deletePathComponent: PathComponent = "delete")
     {
-        let base = routes.grouped(pathComponent)
+        let base = builder.grouped(pathComponent)
   
         base.get(use: listView)
         base.get(createPathComponent, use: createView)

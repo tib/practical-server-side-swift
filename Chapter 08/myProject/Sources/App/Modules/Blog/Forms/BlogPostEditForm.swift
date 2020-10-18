@@ -34,7 +34,6 @@ final class BlogPostEditForm: Form {
             "date": date.leafData,
             "content": content.leafData,
             "category": category.leafData,
-            //...
             "image": image.leafData,
         ])
     }

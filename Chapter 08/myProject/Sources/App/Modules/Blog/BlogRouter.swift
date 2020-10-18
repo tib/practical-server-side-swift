@@ -17,7 +17,7 @@ struct BlogRouter: RouteCollection {
         ])
         let blog = protected.grouped("admin", "blog")
         
-        postAdminController.setup(routes: blog, on: "posts")
-        categoryAdminController.setup(routes: blog, on: "categories")
+        postAdminController.setupRoutes(on: blog, as: "posts")
+        categoryAdminController.setupRoutes(on: blog, as: "categories")
     }
 }
