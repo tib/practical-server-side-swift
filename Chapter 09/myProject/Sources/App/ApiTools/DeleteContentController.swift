@@ -11,13 +11,11 @@ protocol DeleteContentController: IdentifiableContentController
 extension DeleteContentController {
 
     func delete(_ req: Request) throws -> EventLoopFuture<HTTPStatus> {
-        try self.find(req)
-            .flatMap { $0.delete(on: req.db) }
-            .transform(to: .ok)
+        try find(req).flatMap { $0.delete(on: req.db) }.transform(to: .ok)
     }
     
     func setupDeleteRoute(routes: RoutesBuilder) {
-        routes.delete(self.idPathComponent, use: self.delete)
+        routes.delete(idPathComponent, use: delete)
     }
 }
 

@@ -11,9 +11,9 @@ protocol UpdateContentController: IdentifiableContentController
 extension UpdateContentController {
     
     func update(_ req: Request) throws -> EventLoopFuture<Model.GetContent> {
-        try Model.UpdateContent.validate(req)
+        try Model.UpdateContent.validate(content: req)
         let input = try req.content.decode(Model.UpdateContent.self)
-        return try self.find(req)
+        return try find(req)
         .flatMapThrowing { model -> Model in
             try model.update(input)
             return model
@@ -25,6 +25,6 @@ extension UpdateContentController {
     }
     
     func setupUpdateRoute(routes: RoutesBuilder) {
-        routes.put(self.idPathComponent, use: self.update)
+        routes.put(idPathComponent, use: update)
     }
 }

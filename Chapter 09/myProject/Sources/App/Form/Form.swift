@@ -1,7 +1,8 @@
 import Vapor
+import Leaf
 import Fluent
 
-protocol Form: Encodable {
+protocol Form: LeafDataRepresentable {
     associatedtype Model: Fluent.Model
 
     var id: String? { get set }

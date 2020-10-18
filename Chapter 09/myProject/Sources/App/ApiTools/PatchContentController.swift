@@ -11,21 +11,19 @@ protocol PatchContentController: IdentifiableContentController
 extension PatchContentController {
     
     func patch(_ req: Request) throws -> EventLoopFuture<Model.GetContent> {
-        try Model.PatchContent.validate(req)
+        try Model.PatchContent.validate(content: req)
         let input = try req.content.decode(Model.PatchContent.self)
-        return try self.find(req)
-        .flatMapThrowing { model -> Model in
+        return try find(req).flatMapThrowing { model -> Model in
             try model.patch(input)
             return model
         }
         .flatMap { model -> EventLoopFuture<Model.GetContent> in
-             return model.update(on: req.db)
-                .transform(to: model.getContent)
+             model.update(on: req.db) .transform(to: model.getContent)
         }
     }
     
     func setupPatchRoute(routes: RoutesBuilder) {
-        routes.patch(self.idPathComponent, use: self.patch)
+        routes.patch(idPathComponent, use: patch)
     }
 }
 

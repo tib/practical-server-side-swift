@@ -6,18 +6,17 @@ struct UserRouter: RouteCollection {
     let apiController = UserApiController()
     
     func boot(routes: RoutesBuilder) throws {
-        routes.get("sign-in", use: self.controller.loginView)
+        routes.get("sign-in", use: controller.loginView)
         
         routes.grouped(UserModelCredentialsAuthenticator())
-            .post("sign-in", use: self.controller.login)
+            .post("sign-in", use: controller.login)
         
         routes.grouped(UserModelSessionAuthenticator())
-            .get("logout", use: self.controller.logout)
+            .get("logout", use: controller.logout)
         
         let api = routes.grouped("api", "user")
 
         api.grouped(UserModelCredentialsAuthenticator())
-            .post("login", use: self.apiController.login)
-
+            .post("login", use: apiController.login)
     }
 }

@@ -10,10 +10,10 @@ protocol GetContentController: IdentifiableContentController
 
 extension GetContentController {
     func get(_ req: Request) throws -> EventLoopFuture<Model.GetContent> {
-        try self.find(req).map(\.getContent)
+        try find(req).map(\.getContent)
     }
 
     func setupGetRoute(routes: RoutesBuilder) {
-        routes.get(self.idPathComponent, use: self.get)
+        routes.get(idPathComponent, use: get)
     }
 }

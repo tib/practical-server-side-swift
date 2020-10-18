@@ -11,14 +11,14 @@ protocol IdentifiableContentController: ContentController {
 extension IdentifiableContentController {
 
     var idParamKey: String { "id" }
-    var idPathComponent: PathComponent { .init(stringLiteral: ":" + self.idParamKey) }
+    var idPathComponent: PathComponent { .init(stringLiteral: ":" + idParamKey) }
 }
 
 extension IdentifiableContentController where Model.IDValue == UUID {
 
     func find(_ req: Request) throws -> EventLoopFuture<Model> {
         guard
-            let rawValue = req.parameters.get(self.idParamKey),
+            let rawValue = req.parameters.get(idParamKey),
             let id = UUID(uuidString: rawValue)
         else {
             throw Abort(.badRequest)

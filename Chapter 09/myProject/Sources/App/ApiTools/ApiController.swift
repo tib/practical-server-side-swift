@@ -15,11 +15,11 @@ extension ApiController {
 
     func setupRoutes(routes: RoutesBuilder, on pathComponent: PathComponent) {
         let modelRoutes = routes.grouped(pathComponent)
-        self.setupListRoute(routes: modelRoutes)
-        self.setupGetRoute(routes: modelRoutes)
-        self.setupCreateRoute(routes: modelRoutes)
-        self.setupUpdateRoute(routes: modelRoutes)
-        self.setupPatchRoute(routes: modelRoutes)
-        self.setupDeleteRoute(routes: modelRoutes)
+        setupListRoute(routes: modelRoutes)
+        setupGetRoute(routes: modelRoutes)
+        setupCreateRoute(routes: modelRoutes)
+        setupUpdateRoute(routes: modelRoutes)
+        setupPatchRoute(routes: modelRoutes)
+        setupDeleteRoute(routes: modelRoutes)
     }
 }

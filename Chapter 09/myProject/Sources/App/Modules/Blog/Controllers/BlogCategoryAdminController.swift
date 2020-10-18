@@ -1,8 +1,8 @@
 import Vapor
 import Fluent
+import Leaf
 
 struct BlogCategoryAdminController: AdminViewController {
-
     typealias EditForm = BlogCategoryEditForm
     typealias Model = BlogCategoryModel
     

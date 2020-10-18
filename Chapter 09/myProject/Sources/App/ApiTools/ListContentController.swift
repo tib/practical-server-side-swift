@@ -15,6 +15,6 @@ extension ListContentController {
     }
     
     func setupListRoute(routes: RoutesBuilder) {
-        routes.get(use: self.list)
+        routes.get(use: list)
     }
 }
