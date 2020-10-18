@@ -1,8 +1,9 @@
 import Vapor
 import Leaf
 
-final class BlogPostEditForm: LeafDataRepresentable {
-
+final class BlogPostEditForm: Form {
+    typealias Model = BlogPostModel
+    
     struct Input: Decodable {
         var id: String
         var title: String
@@ -90,7 +91,7 @@ final class BlogPostEditForm: LeafDataRepresentable {
         }
     }
     
-    func read(from model: BlogPostModel)  {
+    func read(from model: Model)  {
         id = model.id!.uuidString
         title.value = model.title
         slug.value = model.slug
@@ -101,7 +102,7 @@ final class BlogPostEditForm: LeafDataRepresentable {
         image.value = model.image
     }
     
-    func write(to model: BlogPostModel) {
+    func write(to model: Model) {
         model.title = title.value
         model.slug = slug.value
         model.excerpt = excerpt.value

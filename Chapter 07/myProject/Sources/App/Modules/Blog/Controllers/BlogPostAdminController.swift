@@ -10,10 +10,7 @@ struct BlogPostAdminController {
             .all()
             .mapEach(\.leafData)
             .flatMap {
-                req.leaf.render(template: "Blog/Admin/Posts/List", context: [
-                    "title": "myPage - Admin / Blog posts",
-                    "list": .array($0),
-                ])
+                req.leaf.render(template: "Blog/Admin/Posts/List", context: ["list": .array($0)])
             }
     }
     
@@ -25,10 +22,7 @@ struct BlogPostAdminController {
     
     func render(req: Request, form: BlogPostEditForm) -> EventLoopFuture<View> {
         beforeRender(req: req, form: form).flatMap {
-            req.leaf.render(template: "Blog/Admin/Posts/Edit", context: [
-                "title": "myPage - Admin / Blog posts",
-                "edit": form.leafData
-            ])
+            req.leaf.render(template: "Blog/Admin/Posts/Edit", context: ["edit": form.leafData])
         }
     }
     
