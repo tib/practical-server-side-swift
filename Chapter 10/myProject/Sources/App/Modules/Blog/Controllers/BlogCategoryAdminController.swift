@@ -1,10 +1,12 @@
 import Vapor
 import Fluent
+import Leaf
 import ViewKit
 
-struct BlogCategoryAdminController: ViperAdminViewController {
-
-    typealias Module = BlogModule
+struct BlogCategoryAdminController: AdminViewController {
     typealias EditForm = BlogCategoryEditForm
     typealias Model = BlogCategoryModel
+    
+    var listView: String = "Blog/Admin/Categories/List"
+    var editView: String = "Blog/Admin/Categories/Edit"
 }

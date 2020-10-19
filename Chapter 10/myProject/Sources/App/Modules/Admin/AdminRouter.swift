@@ -1,5 +1,4 @@
 import Vapor
-import ViperKit
 
 struct AdminRouter: ViperRouter {
 
@@ -8,6 +7,6 @@ struct AdminRouter: ViperRouter {
     func boot(routes: RoutesBuilder, app: Application) throws {
 
         routes.grouped(UserModelSessionAuthenticator())
-            .get("admin", use: self.controller.homeView)
+            .get("admin", use: controller.homeView)
     }
 }

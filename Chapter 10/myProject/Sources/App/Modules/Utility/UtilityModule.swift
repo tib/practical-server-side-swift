@@ -1,6 +1,5 @@
 import Vapor
 import Fluent
-import ViperKit
 
 struct UtilityModule: ViperModule {
 
