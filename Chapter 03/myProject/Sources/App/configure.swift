@@ -4,7 +4,8 @@ import Leaf
 public func configure(_ app: Application) throws {
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
+    app.middleware.use(ExtendPathMiddleware())
+    
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected
     
@@ -15,10 +16,11 @@ public func configure(_ app: Application) throws {
                                                     defaultExtension: "html"))
 
     if !app.environment.isRelease {
-        app.middleware.use(DropLeafCacheMiddleware())
+        LeafRenderer.Option.caching = .bypass
     }
+
     app.views.use(.leaf)
-    
+
     let routers: [RouteCollection] = [
         FrontendRouter(),
         BlogRouter(),

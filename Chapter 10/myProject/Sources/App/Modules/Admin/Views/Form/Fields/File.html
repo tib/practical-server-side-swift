@@ -1,0 +1,15 @@
+<section>
+    <label for="image">Image</label>
+    <div id="image-uploader" class="image-uploader">
+        #if(edit.image.value != ""):
+            <img id="uploaded-image" src="#(edit.image.value)">
+        #endif
+        <a id="choose-button" href="javascript:void(0);" onclick="chooseImage();">Choose</a>
+        <a id="remove-button" href="javascript:void(0);" onclick="removeImage()">Remove</a>
+        <input id="imageDelete" name="imageDelete" type="hidden" value="false">
+        <input id="image" name="image" type="file" accept="image/jpeg" style="display:none;">
+    </div>
+    #if(edit.image.error != nil):
+    <span class="error">#(edit.image.error)</span>
+    #endif
+</section>

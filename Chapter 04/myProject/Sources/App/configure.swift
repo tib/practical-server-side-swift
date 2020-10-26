@@ -19,7 +19,7 @@ public func configure(_ app: Application) throws {
                                                     defaultExtension: "html"))
 
     if !app.environment.isRelease {
-        app.middleware.use(DropLeafCacheMiddleware())
+        LeafRenderer.Option.caching = .bypass
     }
     app.views.use(.leaf)
 

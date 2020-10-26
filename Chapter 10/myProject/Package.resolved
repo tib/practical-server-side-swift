@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/tib/leaf",
         "state": {
           "branch": null,
-          "revision": "a7dd82e532071f2baee500b52c20c6f41b78d0b7",
-          "version": "4.0.0-rc.1.5"
+          "revision": "84ab76481e6f2ec8a27a78a1fc00a1284a162d9a",
+          "version": "4.0.0-rc.1.6"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/tib/leaf-kit.git",
         "state": {
           "branch": null,
-          "revision": "d8476b10a38bddcb4c67eecf00d75e0f1ea615dc",
-          "version": "1.0.0-rc.1.18"
+          "revision": "772327575b8832afc602b43cf0aea09dcb18fca1",
+          "version": "1.0.0-rc.1.20"
         }
       },
       {

@@ -24,7 +24,7 @@ public func configure(_ app: Application) throws {
     LeafEngine.rootDirectory = detected
 
     if !app.environment.isRelease {
-        app.middleware.use(DropLeafCacheMiddleware())
+        LeafRenderer.Option.caching = .bypass
     }
 
     let defaultSource = NIOLeafFiles(fileio: app.fileio,

@@ -39,10 +39,10 @@ public func configure(_ app: Application) throws {
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     if !app.environment.isRelease {
-        app.middleware.use(DropLeafCacheMiddleware())
+        LeafRenderer.Option.caching = .bypass
     }
 
-    LeafEngine.entities.use(RequestSetQueryFunction(), asFunction: "Request")
+    LeafEngine.entities.use(RequestSetQueryLeafFunction(), asFunction: "Request")
 
     try LeafEngine.useViperViews(viewsDirectory: app.directory.viewsDirectory,
                                  workingDirectory: app.directory.workingDirectory,

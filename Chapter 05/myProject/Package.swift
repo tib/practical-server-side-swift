@@ -10,7 +10,7 @@ let package = Package(
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor", from: "4.32.0"),
         //.package(url: "https://github.com/vapor/leaf", from: "4.0.0"),
-        .package(url: "https://github.com/tib/leaf", .branch("tau")),
+        .package(url: "https://github.com/tib/leaf", from: "4.0.0-rc"),
         .package(url: "https://github.com/vapor/fluent", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.0.0"),
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1"),

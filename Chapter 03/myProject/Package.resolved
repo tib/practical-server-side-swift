@@ -32,18 +32,18 @@
         "package": "leaf",
         "repositoryURL": "https://github.com/tib/leaf",
         "state": {
-          "branch": "tau",
-          "revision": "36f942427b5e70e9edd59db0b685a3bc2d48f011",
-          "version": null
+          "branch": null,
+          "revision": "84ab76481e6f2ec8a27a78a1fc00a1284a162d9a",
+          "version": "4.0.0-rc.1.6"
         }
       },
       {
         "package": "leaf-kit",
-        "repositoryURL": "https://github.com/tdotclare/leaf-kit.git",
+        "repositoryURL": "https://github.com/tib/leaf-kit.git",
         "state": {
-          "branch": "Tau",
-          "revision": "d8476b10a38bddcb4c67eecf00d75e0f1ea615dc",
-          "version": null
+          "branch": null,
+          "revision": "772327575b8832afc602b43cf0aea09dcb18fca1",
+          "version": "1.0.0-rc.1.20"
         }
       },
       {

@@ -1,13 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2020. 10. 19..
-//
-
 import Leaf
 
-public struct RequestSetQueryFunction: LeafUnsafeEntity, StringReturn {
+public struct RequestSetQueryLeafFunction: LeafUnsafeEntity, StringReturn {
     public var unsafeObjects: UnsafeObjects? = nil
     
     public static var callSignature: [LeafCallParameter] { [.init(label: "setQuery", types: [.dictionary])] }

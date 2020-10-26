@@ -26,57 +26,25 @@
         #endif
     </section>
 
-    <section>
-        <label for="title">Title <span class="required">(required)</span></label>
-        <input id="title" type="text" name="title" value="#(edit.title.value)" class="field">
-        #if(edit.title.error != nil):
-        <span class="error">#(edit.title.error)</span>
-        #endif
-    </section>
-
-    <section>
-        <label for="slug">Slug <span class="required">(required)</span></label>
-        <input id="slug" type="text" name="slug" value="#(edit.slug.value)" class="field">
-        #if(edit.slug.error != nil):
-        <span class="error">#(edit.slug.error)</span>
-        #endif
-    </section>
-
-    <section>
-        <label for="excerpt">Excerpt</label>
-        <textarea name="excerpt" class="small">#(edit.excerpt.value)</textarea>
-        #if(edit.excerpt.error != nil):
-        <span class="error">#(edit.excerpt.error)</span>
-        #endif
-    </section>
-
-    <section>
-        <label for="content">Content</label>
-        <textarea id="content" name="content" class="large" >#(edit.content.value)</textarea>
-        #if(edit.content.error != nil):
-        <span class="error">#(edit.content.error)</span>
-        #endif
-    </section>
-
-    <section>
-        <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</label></span>
-        <input type="text" name="date" value="#(edit.date.value)" class="field">
-        #if(edit.date.error != nil):
-        <span class="error">#(edit.date.error)</span>
-        #endif
-    </section>
+    #(var fieldData = nil)
     
-    <section>
-        <label for="categoryId">Category</label>
-        <select name="categoryId">
-            #for(item in edit.category.options):
-                <option #if(item.key == edit.category.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
-            #endfor
-        </select>
-        #if(edit.category.error != nil):
-        <span class="error">#(edit.category.error)</span>
-        #endif
-    </section>
+    #(fieldData = ["id": "title", "required": true, "field": edit.title])
+    #inline("Admin/Form/Fields/Text")
+
+    #(fieldData = ["id": "slug", "required": true, "field": edit.slug])
+    #inline("Admin/Form/Fields/Text")
+
+    #(fieldData = ["id": "excerpt", "size": "small", "field": edit.excerpt])
+    #inline("Admin/Form/Fields/Textarea")
+
+    #(fieldData = ["id": "content", "size": "large", "field": edit.content])
+    #inline("Admin/Form/Fields/Textarea")
+    
+    #(fieldData = ["id": "date", "more": "Y.MM.dd. HH:mm:ss", "field": edit.date])
+    #inline("Admin/Form/Fields/Text")
+    
+    #(fieldData = ["id": "categoryId", "label": "Category", "field": edit.category])
+    #inline("Admin/Form/Fields/Selection")
 
     <section>
         <input type="submit" class="submit" value="Save">
@@ -112,6 +80,5 @@
         element.src = blobURL;
     }
 </script>
-
 #enddefine
 #inline("Admin/Index")
