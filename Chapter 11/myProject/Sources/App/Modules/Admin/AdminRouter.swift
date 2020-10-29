@@ -1,13 +1,12 @@
 import Vapor
-import ViperKit
 
-struct AdminRouter: ViperRouter {
+struct AdminRouter: RouteCollection {
 
     let controller = AdminController()
 
-    func boot(routes: RoutesBuilder, app: Application) throws {
+    func boot(routes: RoutesBuilder) throws {
 
         routes.grouped(UserModelSessionAuthenticator())
-            .get("admin", use: self.controller.homeView)
+            .get("admin", use: controller.homeView)
     }
 }

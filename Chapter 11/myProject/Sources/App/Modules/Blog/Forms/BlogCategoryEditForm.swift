@@ -1,43 +1,51 @@
 import Vapor
-import ViewKit
+import Leaf
 
 final class BlogCategoryEditForm: Form {
-    typealias Model = BlogCategoryModel
 
+    typealias Model = BlogCategoryModel
+    
     struct Input: Decodable {
         var id: String
         var title: String
     }
 
     var id: String? = nil
-    var title = BasicFormField()
-    
+    var title = StringFormField()
+
+    var leafData: LeafData {
+        .dictionary([
+            "id": .string(id),
+            "title": title.leafData,
+        ])
+    }
+
     init() {}
-    
+
     init(req: Request) throws {
         let context = try req.content.decode(Input.self)
         if !context.id.isEmpty {
-            self.id = context.id
+            id = context.id
         }
-
-        self.title.value = context.title
+        title.value = context.title
     }
     
-    func write(to model: Model) {
-        model.title = self.title.value
-    }
-    
-    func read(from model: Model)  {
-        self.id = model.id!.uuidString
-        self.title.value = model.title
-    }
-
     func validate(req: Request) -> EventLoopFuture<Bool> {
         var valid = true
-        if self.title.value.isEmpty {
-            self.title.error = "Title is required"
+        
+        if title.value.isEmpty {
+            title.error = "Title is required"
             valid = false
         }
         return req.eventLoop.future(valid)
+    }
+    
+    func read(from model: Model)  {
+        id = model.id!.uuidString
+        title.value = model.title
+    }
+    
+    func write(to model: Model) {
+        model.title = title.value
     }
 }

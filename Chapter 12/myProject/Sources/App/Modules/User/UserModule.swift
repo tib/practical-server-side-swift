@@ -1,12 +1,11 @@
 import Vapor
 import Fluent
-import ViperKit
 
-struct UserModule: ViperModule {
-
-    static var name: String = "user"
+struct UserModule: Module {
     
-    var router: ViperRouter? { UserRouter() }
+    var name: String = "user"
+
+    var router: RouteCollection? { UserRouter() }
     
     var migrations: [Migration] {
         [

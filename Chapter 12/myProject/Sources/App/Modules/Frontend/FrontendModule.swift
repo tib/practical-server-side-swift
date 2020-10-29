@@ -1,10 +1,9 @@
 import Vapor
 import Fluent
-import ViperKit
 
-struct FrontendModule: ViperModule {
+struct FrontendModule: Module {
+
+    var name: String = "frontend"
     
-    static var name: String = "frontend"
-    
-    var router: ViperRouter? { FrontendRouter() }
+    var router: RouteCollection? { FrontendRouter() }
 }

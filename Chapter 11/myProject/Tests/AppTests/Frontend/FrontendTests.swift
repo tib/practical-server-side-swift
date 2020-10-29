@@ -1,12 +1,11 @@
 @testable import App
 import XCTVapor
 
-final class FrontendTests: XCTestCase {
-    
+final class FrontendTests: AppTestCase {
+
     func testHomePage() throws {
-        let app = Application(.testing)
+        let app = try createTestApp()
         defer { app.shutdown() }
-        try configure(app)
 
         try app.testable(method: .inMemory).test(.GET, "") { res in
             XCTAssertEqual(res.status, .ok)

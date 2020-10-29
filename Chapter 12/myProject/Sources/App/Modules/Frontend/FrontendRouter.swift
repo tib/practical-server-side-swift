@@ -1,13 +1,11 @@
 import Vapor
-import ViperKit
 
-struct FrontendRouter: ViperRouter {
+struct FrontendRouter: RouteCollection {
     
     let controller = FrontendController()
     
-    func boot(routes: RoutesBuilder, app: Application) throws {
-        routes.grouped(UserModelSessionAuthenticator())
-            .get(use: self.controller.homeView)
+    func boot(routes: RoutesBuilder) throws {
+        routes.grouped(UserModelSessionAuthenticator()).get(use: controller.homeView)
     }
 
 }

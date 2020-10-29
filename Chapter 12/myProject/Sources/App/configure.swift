@@ -1,76 +1,63 @@
+import Vapor
 import Leaf
 import Fluent
-import FluentPostgresDriver
+import FluentSQLiteDriver
 import Liquid
-import LiquidAwsS3Driver
-import ViewKit
-import ViperKit
-import Vapor
-
-extension Environment {
-    static let dbHost = Self.get("DB_HOST")!
-    static let dbUser = Self.get("DB_USER")!
-    static let dbPass = Self.get("DB_PASS")!
-    static let dbName = Self.get("DB_NAME")!
-
-    static let fsName = Self.get("FS_NAME")!
-    static let fsRegion = Self.get("FS_REGION")!
-
-    static let awsKey = Self.get("AWS_KEY")!
-    static let awsSecret = Self.get("AWS_SECRET")!
-}
+import LiquidLocalDriver
 
 public func configure(_ app: Application) throws {
 
-    let configuration = PostgresConfiguration(
-        hostname: Environment.dbHost,
-        port: 5432,
-        username: Environment.dbUser,
-        password: Environment.dbPass,
-        database: Environment.dbName
-    )
-    app.databases.use(.postgres(configuration: configuration), as: .psql)
-
-    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
+    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
+    
     app.routes.defaultMaxBodySize = "10mb"
-
-    app.fileStorages.use(.awsS3(key: Environment.awsKey,
-                                    secret: Environment.awsSecret,
-                                    bucket: Environment.fsName,
-                                    region: .init(rawValue: Environment.fsRegion)), as: .awsS3)
-
-    app.views.use(.leaf)
-    if !app.environment.isRelease {
-        app.leaf.cache.isEnabled = false
-        app.leaf.useViperViews()
-    }
+    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
+                                publicPath: app.directory.publicDirectory,
+                                workDirectory: "assets"), as: .local)
 
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
 
-    let modules: [ViperModule] = [
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(ExtendPathMiddleware())
+
+    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
+    LeafEngine.rootDirectory = detected
+
+    if !app.environment.isRelease {
+        LeafRenderer.Option.caching = .bypass
+    }
+
+    let defaultSource = NIOLeafFiles(fileio: app.fileio,
+                                     limits: .default,
+                                     sandboxDirectory: detected,
+                                     viewDirectory: detected,
+                                     defaultExtension: "html")
+
+    let modulesSource = ModuleViewsLeafSource(rootDirectory: app.directory.workingDirectory,
+                                              modulesLocation: "Sources/App/Modules",
+                                              viewsFolderName: "Views",
+                                              fileExtension: "html",
+                                              fileio: app.fileio)
+
+    let multipleSources = LeafSources()
+    try multipleSources.register(using: defaultSource)
+    try multipleSources.register(source: "modules", using: modulesSource)
+
+    LeafEngine.sources = multipleSources
+    app.views.use(.leaf)
+
+    let modules: [Module] = [
         UserModule(),
         FrontendModule(),
         AdminModule(),
         BlogModule(),
+        UtilityModule(),
     ]
 
-    try app.viper.use(modules)
+    for module in modules {
+        try module.configure(app)
+    }
+
     try app.autoMigrate().wait()
-}
-
-protocol ViperAdminViewController: AdminViewController where Model: ViperModel  {
-    associatedtype Module: ViperModule
-}
-
-extension ViperAdminViewController {
-
-    var listView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/List" }
-    var editView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/Edit" }
-}
-
-extension Fluent.Model where IDValue == UUID {
-    var viewIdentifier: String { self.id!.uuidString }
 }

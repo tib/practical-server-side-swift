@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "myProject",
     platforms: [
-       .macOS(.v10_15)
+       .macOS(.v11)
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -16,6 +16,7 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/liquid", from: "1.1.0"),
         .package(url: "https://github.com/binarybirds/liquid-local-driver", from: "1.1.0"),
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1"),
+        .package(name: "MyProjectApi", path: "../MyProjectApi"),
     ],
     targets: [
         .target(name: "App", dependencies: [
@@ -25,6 +26,7 @@ let package = Package(
             .product(name: "Liquid", package: "liquid"),
             .product(name: "LiquidLocalDriver", package: "liquid-local-driver"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
+            .product(name: "MyProjectApi", package: "MyProjectApi"),
             .product(name: "Vapor", package: "vapor"),
         ],
         exclude: [
