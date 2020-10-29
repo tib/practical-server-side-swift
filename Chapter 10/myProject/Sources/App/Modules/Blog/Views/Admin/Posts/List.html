@@ -1,19 +1,16 @@
-#define(title, "Blog admin")
-#define(body):
-<div class="wrapper">
-    <h2>Posts</h2>
+#let(title = "Blog admin")
+#let(listTitle = "Posts")
+#define(listActions):
     <a href="/admin/blog/posts/new">Create</a>
-</div>
-
-<table class="wrapper">
-    <thead>
-        <tr>
-            <th class="small">Image</th>
-            <th>Title</th>
-            <th class="actions">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+#enddefine
+#define(listHead):
+    <tr>
+        <th class="small">Image</th>
+        <th>Title</th>
+        <th class="actions">Actions</th>
+    </tr>
+#enddefine
+#define(listBody):
     #for(item in list.items):
         <tr>
             <td class="small"><img src="#(item.image)"></td>
@@ -26,8 +23,5 @@
 
         </tr>
     #endfor
-    </tbody>
-</table>
-#inline("Admin/Pagination")
 #enddefine
-#inline("Admin/Index")
+#inline("Admin/List")

@@ -1,16 +1,12 @@
-#define(fieldBlock):
-#(let field = fieldData ?? nil)
+#let(field = fieldData ?? nil)
 <section>
     <label for="#(field.id)">#(field.label)</label>
     <select name="#(field.id)">
-        #for(item in field.field.options):
-        <option #if(item.key == field.field.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
+        #for(item in field.data.options):
+        <option #if(item.key == field.data.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
         #endfor
     </select>
-    #if(field.field.error != nil):
-    <span class="error">#(field.field.error)</span>
+    #if(field.data.error != nil):
+    <span class="error">#(field.data.error)</span>
     #endif
 </section>
-#enddefine
-
-#evaluate(fieldBlock)

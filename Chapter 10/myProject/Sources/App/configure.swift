@@ -5,10 +5,12 @@ import FluentSQLiteDriver
 import FluentPostgresDriver
 import Liquid
 import LiquidLocalDriver
+import LeafFoundation
 //import LiquidAwsS3Driver
 @_exported import ViewKit
 @_exported import ContentApi
 @_exported import ViperKit
+
 
 extension Environment {
 //    static let pgUrl = URL(string: Self.get("DB_URL")!)!
@@ -26,7 +28,7 @@ public func configure(_ app: Application) throws {
     app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
-    
+
 //    app.fileStorages.use(.awsS3(key: Environment.awsKey,
 //                                secret: Environment.awsSecret,
 //                                bucket: "vaportestbucket",
@@ -35,14 +37,15 @@ public func configure(_ app: Application) throws {
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
+    
+    LeafEngine.useLeafFoundation()
+    app.middleware.use(LeafFoundationMiddleware())
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     if !app.environment.isRelease {
         LeafRenderer.Option.caching = .bypass
     }
-
-    LeafEngine.entities.use(RequestSetQueryLeafFunction(), asFunction: "Request")
 
     try LeafEngine.useViperViews(viewsDirectory: app.directory.viewsDirectory,
                                  workingDirectory: app.directory.workingDirectory,

@@ -1,11 +1,8 @@
-#define(fieldBlock):
-#(let field = fieldData ?? nil)
+#let(field = fieldData ?? nil)
 <section>
     <label for="#(field.id)">#(field.label ?? field.id.capitalized())</label>
-    <textarea name="#(field.id)" class="#(field.size)">#(field.field.value)</textarea>
-    #if(field.field.error != nil):
-    <span class="error">#(field.field.error)</span>
+    <textarea name="#(field.id)" class="#(field.size)">#(field.data.value)</textarea>
+    #if(field.data.error != nil):
+    <span class="error">#(field.data.error)</span>
     #endif
 </section>
-#enddefine
-#evaluate(fieldBlock)

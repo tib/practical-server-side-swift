@@ -1,84 +1,28 @@
-#define(title, "Blog admin")
-#define(body):
-<div class="wrapper">
-    <h2><a href="/admin/blog/posts">Posts</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
-    #if(edit.id != nil):
-    <a href="/#(edit.slug.value)" target="_blank">Preview</a>
-    #endif
-</div>
+#let(title = "Blog admin")
+#define(fields):
+    #var(fieldData = nil)
 
-<form id="post-edit-form" class="wrapper" method="post" action="/admin/blog/posts/#(edit.id ?? "new")" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="#(edit.id)">
+    #(fieldData = ["id": "image", "data": edit.image])
+    #inline("Admin/Form/Fields/File")
 
-    <section>
-        <label for="image">Image</label>
-        <div id="image-uploader" class="image-uploader">
-            #if(edit.image.value != ""):
-                <img id="uploaded-image" src="#(edit.image.value)">
-            #endif
-            <a id="choose-button" href="javascript:void(0);" onclick="chooseImage();">Choose</a>
-            <a id="remove-button" href="javascript:void(0);" onclick="removeImage()">Remove</a>
-            <input id="imageDelete" name="imageDelete" type="hidden" value="false">
-            <input id="image" name="image" type="file" accept="image/jpeg" style="display:none;">
-        </div>
-        #if(edit.image.error != nil):
-        <span class="error">#(edit.image.error)</span>
-        #endif
-    </section>
-
-    #(var fieldData = nil)
-    
-    #(fieldData = ["id": "title", "required": true, "field": edit.title])
+    #(fieldData = ["id": "title", "required": true, "data": edit.title])
     #inline("Admin/Form/Fields/Text")
 
-    #(fieldData = ["id": "slug", "required": true, "field": edit.slug])
+    #(fieldData = ["id": "slug", "required": true, "data": edit.slug])
     #inline("Admin/Form/Fields/Text")
 
-    #(fieldData = ["id": "excerpt", "size": "small", "field": edit.excerpt])
+    #(fieldData = ["id": "excerpt", "size": "small", "data": edit.excerpt])
     #inline("Admin/Form/Fields/Textarea")
 
-    #(fieldData = ["id": "content", "size": "large", "field": edit.content])
+    #(fieldData = ["id": "content", "size": "large", "data": edit.content])
     #inline("Admin/Form/Fields/Textarea")
-    
-    #(fieldData = ["id": "date", "more": "Y.MM.dd. HH:mm:ss", "field": edit.date])
+
+    #(fieldData = ["id": "date", "more": "Y.MM.dd. HH:mm:ss", "data": edit.date])
     #inline("Admin/Form/Fields/Text")
-    
-    #(fieldData = ["id": "categoryId", "label": "Category", "field": edit.category])
+
+    #(fieldData = ["id": "categoryId", "label": "Category", "data": edit.category])
     #inline("Admin/Form/Fields/Selection")
-
-    <section>
-        <input type="submit" class="submit" value="Save">
-    </section>
-</form>
-
-<script>
-    function chooseImage() {
-        document.getElementById('imageDelete').value = false;
-        document.getElementById('image').click();
-    }
-    function removeImage() {
-        document.getElementById('image').value = null;
-        document.getElementById('imageDelete').value = true;
-        const element = document.getElementById('uploaded-image');
-        if (element !== null) {
-            element.parentNode.removeChild(element);
-        }
-    }
-
-    document.getElementById('image')
-    .onchange = function(event) {
-        const file = event.target.files[0];
-        const blobURL = URL.createObjectURL(file);
-        let element = document.getElementById('uploaded-image');
-        if (element === null) {
-            var newElement = document.createElement("img");
-            newElement.id = 'uploaded-image';
-            const sibling = document.getElementById('choose-button');
-            sibling.parentNode.insertBefore(newElement, sibling);
-            element = newElement;
-        }
-        element.src = blobURL;
-    }
-</script>
 #enddefine
-#inline("Admin/Index")
+
+#let(formData = ["id": edit.id, "key": "posts", "url": "/admin/blog/posts"])
+#inline("Admin/Form")

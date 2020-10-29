@@ -1,8 +1,8 @@
-#define(title, "Blog admin")
+#let(title = "Blog admin")
 #define(fields):
-    #(let fieldData = ["id": "title", "required": true, "field": edit.title])
+    #let(fieldData = ["id": "title", "required": true, "field": edit.title])
     #inline("Admin/Form/Fields/Text")
 #enddefine
 
-#(let formData = ["id": edit.id, "key": "categories", "url": "/admin/blog/categories"])
-#inline("Admin/Form/Edit")
+#let(formData = ["id": edit.id, "key": "categories", "url": "/admin/blog/categories"])
+#inline("Admin/Form")

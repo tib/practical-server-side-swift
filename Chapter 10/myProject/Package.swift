@@ -20,6 +20,7 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/view-kit", from: "1.2.0-rc"),
         .package(url: "https://github.com/binarybirds/viper-kit", from: "1.4.0-beta"),
         .package(url: "https://github.com/binarybirds/content-api", from: "1.0.5"),
+        .package(url: "https://github.com/binarybirds/leaf-foundation", from: "1.0.0-beta"),
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1"),
     ],
     targets: [
@@ -34,6 +35,7 @@ let package = Package(
             .product(name: "ViewKit", package: "view-kit"),
             .product(name: "ViperKit", package: "viper-kit"),
             .product(name: "ContentApi", package: "content-api"),
+            .product(name: "LeafFoundation", package: "leaf-foundation"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
             .product(name: "Vapor", package: "vapor"),
         ],
