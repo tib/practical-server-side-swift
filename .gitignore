@@ -6,4 +6,5 @@ MyProject.xcodeproj
 Packages
 DerivedData/
 db.sqlite
+Package.resolved
 

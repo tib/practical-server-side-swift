@@ -1,8 +1,0 @@
-#let(field = fieldData ?? nil)
-<section>
-    <label for="#(field.id)">#(field.label ?? field.id.capitalized())#if(field.required ?? false): <span class="required">(required)</span>#endif#if(field.more ?? false): <span class="more">(#(field.more))</span>#endif</label>
-    <input type="text" id="#(field.id)" name="#(field.id)" value="#(field.data.value)" class="field">
-    #if(field.data.error != nil):
-    <span class="error">#(field.data.error)</span>
-    #endif
-</section>

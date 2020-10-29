@@ -1,11 +1,11 @@
 import Vapor
 
-struct UserRouter: ViperRouter {
+struct UserRouter: RouteCollection {
     
     let controller = UserFrontendController()
     let apiController = UserApiController()
     
-    func boot(routes: RoutesBuilder, app: Application) throws {
+    func boot(routes: RoutesBuilder) throws {
         routes.get("sign-in", use: controller.loginView)
         
         routes.grouped(UserModelCredentialsAuthenticator())

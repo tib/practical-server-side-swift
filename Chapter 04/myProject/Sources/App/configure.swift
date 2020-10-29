@@ -8,6 +8,7 @@ public func configure(_ app: Application) throws {
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(ExtendPathMiddleware())
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected

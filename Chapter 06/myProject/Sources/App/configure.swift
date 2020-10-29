@@ -12,6 +12,7 @@ public func configure(_ app: Application) throws {
     app.middleware.use(app.sessions.middleware)
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(ExtendPathMiddleware())
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected

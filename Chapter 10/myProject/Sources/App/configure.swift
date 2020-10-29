@@ -2,58 +2,52 @@ import Vapor
 import Leaf
 import Fluent
 import FluentSQLiteDriver
-import FluentPostgresDriver
 import Liquid
 import LiquidLocalDriver
-import LeafFoundation
-//import LiquidAwsS3Driver
-@_exported import ViewKit
-@_exported import ContentApi
-@_exported import ViperKit
-
-
-extension Environment {
-//    static let pgUrl = URL(string: Self.get("DB_URL")!)!
-    static let appUrl = URL(string: Self.get("APP_URL")!)!
-//    static let awsKey = Self.get("AWS_KEY")!
-//    static let awsSecret = Self.get("AWS_SECRET")!
-}
 
 public func configure(_ app: Application) throws {
 
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
-    //try app.databases.use(.postgres(url: Environment.pgUrl), as: .psql)
     
     app.routes.defaultMaxBodySize = "10mb"
     app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
 
-//    app.fileStorages.use(.awsS3(key: Environment.awsKey,
-//                                secret: Environment.awsSecret,
-//                                bucket: "vaportestbucket",
-//                                region: .uswest1), as: .awsS3)
-
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
-    
-    LeafEngine.useLeafFoundation()
-    app.middleware.use(LeafFoundationMiddleware())
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.middleware.use(ExtendPathMiddleware())
+
+    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
+    LeafEngine.rootDirectory = detected
 
     if !app.environment.isRelease {
         LeafRenderer.Option.caching = .bypass
     }
 
-    try LeafEngine.useViperViews(viewsDirectory: app.directory.viewsDirectory,
-                                 workingDirectory: app.directory.workingDirectory,
-                                 fileExtension: "html",
-                                 fileio: app.fileio)
+    let defaultSource = NIOLeafFiles(fileio: app.fileio,
+                                     limits: .default,
+                                     sandboxDirectory: detected,
+                                     viewDirectory: detected,
+                                     defaultExtension: "html")
+
+    let modulesSource = ModuleViewsLeafSource(rootDirectory: app.directory.workingDirectory,
+                                              modulesLocation: "Sources/App/Modules",
+                                              viewsFolderName: "Views",
+                                              fileExtension: "html",
+                                              fileio: app.fileio)
+
+    let multipleSources = LeafSources()
+    try multipleSources.register(using: defaultSource)
+    try multipleSources.register(source: "modules", using: modulesSource)
+
+    LeafEngine.sources = multipleSources
     app.views.use(.leaf)
 
-    let modules: [ViperModule] = [
+    let modules: [Module] = [
         UserModule(),
         FrontendModule(),
         AdminModule(),
@@ -61,7 +55,9 @@ public func configure(_ app: Application) throws {
         UtilityModule(),
     ]
 
-    try app.viper.use(modules)
+    for module in modules {
+        try module.configure(app)
+    }
 
     try app.autoMigrate().wait()
 }

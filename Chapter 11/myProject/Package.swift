@@ -8,11 +8,11 @@ let package = Package(
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor", from: "4.32.0"),
+        .package(url: "https://github.com/vapor/vapor", from: "4.34.0"),
         .package(url: "https://github.com/vapor/leaf", from: "4.0.0-rc"),
         .package(url: "https://github.com/vapor/fluent", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.0.0"),
-        .package(url: "https://github.com/vapor/fluent-postgres-driver"", from: "2.1.0"),
+        .package(url: "https://github.com/vapor/fluent-postgres-driver", from: "2.1.0"),
         .package(url: "https://github.com/binarybirds/liquid", from: "1.1.0"),
         .package(url: "https://github.com/binarybirds/liquid-local-driver", from: "1.1.0"),
         //.package(url: "https://github.com/binarybirds/liquid-aws-s3-driver", from: "1.0.0"),

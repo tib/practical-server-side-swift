@@ -1,16 +1,19 @@
-#let(title = "Blog admin")
-#let(listTitle = "Categories")
-#define(listActions):
+#define(title, "Blog admin")
+#define(body):
+<div class="wrapper">
+    <h2>Categories</h2>
     <a href="/admin/blog/categories/new">Create</a>
-#enddefine
-#define(listHead):
-    <tr>
-        <th>Title</th>
-        <th class="actions">Actions</th>
-    </tr>
-#enddefine
-#define(listBody):
-    #for(item in list.items):
+</div>
+
+<table class="wrapper">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th class="actions">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    #for(item in list):
         <tr>
             <td>#(item.title)</td>
             <td class="actions">
@@ -19,5 +22,7 @@
             </td>
         </tr>
     #endfor
+    </tbody>
+</table>
 #enddefine
-#inline("Admin/List")
+#inline("Admin/Index")

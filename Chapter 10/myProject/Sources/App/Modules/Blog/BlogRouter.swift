@@ -1,12 +1,12 @@
 import Vapor
 
-struct BlogRouter: ViperRouter {
+struct BlogRouter: RouteCollection {
     
     let frontendController = BlogFrontendController()
     let postAdminController = BlogPostAdminController()
     let categoryAdminController = BlogCategoryAdminController()
     
-    func boot(routes: RoutesBuilder, app: Application) throws {
+    func boot(routes: RoutesBuilder) throws {
 
         routes.get("blog", use: frontendController.blogView)
         routes.get(.anything, use: frontendController.postView)
