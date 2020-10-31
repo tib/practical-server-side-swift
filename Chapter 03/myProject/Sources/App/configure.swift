@@ -25,6 +25,7 @@ public func configure(_ app: Application) throws {
         FrontendRouter(),
         BlogRouter(),
     ]
+    
     for router in routers {
         try router.boot(routes: app.routes)
     }
