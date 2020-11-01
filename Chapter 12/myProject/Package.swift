@@ -9,8 +9,8 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor", from: "4.34.0"),
-        //.package(url: "https://github.com/vapor/leaf", from: "4.0.0"),
-        .package(url: "https://github.com/tib/leaf", from: "4.0.0-rc"),
+        .package(url: "https://github.com/vapor/leaf", from: "4.0.0-tau"),
+        .package(url: "https://github.com/vapor/leaf-kit", from: "1.0.0-tau"),
         .package(url: "https://github.com/vapor/fluent", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.0.0"),
         .package(url: "https://github.com/binarybirds/liquid", from: "1.1.0"),
@@ -41,6 +41,7 @@ let package = Package(
             .target(name: "App"),
             .product(name: "Spec", package: "spec"),
             .product(name: "XCTVapor", package: "vapor"),
+            .product(name: "XCTLeafKit", package: "leaf-kit"),
         ])
     ]
 )

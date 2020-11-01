@@ -14,9 +14,9 @@ struct BlogMigration_v1_0_0: Migration {
                 .field(BlogPostModel.FieldKeys.title, .string, .required)
                 .field(BlogPostModel.FieldKeys.slug, .string, .required)
                 .field(BlogPostModel.FieldKeys.image, .string, .required)
-                .field(BlogPostModel.FieldKeys.excerpt, .string, .required)
+                .field(BlogPostModel.FieldKeys.excerpt, .data, .required)
                 .field(BlogPostModel.FieldKeys.date, .datetime, .required)
-                .field(BlogPostModel.FieldKeys.content, .string, .required)
+                .field(BlogPostModel.FieldKeys.content, .data, .required)
                 .field(BlogPostModel.FieldKeys.categoryId, .uuid)
                 .foreignKey(BlogPostModel.FieldKeys.categoryId,
                             references: BlogCategoryModel.schema, .id,

@@ -1,5 +1,6 @@
 @testable import App
 import XCTVapor
+import XCTLeafKit
 import Leaf
 import Fluent
 
@@ -17,13 +18,9 @@ extension XCTApplicationTester {
     }
 }
 
-open class AppTestCase: XCTestCase {
+open class AppTestCase: LeafKitTestCase {
 
     func createTestApp() throws -> Application {
-        LeafConfiguration.__VERYUNSAFEReset()
-        LeafEngine.entities = .leaf4Core
-        LeafEngine.cache.dropAll()
-
         let app = Application(.testing)
         
         try configure(app)

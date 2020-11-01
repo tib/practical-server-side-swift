@@ -57,20 +57,20 @@
       },
       {
         "package": "leaf",
-        "repositoryURL": "https://github.com/tib/leaf",
+        "repositoryURL": "https://github.com/vapor/leaf",
         "state": {
           "branch": null,
-          "revision": "dcdf9e63b1478c3c087cdd41929f036f25d2b1f0",
-          "version": "4.0.0-rc.1.9"
+          "revision": "a8348b682ec14a863cc470a2da8f0ebc262c6088",
+          "version": "4.0.0-tau.1"
         }
       },
       {
         "package": "leaf-kit",
-        "repositoryURL": "https://github.com/tib/leaf-kit.git",
+        "repositoryURL": "https://github.com/vapor/leaf-kit",
         "state": {
           "branch": null,
-          "revision": "dc555b6e9e25580471f48e577cb775d198dcf3b8",
-          "version": "1.0.0-rc.1.22"
+          "revision": "61d69289d7fadb36093732e24441be72947a910e",
+          "version": "1.0.0-tau.1"
         }
       },
       {
