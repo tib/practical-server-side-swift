@@ -1,13 +1,11 @@
 #let(title = "Blog admin")
 #define(body):
-
-#(fd.id ?? "n/a")
 <div class="wrapper">
-    <h2><a href="/admin/blog/categories">Categories</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
+    <h2><a href="/admin/blog/#(form.id)">#(form.title ?? form.id.capitalized())</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
 </div>
 
-<form id="category-edit-form" class="wrapper" method="post" action="/admin/blog/categories/#(edit.id ?? "new")">
-    <input type="hidden" name="id" value="#(edit.id)">
+<form id="#(form.id)-edit-form" class="wrapper" method="post" action="/admin/blog/#(form.id)/#(form.idValue ?? "new")/">
+    <input type="hidden" name="id" value="#(form.idValue)">
 
         #fields()
 

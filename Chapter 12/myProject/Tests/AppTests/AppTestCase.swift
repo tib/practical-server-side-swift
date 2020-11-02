@@ -22,7 +22,7 @@ open class AppTestCase: LeafKitTestCase {
 
     func createTestApp() throws -> Application {
         let app = Application(.testing)
-        
+
         try configure(app)
         app.databases.reinitialize()
         app.databases.use(.sqlite(.memory), as: .sqlite)
