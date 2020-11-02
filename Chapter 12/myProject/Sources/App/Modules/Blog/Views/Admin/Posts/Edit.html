@@ -1,117 +1,66 @@
-#let(title = "Blog admin")
-#define(body):
-<div class="wrapper">
-    <h2><a href="/admin/blog/posts">Posts</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
-    #if(edit.id != nil):
-    <a href="/#(edit.slug.value)" target="_blank">Preview</a>
+#define(fields):
+
+<section>
+    <label for="image">Image</label>
+    <div id="image-uploader" class="image-uploader">
+        #if(edit.image.value != ""):
+            <img id="uploaded-image" src="#(edit.image.value)">
+        #endif
+        <a id="choose-button" href="javascript:void(0);" onclick="chooseImage();">Choose</a>
+        <a id="remove-button" href="javascript:void(0);" onclick="removeImage()">Remove</a>
+        <input id="imageDelete" name="imageDelete" type="hidden" value="false">
+        <input id="image" name="image" type="file" accept="image/jpeg" style="display:none;">
+    </div>
+    #if(edit.image.error != nil):
+    <span class="error">#(edit.image.error)</span>
     #endif
-</div>
+</section>
 
-<form id="post-edit-form" class="wrapper" method="post" action="/admin/blog/posts/#(edit.id ?? "new")" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="#(edit.id)">
+    #var(field = nil)
 
-    <section>
-        <label for="image">Image</label>
-        <div id="image-uploader" class="image-uploader">
-            #if(edit.image.value != ""):
-                <img id="uploaded-image" src="#(edit.image.value)">
-            #endif
-            <a id="choose-button" href="javascript:void(0);" onclick="chooseImage();">Choose</a>
-            <a id="remove-button" href="javascript:void(0);" onclick="removeImage()">Remove</a>
-            <input id="imageDelete" name="imageDelete" type="hidden" value="false">
-            <input id="image" name="image" type="file" accept="image/jpeg" style="display:none;">
-        </div>
-        #if(edit.image.error != nil):
-        <span class="error">#(edit.image.error)</span>
-        #endif
-    </section>
+    #(field = ["id": "title", "required": true, "data": edit.title])
+    #inline("Admin/Fields/Text")
 
-    <section>
-        <label for="title">Title <span class="required">(required)</span></label>
-        <input id="title" type="text" name="title" value="#(edit.title.value)" class="field">
-        #if(edit.title.error != nil):
-        <span class="error">#(edit.title.error)</span>
-        #endif
-    </section>
+    #(field = ["id": "slug", "required": true, "data": edit.slug])
+    #inline("Admin/Fields/Text")
 
-    <section>
-        <label for="slug">Slug <span class="required">(required)</span></label>
-        <input id="slug" type="text" name="slug" value="#(edit.slug.value)" class="field">
-        #if(edit.slug.error != nil):
-        <span class="error">#(edit.slug.error)</span>
-        #endif
-    </section>
+<section>
+    <label for="excerpt">Excerpt</label>
+    <textarea name="excerpt" class="small">#(edit.excerpt.value)</textarea>
+    #if(edit.excerpt.error != nil):
+    <span class="error">#(edit.excerpt.error)</span>
+    #endif
+</section>
 
-    <section>
-        <label for="excerpt">Excerpt</label>
-        <textarea name="excerpt" class="small">#(edit.excerpt.value)</textarea>
-        #if(edit.excerpt.error != nil):
-        <span class="error">#(edit.excerpt.error)</span>
-        #endif
-    </section>
+<section>
+    <label for="content">Content</label>
+    <textarea id="content" name="content" class="large" >#(edit.content.value)</textarea>
+    #if(edit.content.error != nil):
+    <span class="error">#(edit.content.error)</span>
+    #endif
+</section>
 
-    <section>
-        <label for="content">Content</label>
-        <textarea id="content" name="content" class="large" >#(edit.content.value)</textarea>
-        #if(edit.content.error != nil):
-        <span class="error">#(edit.content.error)</span>
-        #endif
-    </section>
+<section>
+    <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</label></span>
+    <input type="text" name="date" value="#(edit.date.value)" class="field">
+    #if(edit.date.error != nil):
+    <span class="error">#(edit.date.error)</span>
+    #endif
+</section>
 
-    <section>
-        <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</label></span>
-        <input type="text" name="date" value="#(edit.date.value)" class="field">
-        #if(edit.date.error != nil):
-        <span class="error">#(edit.date.error)</span>
-        #endif
-    </section>
-    
-    <section>
-        <label for="categoryId">Category</label>
-        <select name="categoryId">
-            #for(item in edit.category.options):
-                <option #if(item.key == edit.category.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
-            #endfor
-        </select>
-        #if(edit.category.error != nil):
-        <span class="error">#(edit.category.error)</span>
-        #endif
-    </section>
-
-    <section>
-        <input type="submit" class="submit" value="Save">
-    </section>
-</form>
-
-<script>
-    function chooseImage() {
-        document.getElementById('imageDelete').value = false;
-        document.getElementById('image').click();
-    }
-    function removeImage() {
-        document.getElementById('image').value = null;
-        document.getElementById('imageDelete').value = true;
-        const element = document.getElementById('uploaded-image');
-        if (element !== null) {
-            element.parentNode.removeChild(element);
-        }
-    }
-
-    document.getElementById('image')
-    .onchange = function(event) {
-        const file = event.target.files[0];
-        const blobURL = URL.createObjectURL(file);
-        let element = document.getElementById('uploaded-image');
-        if (element === null) {
-            var newElement = document.createElement("img");
-            newElement.id = 'uploaded-image';
-            const sibling = document.getElementById('choose-button');
-            sibling.parentNode.insertBefore(newElement, sibling);
-            element = newElement;
-        }
-        element.src = blobURL;
-    }
-</script>
+<section>
+    <label for="categoryId">Category</label>
+    <select name="categoryId">
+        #for(item in edit.category.options):
+            <option #if(item.key == edit.category.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
+        #endfor
+    </select>
+    #if(edit.category.error != nil):
+    <span class="error">#(edit.category.error)</span>
+    #endif
+</section>
 
 #enddefine
-#inline("Admin/Index")
+
+#let(form = ["id": "posts", "idValue": edit.id])
+#inline("Admin/Form")

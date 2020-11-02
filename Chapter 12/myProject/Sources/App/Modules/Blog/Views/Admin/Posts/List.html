@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-    #for(item in list):
+    #for(item in list.items):
         <tr>
             <td class="small"><img src="#(item.image)"></td>
             <td>#(item.title)</td>
@@ -23,10 +23,10 @@
                 <a href="/admin/blog/posts/#(item.id)">Edit</a> &middot;
                 <a id="#(item.id)" href="#" onClick="confirmDelete('/admin/blog/posts/', this.id);">Delete</a>
             </td>
-
         </tr>
     #endfor
     </tbody>
 </table>
+#inline("Admin/Pagination")
 #enddefine
 #inline("Admin/Index")

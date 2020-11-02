@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-    #for(item in list):
+    #for(item in list.items):
         <tr>
             <td>#(item.title)</td>
             <td class="actions">
@@ -24,5 +24,6 @@
     #endfor
     </tbody>
 </table>
+#inline("Admin/Pagination")
 #enddefine
 #inline("Admin/Index")

@@ -15,7 +15,7 @@ final class BlogPostApiTests: AppTestCase {
             .bearerToken(token)
             .expect(.ok)
             .expect(.json)
-            .expect(Page<BlogPostModel.ListItem>.self) { content in
+            .expect(Fluent.Page<BlogPostModel.ListItem>.self) { content in
                 print(content)
             }
             .test()
@@ -49,7 +49,7 @@ final class BlogPostApiTests: AppTestCase {
             .bearerToken(token)
             .expect(.ok)
             .expect(.json)
-            .expect(Page<BlogPostModel.ListItem>.self) { content in
+            .expect(Fluent.Page<BlogPostModel.ListItem>.self) { content in
                 total += content.metadata.total
             }
             .test()
@@ -72,7 +72,7 @@ final class BlogPostApiTests: AppTestCase {
             .bearerToken(token)
             .expect(.ok)
             .expect(.json)
-            .expect(Page<BlogPostModel.ListItem>.self) { content in
+            .expect(Fluent.Page<BlogPostModel.ListItem>.self) { content in
                 XCTAssertEqual(content.metadata.total, total)
             }
             .test()

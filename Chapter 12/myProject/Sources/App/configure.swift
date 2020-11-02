@@ -1,9 +1,13 @@
 import Vapor
 import Leaf
+import LeafFoundation
+//...
 import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
+@_exported import ContentApi
+@_exported import ViewKit
 
 public func configure(_ app: Application) throws {
 
@@ -23,7 +27,9 @@ public func configure(_ app: Application) throws {
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected
-
+    //...
+    LeafEngine.useLeafFoundation()
+    //...
     if !app.environment.isRelease {
         LeafRenderer.Option.caching = .bypass
     }

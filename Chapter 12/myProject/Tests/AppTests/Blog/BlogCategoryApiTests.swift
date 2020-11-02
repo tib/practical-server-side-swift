@@ -18,7 +18,7 @@ final class BlogCategoryApiTests: AppTestCase {
                 XCTAssertEqual(res.status, .ok)
                 let contentType = try XCTUnwrap(res.headers.contentType)
                 XCTAssertEqual(contentType, .json)
-                XCTAssertContent(Page<BlogCategoryModel.ListItem>.self, res) { content in
+                XCTAssertContent(Fluent.Page<BlogCategoryModel.ListItem>.self, res) { content in
                     XCTAssertEqual(content.metadata.total, 3)
                 }
             }

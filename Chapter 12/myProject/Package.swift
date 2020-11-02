@@ -18,6 +18,9 @@ let package = Package(
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1"),
         .package(name: "MyProjectApi", path: "../MyProjectApi"),
         .package(url: "https://github.com/binarybirds/spec", from: "1.1.0"),
+        .package(url: "https://github.com/binarybirds/content-api", from: "1.0.0"),
+        .package(url: "https://github.com/binarybirds/view-kit", from: "1.2.0-rc"),
+        .package(url: "https://github.com/binarybirds/leaf-foundation", from: "1.0.0-beta"),
     ],
     targets: [
         .target(name: "App", dependencies: [
@@ -28,6 +31,9 @@ let package = Package(
             .product(name: "LiquidLocalDriver", package: "liquid-local-driver"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
             .product(name: "MyProjectApi", package: "MyProjectApi"),
+            .product(name: "ContentApi", package: "content-api"),
+            .product(name: "ViewKit", package: "view-kit"),
+            .product(name: "LeafFoundation", package: "leaf-foundation"),
             .product(name: "Vapor", package: "vapor"),
         ],
         exclude: [
