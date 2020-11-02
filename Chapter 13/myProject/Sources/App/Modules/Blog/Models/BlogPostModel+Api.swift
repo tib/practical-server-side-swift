@@ -1,4 +1,4 @@
-import ContentApi
+import Vapor
 import MyProjectApi
 
 extension BlogPostListObject: Content {}
@@ -9,47 +9,47 @@ extension BlogPostPatchObject: ValidatableContent {}
 extension BlogPostModel: ApiRepresentable {
 
     var listContent: BlogPostListObject {
-        .init(id: self.id!,
-              title: self.title,
-              slug: self.slug,
-              image: self.image,
-              excerpt: self.excerpt,
-              date: self.date)
+        .init(id: id!,
+              title: title,
+              slug: slug,
+              image: image,
+              excerpt: excerpt,
+              date: date)
     }
 
     var getContent: BlogPostGetObject {
-        .init(id: self.id!,
-              title: self.title,
-              slug: self.slug,
-              image: self.image,
-              excerpt: self.excerpt,
-              date: self.date,
-              content: self.content)
+        .init(id: id!,
+              title: title,
+              slug: slug,
+              image: image,
+              excerpt: excerpt,
+              date: date,
+              content: content)
     }
     
-    private func upsert(_ content: BlogPostUpsertObject) throws {
-        self.title = content.title
-        self.slug = content.slug
-        self.image = content.image
-        self.excerpt = content.excerpt
-        self.date = content.date
-        self.content = content.content
+    private func upsert(_ object: BlogPostUpsertObject) throws {
+        title = object.title
+        slug = object.slug
+        image = object.image
+        excerpt = object.excerpt
+        date = object.date
+        content = object.content
     }
 
-    func create(_ content: BlogPostUpsertObject) throws {
-        try self.upsert(content)
+    func create(_ object: BlogPostUpsertObject) throws {
+        try upsert(object)
     }
 
-    func update(_ content: BlogPostUpsertObject) throws {
-        try self.upsert(content)
+    func update(_ object: BlogPostUpsertObject) throws {
+        try upsert(object)
     }
 
-    func patch(_ content: BlogPostPatchObject) throws {
-        self.title = content.title ?? self.title
-        self.slug = content.slug ?? self.slug
-        self.image = content.image ?? self.image
-        self.excerpt = content.excerpt ?? self.excerpt
-        self.date = content.date ?? self.date
-        self.content = content.content ?? self.content
+    func patch(_ object: BlogPostPatchObject) throws {
+        title = object.title ?? title
+        slug = object.slug ?? slug
+        image = object.image ?? image
+        excerpt = object.excerpt ?? excerpt
+        date = object.date ?? date
+        content = object.content ?? content
     }
 }

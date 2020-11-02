@@ -1,12 +1,11 @@
 import Vapor
 import Fluent
-import ContentApi
-import ViperKit
 
 final class UserTokenModel: ViperModel {
-    typealias Module = UserModule
     
-    static let name = "tokens"
+    typealias Module = UserModule
+
+    static var name: String = "tokens"
     
     struct FieldKeys {
         static var value: FieldKey { "value" }
@@ -27,7 +26,7 @@ final class UserTokenModel: ViperModel {
     {
         self.id = id
         self.value = value
-        self.$user.id = userId
+        $user.id = userId
     }
 }
 
@@ -38,19 +37,4 @@ extension UserTokenModel: ModelTokenAuthenticatable {
     var isValid: Bool {
         true
     }
-}
-
-extension UserTokenModel: GetContentRepresentable {
-
-    struct GetContent: Content {
-        var id: String
-        var value: String
-
-        init(model: UserTokenModel) {
-            self.id = model.id!.uuidString
-            self.value = model.value
-        }
-    }
-
-    var getContent: GetContent { .init(model: self) }
 }

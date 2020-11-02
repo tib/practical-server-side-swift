@@ -3,9 +3,9 @@ import Fluent
 import Leaf
 import Liquid
 
-struct BlogPostAdminController: AdminViewController {
+struct BlogPostAdminController: ViperAdminViewController {
+    typealias Module = BlogModule
     typealias Model = BlogCategoryModel
-    typealias Model = BlogPostModel
     typealias EditForm = BlogPostEditForm
 
     private func generateUniqueAssetLocationKey() -> String {
