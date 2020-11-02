@@ -3,5 +3,6 @@
     #(field = ["id": "title", "required": true, "data": edit.title])
     #inline("Admin/Fields/Text")
 #enddefine
-#let(form = ["id": "categories", "idValue": edit.id])
+#let(title = "Blog categories")
+#let(form = ["key": "categories", "id": edit.id, "url": "admin/blog/categories"])
 #inline("Admin/Form")

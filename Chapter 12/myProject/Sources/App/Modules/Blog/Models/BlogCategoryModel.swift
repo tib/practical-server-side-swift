@@ -2,9 +2,11 @@ import Vapor
 import Fluent
 import Leaf
 
-final class BlogCategoryModel: Model {
+final class BlogCategoryModel: ViperModel {
 
-    static let schema = "blog_categories"
+    typealias Module = BlogModule
+
+    static var name: String = "categories"
     
     struct FieldKeys {
         static var title: FieldKey { "title" }

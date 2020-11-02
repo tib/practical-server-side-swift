@@ -1,16 +1,15 @@
-#let(title = "Blog admin")
 #define(body):
 <div class="wrapper">
-    <h2><a href="/admin/blog/#(form.id)">#(form.title ?? form.id.capitalized())</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
+    <h2><a href="/#(form.url)">#(form.title ?? form.key.capitalized())</a> / #(form.id != nil ? "Edit" : "Create")</h2>
 </div>
 
-<form id="#(form.id)-edit-form" class="wrapper" method="post" action="/admin/blog/#(form.id)/#(form.idValue ?? "new")/">
-    <input type="hidden" name="id" value="#(form.idValue)">
+<form id="#(form.key)-edit-form" class="wrapper" method="post" action="/#(form.url)/#(form.id ?? "new")/">
+    <input type="hidden" name="id" value="#(form.id)">
 
         #fields()
 
     <section>
-        <input type="submit" class="submit" value="Save">
+        <input type="submit" class="submit" value="#(form.button ?? "Save")">
     </section>
 </form>
 #enddefine

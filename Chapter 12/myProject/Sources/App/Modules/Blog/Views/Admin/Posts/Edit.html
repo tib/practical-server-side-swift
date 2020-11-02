@@ -1,22 +1,9 @@
 #define(fields):
 
-<section>
-    <label for="image">Image</label>
-    <div id="image-uploader" class="image-uploader">
-        #if(edit.image.value != ""):
-            <img id="uploaded-image" src="#(edit.image.value)">
-        #endif
-        <a id="choose-button" href="javascript:void(0);" onclick="chooseImage();">Choose</a>
-        <a id="remove-button" href="javascript:void(0);" onclick="removeImage()">Remove</a>
-        <input id="imageDelete" name="imageDelete" type="hidden" value="false">
-        <input id="image" name="image" type="file" accept="image/jpeg" style="display:none;">
-    </div>
-    #if(edit.image.error != nil):
-    <span class="error">#(edit.image.error)</span>
-    #endif
-</section>
-
     #var(field = nil)
+
+    #(field = ["id": "image", "data": edit.image])
+    #inline("Admin/Fields/File")
 
     #(field = ["id": "title", "required": true, "data": edit.title])
     #inline("Admin/Fields/Text")
@@ -24,43 +11,20 @@
     #(field = ["id": "slug", "required": true, "data": edit.slug])
     #inline("Admin/Fields/Text")
 
-<section>
-    <label for="excerpt">Excerpt</label>
-    <textarea name="excerpt" class="small">#(edit.excerpt.value)</textarea>
-    #if(edit.excerpt.error != nil):
-    <span class="error">#(edit.excerpt.error)</span>
-    #endif
-</section>
+    #(field = ["id": "excerpt", "size": "small", "data": edit.excerpt])
+    #inline("Admin/Fields/Textarea")
 
-<section>
-    <label for="content">Content</label>
-    <textarea id="content" name="content" class="large" >#(edit.content.value)</textarea>
-    #if(edit.content.error != nil):
-    <span class="error">#(edit.content.error)</span>
-    #endif
-</section>
+    #(field = ["id": "content", "size": "large", "data": edit.content])
+    #inline("Admin/Fields/Textarea")
 
-<section>
-    <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</label></span>
-    <input type="text" name="date" value="#(edit.date.value)" class="field">
-    #if(edit.date.error != nil):
-    <span class="error">#(edit.date.error)</span>
-    #endif
-</section>
+    #(field = ["id": "date", "more": "Y.MM.dd. HH:mm:ss", "data": edit.date])
+    #inline("Admin/Fields/Text")
 
-<section>
-    <label for="categoryId">Category</label>
-    <select name="categoryId">
-        #for(item in edit.category.options):
-            <option #if(item.key == edit.category.value): selected="selected" #endif value="#(item.key)">#(item.label)</option>
-        #endfor
-    </select>
-    #if(edit.category.error != nil):
-    <span class="error">#(edit.category.error)</span>
-    #endif
-</section>
+    #(field = ["id": "categoryId", "label": "Category", "data": edit.category])
+    #inline("Admin/Fields/Selection")
 
 #enddefine
 
-#let(form = ["id": "posts", "idValue": edit.id])
+#let(title = "Blog posts")
+#let(form = ["key": "posts", "id": edit.id, "url": "admin/blog/posts"])
 #inline("Admin/Form")

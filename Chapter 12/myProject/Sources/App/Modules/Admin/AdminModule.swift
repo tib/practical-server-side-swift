@@ -1,9 +1,9 @@
 import Vapor
 import Fluent
 
-struct AdminModule: Module {
+struct AdminModule: ViperModule {
     
-    var name: String = "admin"
+    static var name: String = "admin"
     
-    var router: RouteCollection? { AdminRouter() }
+    var router: ViperRouter? { AdminRouter() }
 }

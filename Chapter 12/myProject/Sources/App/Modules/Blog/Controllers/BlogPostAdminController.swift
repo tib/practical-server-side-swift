@@ -4,13 +4,14 @@ import Leaf
 import Liquid
 
 struct BlogPostAdminController: AdminViewController {
-    
-    typealias EditForm = BlogPostEditForm
+    typealias Model = BlogCategoryModel
     typealias Model = BlogPostModel
-    
-    var listView: String = "Blog/Admin/Posts/List"
-    var editView: String = "Blog/Admin/Posts/Edit"
-    
+    typealias EditForm = BlogPostEditForm
+
+    private func generateUniqueAssetLocationKey() -> String {
+        Model.path + UUID().uuidString + ".jpg"
+    }
+
     func beforeRender(req: Request, form: BlogPostEditForm) -> EventLoopFuture<Void> {
         BlogCategoryModel.query(on: req.db).all()
             .mapEach(\.formFieldStringOption)
@@ -20,7 +21,7 @@ struct BlogPostAdminController: AdminViewController {
     func beforeCreate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
         var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
         if let data = form.image.data {
-            let key = "/blog/posts/" + UUID().uuidString + ".jpg"
+            let key = generateUniqueAssetLocationKey()
             future = req.fs.upload(key: key, data: data).map { url in
                 form.image.value = url
                 model.imageKey = key
@@ -46,7 +47,7 @@ struct BlogPostAdminController: AdminViewController {
         }
         if let data = form.image.data {
             return future.flatMap { model in
-                let key = "/blog/posts/" + UUID().uuidString + ".jpg"
+                let key = generateUniqueAssetLocationKey()
                 return req.fs.upload(key: key, data: data).map { url in
                     form.image.value = url
                     model.imageKey = key

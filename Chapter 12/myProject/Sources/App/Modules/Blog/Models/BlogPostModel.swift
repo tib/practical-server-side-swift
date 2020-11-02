@@ -1,9 +1,11 @@
 import Vapor
 import Fluent
 
-final class BlogPostModel: Model {
+final class BlogPostModel: ViperModel {
     
-    static let schema: String = "blog_posts"
+    typealias Module = BlogModule
+
+    static var name: String = "posts"
 
     struct FieldKeys {
         static var title: FieldKey { "title" }

@@ -1,13 +1,23 @@
 import Vapor
 import Leaf
 import LeafFoundation
-//...
 import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
 @_exported import ContentApi
 @_exported import ViewKit
+@_exported import ViperKit
+
+protocol ViperAdminViewController: AdminViewController where Model: ViperModel  {
+    associatedtype Module: ViperModule
+}
+
+extension ViperAdminViewController {
+
+    var listView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/List" }
+    var editView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/Edit" }
+}
 
 public func configure(_ app: Application) throws {
 
@@ -27,33 +37,21 @@ public func configure(_ app: Application) throws {
 
     let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
     LeafEngine.rootDirectory = detected
-    //...
     LeafEngine.useLeafFoundation()
-    //...
+
     if !app.environment.isRelease {
         LeafRenderer.Option.caching = .bypass
     }
 
-    let defaultSource = NIOLeafFiles(fileio: app.fileio,
-                                     limits: .default,
-                                     sandboxDirectory: detected,
-                                     viewDirectory: detected,
-                                     defaultExtension: "html")
-
-    let modulesSource = ModuleViewsLeafSource(rootDirectory: app.directory.workingDirectory,
-                                              modulesLocation: "Sources/App/Modules",
-                                              viewsFolderName: "Views",
-                                              fileExtension: "html",
-                                              fileio: app.fileio)
-
-    let multipleSources = LeafSources()
-    try multipleSources.register(using: defaultSource)
-    try multipleSources.register(source: "modules", using: modulesSource)
-
-    LeafEngine.sources = multipleSources
+    try LeafEngine.useViperViews(viewsDirectory: app.directory.viewsDirectory,
+                                 workingDirectory: app.directory.workingDirectory,
+                                 modulesLocation: "Sources/App/Modules",
+                                 moduleViewsLocation: "Views",
+                                 fileExtension: "html",
+                                 fileio: app.fileio)
     app.views.use(.leaf)
 
-    let modules: [Module] = [
+    let modules: [ViperModule] = [
         UserModule(),
         FrontendModule(),
         AdminModule(),

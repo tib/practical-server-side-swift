@@ -1,8 +1,11 @@
 import Vapor
 import Fluent
 
-final class UserTokenModel: Model {
-    static let schema = "user_tokens"
+final class UserTokenModel: ViperModel {
+    
+    typealias Module = UserModule
+
+    static var name: String = "tokens"
     
     struct FieldKeys {
         static var value: FieldKey { "value" }
