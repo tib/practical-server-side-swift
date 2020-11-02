@@ -19,7 +19,7 @@ final class MyProjectApiService: ApiServiceInterface {
     }
 
     func getBlogPosts() -> AnyPublisher<Page<BlogPostListObject>, HTTP.Error> {
-        let url = URL(string: self.baseUrl + "/blog/posts")!
+        let url = URL(string: self.baseUrl + "/blog/posts/")!
         var request = URLRequest(url: url)
         request.httpMethod = HTTP.Method.get.rawValue.uppercased()
         

@@ -1,0 +1,17 @@
+#define(body):
+<section class="wrapper">
+    <h2>#(header)</h2>
+</section>
+<section class="wrapper">
+    <p>#(message)</p>
+</section>
+<section class="wrapper">
+    #if(isLoggedIn):
+    <p><b>#(email)</b> is logged in</p>
+    <a href="/admin/">Admin</a> &middot; <a href="/logout/">Logout</a>
+    #else:
+    <a href="/sign-in/">Sign in</a>
+    #endif
+</section>
+#enddefine
+#inline("Frontend/Index")

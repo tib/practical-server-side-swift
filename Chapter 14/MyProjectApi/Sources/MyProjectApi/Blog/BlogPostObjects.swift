@@ -77,4 +77,3 @@ public struct BlogPostPatchObject: Codable {
         self.categoryId = categoryId
     }
 }
-

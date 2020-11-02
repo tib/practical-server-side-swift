@@ -19,7 +19,7 @@ extension RootInteractor: RootInteractorPresenterInterface {
     func list() -> AnyPublisher<RootEntity, Error> {
         self.services.api.getBlogPosts()
         .map { page -> RootEntity in
-            let domain = "http://localhost:8080"
+            let domain = "http://127.0.0.1:8080"
             return .init(items: page.items.map {
                 .init(id: $0.id,
                       title: $0.title,

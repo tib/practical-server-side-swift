@@ -1,9 +1,12 @@
-import ViperKit
+import Vapor
+import Fluent
+import Leaf
 
 final class BlogCategoryModel: ViperModel {
+
     typealias Module = BlogModule
 
-    static let name = "categories"
+    static var name: String = "categories"
     
     struct FieldKeys {
         static var title: FieldKey { "title" }
@@ -22,3 +25,4 @@ final class BlogCategoryModel: ViperModel {
         self.title = title
     }
 }
+

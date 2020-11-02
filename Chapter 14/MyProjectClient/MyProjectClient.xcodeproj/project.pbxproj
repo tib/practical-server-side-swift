@@ -97,8 +97,8 @@
 		16C6E73524AA232E00F362D4 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E73624AA232E00F362D4 /* Sources */,
 				16C6E75424AA232E00F362D4 /* Assets */,
+				16C6E73624AA232E00F362D4 /* Sources */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Tibor Bodecs";
 				TargetAttributes = {
 					16C6E71D24AA231000F362D4 = {
@@ -251,7 +251,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 16C6E71924AA231000F362D4 /* Build configuration list for PBXProject "MyProject" */;
+			buildConfigurationList = 16C6E71924AA231000F362D4 /* Build configuration list for PBXProject "MyProjectClient" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -353,6 +353,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -413,6 +414,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -480,7 +482,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		16C6E71924AA231000F362D4 /* Build configuration list for PBXProject "MyProject" */ = {
+		16C6E71924AA231000F362D4 /* Build configuration list for PBXProject "MyProjectClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16C6E73024AA231300F362D4 /* Debug */,

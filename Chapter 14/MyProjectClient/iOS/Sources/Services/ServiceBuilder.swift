@@ -11,6 +11,6 @@ import Foundation
 final class ServiceBuilder: ServiceBuilderInterface {
 
     lazy var api: ApiServiceInterface = {
-        MyProjectApiService(baseUrl: "http://localhost:8080/api")
+        MyProjectApiService(baseUrl: "http://127.0.0.1:8080/api")
     }()
 }

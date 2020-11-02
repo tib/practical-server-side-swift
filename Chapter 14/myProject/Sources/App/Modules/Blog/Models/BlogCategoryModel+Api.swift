@@ -1,4 +1,4 @@
-import ContentApi
+import Vapor
 import MyProjectApi
 
 extension BlogCategoryListObject: Content {}
@@ -20,27 +20,27 @@ extension BlogCategoryPatchObject: ValidatableContent {
 }
 extension BlogCategoryModel: ListContentRepresentable {
     var listContent: BlogCategoryListObject {
-        .init(id: self.id!, title: self.title)
+        .init(id: id!, title: title)
     }
 }
 extension BlogCategoryModel: GetContentRepresentable {
     var getContent: BlogCategoryGetObject {
-        .init(id: self.id!, title: self.title)
+        .init(id: id!, title: title)
     }
 }
 extension BlogCategoryModel: CreateContentRepresentable {
-    func create(_ content: BlogCategoryCreateObject) throws {
-        self.title = content.title
+    func create(_ object: BlogCategoryCreateObject) throws {
+        title = object.title
     }
 }
 extension BlogCategoryModel: UpdateContentRepresentable {
-    func update(_ content: BlogCategoryUpdateObject) throws {
-        self.title = content.title
+    func update(_ object: BlogCategoryUpdateObject) throws {
+        title = object.title
     }
 }
 extension BlogCategoryModel: PatchContentRepresentable {
-    func patch(_ content: BlogCategoryPatchObject) throws {
-        self.title = content.title
+    func patch(_ object: BlogCategoryPatchObject) throws {
+        title = object.title
     }
 }
 extension BlogCategoryModel: DeleteContentRepresentable {}

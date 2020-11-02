@@ -1,0 +1,18 @@
+#define(body):
+<section id="blog" class="wrapper">
+    <h2>Blog</h2>
+
+    #for(post in posts):
+    <article>
+        <a href="/#(post.slug)/">
+            <img src="#(post.image)">
+            <h3>#(post.title)</h3>
+            <p>#(post.excerpt)</p>
+            <p class="category">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category.title ?? "Uncategorized")</p>
+        </a>
+    </article>
+    #endfor
+
+</section>
+#enddefine
+#inline("Frontend/Index")
