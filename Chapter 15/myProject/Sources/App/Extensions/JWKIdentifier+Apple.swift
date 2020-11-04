@@ -2,5 +2,5 @@ import Vapor
 import JWT
 
 extension JWKIdentifier {
-    static let apple = JWKIdentifier(string: Environment.siwaJWKId)
+    static let apple = JWKIdentifier(string: Environment.SignInWithApple.jwkId)
 }

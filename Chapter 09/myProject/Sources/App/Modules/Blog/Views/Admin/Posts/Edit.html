@@ -1,7 +1,7 @@
 #let(title = "Blog admin")
 #define(body):
 <div class="wrapper">
-    <h2><a href="/admin/blog/posts">Posts</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
+    <h2><a href="/admin/blog/posts/">Posts</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
     #if(edit.id != nil):
     <a href="/#(edit.slug.value)" target="_blank">Preview</a>
     #endif

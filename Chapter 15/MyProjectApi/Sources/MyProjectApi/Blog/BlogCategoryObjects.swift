@@ -45,4 +45,3 @@ public struct BlogCategoryPatchObject: Codable {
         self.title = title
     }
 }
-

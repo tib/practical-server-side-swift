@@ -1,21 +1,30 @@
 import Vapor
 
 extension Environment {
-    static let dbHost = Self.get("DB_HOST")!
-    static let dbUser = Self.get("DB_USER")!
-    static let dbPass = Self.get("DB_PASS")!
-    static let dbName = Self.get("DB_NAME")!
 
-    static let fsName = Self.get("FS_NAME")!
-    static let fsRegion = Self.get("FS_REGION")!
-
-    static let awsKey = Self.get("AWS_KEY")!
-    static let awsSecret = Self.get("AWS_SECRET")!
+    struct SignInWithApple {
+        /// com.example.siwa.service
+        static let id = Environment.get("SIWA_ID")!
+        /// https://example.com/siwa-redirect
+        static let redirectUrl = Environment.get("SIWA_REDIRECT_URL")!
+        /// XXXXXXXXXX
+        static let jwkId = Environment.get("SIWA_JWK_ID")!
+        /// https://en.wikipedia.org/wiki/Base64
+        static let privateKey = Environment.get("SIWA_PRIVATE_KEY")!.base64Decoded()!
+        /// XXXXXXXXXX
+        static let teamId = Environment.get("SIWA_TEAM_ID")!
+        /// com.example.ios.app
+        static let appBundleId = Environment.get("SIWA_APP_BUNDLE_ID")!
+    }
     
-    static let siwaId = Self.get("SIWA_ID")!
-    static let siwaAppId = Self.get("SIWA_APP_ID")!
-    static let siwaRedirectUrl = Self.get("SIWA_REDIRECT_URL")!
-    static let siwaTeamId = Self.get("SIWA_TEAM_ID")!
-    static let siwaJWKId = Self.get("SIWA_JWK_ID")!
-    static let siwaKey = Self.get("SIWA_KEY")!.base64Decoded()!
+    struct Apns {
+        /// XXXXXXXXXX
+        static let keyId = Environment.get("APNS_KEY_ID")!
+        /// https://en.wikipedia.org/wiki/Base64
+        static let privateKey = Environment.get("APNS_PRIVATE_KEY")!.base64Decoded()!
+        /// XXXXXXXXXX
+        static let teamId = Environment.get("APNS_TEAM_ID")!
+        /// com.example.ios.app
+        static let topic = Environment.get("APNS_TOPIC")!
+    }
 }

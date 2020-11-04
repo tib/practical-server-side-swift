@@ -1,11 +1,11 @@
 import Vapor
 import Fluent
-import ViperKit
 
 final class UserModel: ViperModel {
+    
     typealias Module = UserModule
-        
-    static let name = "users"
+
+    static var name: String = "users"
 
     struct FieldKeys {
         static var email: FieldKey { "email" }
@@ -19,7 +19,8 @@ final class UserModel: ViperModel {
     @Field(key: FieldKeys.email) var email: String
     @Field(key: FieldKeys.password) var password: String
     @Field(key: FieldKeys.appleId) var appleId: String?
-    
+    @Children(for: \.$user) var devices: [UserDeviceModel]
+
     init() { }
     
     init(id: UserModel.IDValue? = nil,
@@ -37,5 +38,9 @@ final class UserModel: ViperModel {
 extension UserModel: SessionAuthenticatable {
     typealias SessionID = UUID
 
-    var sessionID: SessionID { self.id! }
+    var sessionID: SessionID { id! }
+}
+
+extension UserModel: Authenticatable {
+    
 }

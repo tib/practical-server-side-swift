@@ -21,4 +21,10 @@ extension AccountInteractor: AccountInteractorPresenterInterface {
         .mapError { $0 as Error }
         .eraseToAnyPublisher()
     }
+
+    func register(deviceToken: String, bearerToken: String) -> AnyPublisher<Void, Error> {
+        self.services.api.register(deviceToken: deviceToken, bearerToken: bearerToken)
+        .mapError { $0 as Error }
+        .eraseToAnyPublisher()
+    }
 }

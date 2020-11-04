@@ -1,12 +1,11 @@
 import Vapor
 import Fluent
-import ContentApi
-import ViperKit
 
 final class UserTokenModel: ViperModel {
-    typealias Module = UserModule
     
-    static let name = "tokens"
+    typealias Module = UserModule
+
+    static var name: String = "tokens"
     
     struct FieldKeys {
         static var value: FieldKey { "value" }
@@ -27,16 +26,7 @@ final class UserTokenModel: ViperModel {
     {
         self.id = id
         self.value = value
-        self.$user.id = userId
-    }
-}
-
-extension UserTokenModel {
-
-    static func create(on db: Database, for userId: UUID) -> EventLoopFuture<UserTokenModel> {
-        let tokenValue = [UInt8].random(count: 16).base64
-        let token = UserTokenModel(value: tokenValue, userId: userId)
-        return token.create(on: db).map { token }
+        $user.id = userId
     }
 }
 
@@ -49,17 +39,11 @@ extension UserTokenModel: ModelTokenAuthenticatable {
     }
 }
 
-extension UserTokenModel: GetContentRepresentable {
+extension UserTokenModel {
 
-    struct GetContent: Content {
-        var id: String
-        var value: String
-
-        init(model: UserTokenModel) {
-            self.id = model.id!.uuidString
-            self.value = model.value
-        }
+    static func create(on db: Database, for userId: UUID) -> EventLoopFuture<UserTokenModel> {
+        let tokenValue = [UInt8].random(count: 16).base64
+        let token = UserTokenModel(value: tokenValue, userId: userId)
+        return token.create(on: db).map { token }
     }
-
-    var getContent: GetContent { .init(model: self) }
 }

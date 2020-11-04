@@ -9,71 +9,71 @@
 /* Begin PBXBuildFile section */
 		16C6E77424AA237F00F362D4 /* MyProjectApi in Frameworks */ = {isa = PBXBuildFile; productRef = 16C6E77324AA237F00F362D4 /* MyProjectApi */; };
 		16C6E77724AA239C00F362D4 /* VIPER in Frameworks */ = {isa = PBXBuildFile; productRef = 16C6E77624AA239C00F362D4 /* VIPER */; };
-		16C6E7A424AA28DA00F362D4 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E77C24AA28DA00F362D4 /* CustomCell.swift */; };
-		16C6E7A524AA28DA00F362D4 /* URLSession+DowloadTaskPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E77E24AA28DA00F362D4 /* URLSession+DowloadTaskPublisher.swift */; };
-		16C6E7A624AA28DA00F362D4 /* URLSession+DownloadTaskSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E77F24AA28DA00F362D4 /* URLSession+DownloadTaskSubscription.swift */; };
-		16C6E7A724AA28DA00F362D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78024AA28DA00F362D4 /* AppDelegate.swift */; };
-		16C6E7A824AA28DA00F362D4 /* ModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78224AA28DA00F362D4 /* ModuleRouter.swift */; };
-		16C6E7A924AA28DA00F362D4 /* ModuleBuilderInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78324AA28DA00F362D4 /* ModuleBuilderInterface.swift */; };
-		16C6E7AA24AA28DA00F362D4 /* RootModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78524AA28DA00F362D4 /* RootModule.swift */; };
-		16C6E7AB24AA28DA00F362D4 /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78624AA28DA00F362D4 /* RootInteractor.swift */; };
-		16C6E7AC24AA28DA00F362D4 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78724AA28DA00F362D4 /* RootRouter.swift */; };
-		16C6E7AD24AA28DA00F362D4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78824AA28DA00F362D4 /* RootView.swift */; };
-		16C6E7AE24AA28DA00F362D4 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78924AA28DA00F362D4 /* RootPresenter.swift */; };
-		16C6E7AF24AA28DA00F362D4 /* RootEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78A24AA28DA00F362D4 /* RootEntity.swift */; };
-		16C6E7B024AA28DA00F362D4 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78C24AA28DA00F362D4 /* AccountRouter.swift */; };
-		16C6E7B124AA28DA00F362D4 /* AccountModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78D24AA28DA00F362D4 /* AccountModule.swift */; };
-		16C6E7B224AA28DA00F362D4 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78E24AA28DA00F362D4 /* AccountInteractor.swift */; };
-		16C6E7B324AA28DA00F362D4 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E78F24AA28DA00F362D4 /* AccountPresenter.swift */; };
-		16C6E7B424AA28DA00F362D4 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79024AA28DA00F362D4 /* AccountView.swift */; };
-		16C6E7B524AA28DA00F362D4 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79124AA28DA00F362D4 /* ModuleBuilder.swift */; };
-		16C6E7B624AA28DA00F362D4 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79224AA28DA00F362D4 /* App.swift */; };
-		16C6E7B724AA28DA00F362D4 /* ServiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79424AA28DA00F362D4 /* ServiceInteractor.swift */; };
-		16C6E7B824AA28DA00F362D4 /* MyProjectApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79724AA28DA00F362D4 /* MyProjectApiService.swift */; };
-		16C6E7B924AA28DA00F362D4 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79824AA28DA00F362D4 /* HTTP.swift */; };
-		16C6E7BA24AA28DA00F362D4 /* ApiServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79924AA28DA00F362D4 /* ApiServiceInterface.swift */; };
-		16C6E7BB24AA28DA00F362D4 /* ServiceBuilderInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79A24AA28DA00F362D4 /* ServiceBuilderInterface.swift */; };
-		16C6E7BC24AA28DA00F362D4 /* ServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79B24AA28DA00F362D4 /* ServiceInterface.swift */; };
-		16C6E7BD24AA28DA00F362D4 /* ServiceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79C24AA28DA00F362D4 /* ServiceBuilder.swift */; };
-		16C6E7BE24AA28DA00F362D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E79D24AA28DA00F362D4 /* SceneDelegate.swift */; };
-		16C6E7BF24AA28DA00F362D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16C6E79F24AA28DA00F362D4 /* Assets.xcassets */; };
-		16C6E7C024AA28DA00F362D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16C6E7A124AA28DA00F362D4 /* LaunchScreen.storyboard */; };
+		16C6E7EE24AA291B00F362D4 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7C624AA291A00F362D4 /* CustomCell.swift */; };
+		16C6E7EF24AA291B00F362D4 /* URLSession+DowloadTaskPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7C824AA291A00F362D4 /* URLSession+DowloadTaskPublisher.swift */; };
+		16C6E7F024AA291B00F362D4 /* URLSession+DownloadTaskSubscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7C924AA291A00F362D4 /* URLSession+DownloadTaskSubscription.swift */; };
+		16C6E7F124AA291B00F362D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7CA24AA291A00F362D4 /* AppDelegate.swift */; };
+		16C6E7F224AA291B00F362D4 /* ModuleRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7CC24AA291A00F362D4 /* ModuleRouter.swift */; };
+		16C6E7F324AA291B00F362D4 /* ModuleBuilderInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7CD24AA291A00F362D4 /* ModuleBuilderInterface.swift */; };
+		16C6E7F424AA291B00F362D4 /* RootModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7CF24AA291A00F362D4 /* RootModule.swift */; };
+		16C6E7F524AA291B00F362D4 /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D024AA291A00F362D4 /* RootInteractor.swift */; };
+		16C6E7F624AA291B00F362D4 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D124AA291A00F362D4 /* RootRouter.swift */; };
+		16C6E7F724AA291B00F362D4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D224AA291A00F362D4 /* RootView.swift */; };
+		16C6E7F824AA291B00F362D4 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D324AA291A00F362D4 /* RootPresenter.swift */; };
+		16C6E7F924AA291B00F362D4 /* RootEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D424AA291A00F362D4 /* RootEntity.swift */; };
+		16C6E7FA24AA291B00F362D4 /* AccountRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D624AA291A00F362D4 /* AccountRouter.swift */; };
+		16C6E7FB24AA291B00F362D4 /* AccountModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D724AA291A00F362D4 /* AccountModule.swift */; };
+		16C6E7FC24AA291B00F362D4 /* AccountInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D824AA291A00F362D4 /* AccountInteractor.swift */; };
+		16C6E7FD24AA291B00F362D4 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7D924AA291A00F362D4 /* AccountPresenter.swift */; };
+		16C6E7FE24AA291B00F362D4 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7DA24AA291A00F362D4 /* AccountView.swift */; };
+		16C6E7FF24AA291B00F362D4 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7DB24AA291A00F362D4 /* ModuleBuilder.swift */; };
+		16C6E80024AA291B00F362D4 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7DC24AA291A00F362D4 /* App.swift */; };
+		16C6E80124AA291B00F362D4 /* ServiceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7DE24AA291B00F362D4 /* ServiceInteractor.swift */; };
+		16C6E80224AA291B00F362D4 /* MyProjectApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E124AA291B00F362D4 /* MyProjectApiService.swift */; };
+		16C6E80324AA291B00F362D4 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E224AA291B00F362D4 /* HTTP.swift */; };
+		16C6E80424AA291B00F362D4 /* ApiServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E324AA291B00F362D4 /* ApiServiceInterface.swift */; };
+		16C6E80524AA291B00F362D4 /* ServiceBuilderInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E424AA291B00F362D4 /* ServiceBuilderInterface.swift */; };
+		16C6E80624AA291B00F362D4 /* ServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E524AA291B00F362D4 /* ServiceInterface.swift */; };
+		16C6E80724AA291B00F362D4 /* ServiceBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E624AA291B00F362D4 /* ServiceBuilder.swift */; };
+		16C6E80824AA291B00F362D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C6E7E724AA291B00F362D4 /* SceneDelegate.swift */; };
+		16C6E80924AA291B00F362D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16C6E7E924AA291B00F362D4 /* Assets.xcassets */; };
+		16C6E80A24AA291B00F362D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16C6E7EB24AA291B00F362D4 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16C6E71E24AA231000F362D4 /* MyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16C6E77124AA234300F362D4 /* MyProjectApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MyProjectApi; path = ../MyProjectApi; sourceTree = "<group>"; };
-		16C6E77C24AA28DA00F362D4 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		16C6E77E24AA28DA00F362D4 /* URLSession+DowloadTaskPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+DowloadTaskPublisher.swift"; sourceTree = "<group>"; };
-		16C6E77F24AA28DA00F362D4 /* URLSession+DownloadTaskSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+DownloadTaskSubscription.swift"; sourceTree = "<group>"; };
-		16C6E78024AA28DA00F362D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		16C6E78224AA28DA00F362D4 /* ModuleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleRouter.swift; sourceTree = "<group>"; };
-		16C6E78324AA28DA00F362D4 /* ModuleBuilderInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleBuilderInterface.swift; sourceTree = "<group>"; };
-		16C6E78524AA28DA00F362D4 /* RootModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModule.swift; sourceTree = "<group>"; };
-		16C6E78624AA28DA00F362D4 /* RootInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
-		16C6E78724AA28DA00F362D4 /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		16C6E78824AA28DA00F362D4 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		16C6E78924AA28DA00F362D4 /* RootPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
-		16C6E78A24AA28DA00F362D4 /* RootEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootEntity.swift; sourceTree = "<group>"; };
-		16C6E78C24AA28DA00F362D4 /* AccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
-		16C6E78D24AA28DA00F362D4 /* AccountModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModule.swift; sourceTree = "<group>"; };
-		16C6E78E24AA28DA00F362D4 /* AccountInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
-		16C6E78F24AA28DA00F362D4 /* AccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
-		16C6E79024AA28DA00F362D4 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		16C6E79124AA28DA00F362D4 /* ModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
-		16C6E79224AA28DA00F362D4 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		16C6E79424AA28DA00F362D4 /* ServiceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInteractor.swift; sourceTree = "<group>"; };
-		16C6E79724AA28DA00F362D4 /* MyProjectApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProjectApiService.swift; sourceTree = "<group>"; };
-		16C6E79824AA28DA00F362D4 /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
-		16C6E79924AA28DA00F362D4 /* ApiServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceInterface.swift; sourceTree = "<group>"; };
-		16C6E79A24AA28DA00F362D4 /* ServiceBuilderInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBuilderInterface.swift; sourceTree = "<group>"; };
-		16C6E79B24AA28DA00F362D4 /* ServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInterface.swift; sourceTree = "<group>"; };
-		16C6E79C24AA28DA00F362D4 /* ServiceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBuilder.swift; sourceTree = "<group>"; };
-		16C6E79D24AA28DA00F362D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		16C6E79F24AA28DA00F362D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		16C6E7A024AA28DA00F362D4 /* MyProject.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MyProject.entitlements; sourceTree = "<group>"; };
-		16C6E7A224AA28DA00F362D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		16C6E7A324AA28DA00F362D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16C6E7C624AA291A00F362D4 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		16C6E7C824AA291A00F362D4 /* URLSession+DowloadTaskPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+DowloadTaskPublisher.swift"; sourceTree = "<group>"; };
+		16C6E7C924AA291A00F362D4 /* URLSession+DownloadTaskSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+DownloadTaskSubscription.swift"; sourceTree = "<group>"; };
+		16C6E7CA24AA291A00F362D4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		16C6E7CC24AA291A00F362D4 /* ModuleRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleRouter.swift; sourceTree = "<group>"; };
+		16C6E7CD24AA291A00F362D4 /* ModuleBuilderInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleBuilderInterface.swift; sourceTree = "<group>"; };
+		16C6E7CF24AA291A00F362D4 /* RootModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootModule.swift; sourceTree = "<group>"; };
+		16C6E7D024AA291A00F362D4 /* RootInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
+		16C6E7D124AA291A00F362D4 /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		16C6E7D224AA291A00F362D4 /* RootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		16C6E7D324AA291A00F362D4 /* RootPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
+		16C6E7D424AA291A00F362D4 /* RootEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootEntity.swift; sourceTree = "<group>"; };
+		16C6E7D624AA291A00F362D4 /* AccountRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountRouter.swift; sourceTree = "<group>"; };
+		16C6E7D724AA291A00F362D4 /* AccountModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountModule.swift; sourceTree = "<group>"; };
+		16C6E7D824AA291A00F362D4 /* AccountInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountInteractor.swift; sourceTree = "<group>"; };
+		16C6E7D924AA291A00F362D4 /* AccountPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountPresenter.swift; sourceTree = "<group>"; };
+		16C6E7DA24AA291A00F362D4 /* AccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		16C6E7DB24AA291A00F362D4 /* ModuleBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
+		16C6E7DC24AA291A00F362D4 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		16C6E7DE24AA291B00F362D4 /* ServiceInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInteractor.swift; sourceTree = "<group>"; };
+		16C6E7E124AA291B00F362D4 /* MyProjectApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProjectApiService.swift; sourceTree = "<group>"; };
+		16C6E7E224AA291B00F362D4 /* HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
+		16C6E7E324AA291B00F362D4 /* ApiServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceInterface.swift; sourceTree = "<group>"; };
+		16C6E7E424AA291B00F362D4 /* ServiceBuilderInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBuilderInterface.swift; sourceTree = "<group>"; };
+		16C6E7E524AA291B00F362D4 /* ServiceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInterface.swift; sourceTree = "<group>"; };
+		16C6E7E624AA291B00F362D4 /* ServiceBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceBuilder.swift; sourceTree = "<group>"; };
+		16C6E7E724AA291B00F362D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		16C6E7E924AA291B00F362D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		16C6E7EA24AA291B00F362D4 /* MyProject.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = MyProject.entitlements; sourceTree = "<group>"; };
+		16C6E7EC24AA291B00F362D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		16C6E7ED24AA291B00F362D4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				16C6E77124AA234300F362D4 /* MyProjectApi */,
-				16C6E77824AA28DA00F362D4 /* iOS */,
+				16C6E7C224AA291A00F362D4 /* iOS */,
 				16C6E71F24AA231000F362D4 /* Products */,
 				16C6E77224AA237F00F362D4 /* Frameworks */,
 			);
@@ -114,128 +114,128 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		16C6E77824AA28DA00F362D4 /* iOS */ = {
+		16C6E7C224AA291A00F362D4 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E77924AA28DA00F362D4 /* Sources */,
-				16C6E79E24AA28DA00F362D4 /* Assets */,
+				16C6E7E824AA291B00F362D4 /* Assets */,
+				16C6E7C324AA291A00F362D4 /* Sources */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
 		};
-		16C6E77924AA28DA00F362D4 /* Sources */ = {
+		16C6E7C324AA291A00F362D4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E78124AA28DA00F362D4 /* Modules */,
-				16C6E79324AA28DA00F362D4 /* Services */,
-				16C6E77A24AA28DA00F362D4 /* App */,
-				16C6E78024AA28DA00F362D4 /* AppDelegate.swift */,
-				16C6E79D24AA28DA00F362D4 /* SceneDelegate.swift */,
+				16C6E7CB24AA291A00F362D4 /* Modules */,
+				16C6E7DD24AA291A00F362D4 /* Services */,
+				16C6E7C424AA291A00F362D4 /* App */,
+				16C6E7CA24AA291A00F362D4 /* AppDelegate.swift */,
+				16C6E7E724AA291B00F362D4 /* SceneDelegate.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		16C6E77A24AA28DA00F362D4 /* App */ = {
+		16C6E7C424AA291A00F362D4 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E77B24AA28DA00F362D4 /* Cells */,
-				16C6E77D24AA28DA00F362D4 /* Extensions */,
+				16C6E7C524AA291A00F362D4 /* Cells */,
+				16C6E7C724AA291A00F362D4 /* Extensions */,
 			);
 			path = App;
 			sourceTree = "<group>";
 		};
-		16C6E77B24AA28DA00F362D4 /* Cells */ = {
+		16C6E7C524AA291A00F362D4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E77C24AA28DA00F362D4 /* CustomCell.swift */,
+				16C6E7C624AA291A00F362D4 /* CustomCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		16C6E77D24AA28DA00F362D4 /* Extensions */ = {
+		16C6E7C724AA291A00F362D4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E77E24AA28DA00F362D4 /* URLSession+DowloadTaskPublisher.swift */,
-				16C6E77F24AA28DA00F362D4 /* URLSession+DownloadTaskSubscription.swift */,
+				16C6E7C824AA291A00F362D4 /* URLSession+DowloadTaskPublisher.swift */,
+				16C6E7C924AA291A00F362D4 /* URLSession+DownloadTaskSubscription.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		16C6E78124AA28DA00F362D4 /* Modules */ = {
+		16C6E7CB24AA291A00F362D4 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E78224AA28DA00F362D4 /* ModuleRouter.swift */,
-				16C6E78324AA28DA00F362D4 /* ModuleBuilderInterface.swift */,
-				16C6E78424AA28DA00F362D4 /* Root */,
-				16C6E78B24AA28DA00F362D4 /* Account */,
-				16C6E79124AA28DA00F362D4 /* ModuleBuilder.swift */,
-				16C6E79224AA28DA00F362D4 /* App.swift */,
+				16C6E7CE24AA291A00F362D4 /* Root */,
+				16C6E7D524AA291A00F362D4 /* Account */,
+				16C6E7CC24AA291A00F362D4 /* ModuleRouter.swift */,
+				16C6E7CD24AA291A00F362D4 /* ModuleBuilderInterface.swift */,
+				16C6E7DB24AA291A00F362D4 /* ModuleBuilder.swift */,
+				16C6E7DC24AA291A00F362D4 /* App.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		16C6E78424AA28DA00F362D4 /* Root */ = {
+		16C6E7CE24AA291A00F362D4 /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E78524AA28DA00F362D4 /* RootModule.swift */,
-				16C6E78624AA28DA00F362D4 /* RootInteractor.swift */,
-				16C6E78724AA28DA00F362D4 /* RootRouter.swift */,
-				16C6E78824AA28DA00F362D4 /* RootView.swift */,
-				16C6E78924AA28DA00F362D4 /* RootPresenter.swift */,
-				16C6E78A24AA28DA00F362D4 /* RootEntity.swift */,
+				16C6E7CF24AA291A00F362D4 /* RootModule.swift */,
+				16C6E7D024AA291A00F362D4 /* RootInteractor.swift */,
+				16C6E7D124AA291A00F362D4 /* RootRouter.swift */,
+				16C6E7D224AA291A00F362D4 /* RootView.swift */,
+				16C6E7D324AA291A00F362D4 /* RootPresenter.swift */,
+				16C6E7D424AA291A00F362D4 /* RootEntity.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
 		};
-		16C6E78B24AA28DA00F362D4 /* Account */ = {
+		16C6E7D524AA291A00F362D4 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E78C24AA28DA00F362D4 /* AccountRouter.swift */,
-				16C6E78D24AA28DA00F362D4 /* AccountModule.swift */,
-				16C6E78E24AA28DA00F362D4 /* AccountInteractor.swift */,
-				16C6E78F24AA28DA00F362D4 /* AccountPresenter.swift */,
-				16C6E79024AA28DA00F362D4 /* AccountView.swift */,
+				16C6E7D624AA291A00F362D4 /* AccountRouter.swift */,
+				16C6E7D724AA291A00F362D4 /* AccountModule.swift */,
+				16C6E7D824AA291A00F362D4 /* AccountInteractor.swift */,
+				16C6E7D924AA291A00F362D4 /* AccountPresenter.swift */,
+				16C6E7DA24AA291A00F362D4 /* AccountView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
 		};
-		16C6E79324AA28DA00F362D4 /* Services */ = {
+		16C6E7DD24AA291A00F362D4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E79424AA28DA00F362D4 /* ServiceInteractor.swift */,
-				16C6E79524AA28DA00F362D4 /* Api */,
-				16C6E79A24AA28DA00F362D4 /* ServiceBuilderInterface.swift */,
-				16C6E79B24AA28DA00F362D4 /* ServiceInterface.swift */,
-				16C6E79C24AA28DA00F362D4 /* ServiceBuilder.swift */,
+				16C6E7DF24AA291B00F362D4 /* Api */,
+				16C6E7DE24AA291B00F362D4 /* ServiceInteractor.swift */,
+				16C6E7E424AA291B00F362D4 /* ServiceBuilderInterface.swift */,
+				16C6E7E524AA291B00F362D4 /* ServiceInterface.swift */,
+				16C6E7E624AA291B00F362D4 /* ServiceBuilder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		16C6E79524AA28DA00F362D4 /* Api */ = {
+		16C6E7DF24AA291B00F362D4 /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E79624AA28DA00F362D4 /* MyProject */,
-				16C6E79924AA28DA00F362D4 /* ApiServiceInterface.swift */,
+				16C6E7E024AA291B00F362D4 /* MyProject */,
+				16C6E7E324AA291B00F362D4 /* ApiServiceInterface.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
 		};
-		16C6E79624AA28DA00F362D4 /* MyProject */ = {
+		16C6E7E024AA291B00F362D4 /* MyProject */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E79724AA28DA00F362D4 /* MyProjectApiService.swift */,
-				16C6E79824AA28DA00F362D4 /* HTTP.swift */,
+				16C6E7E124AA291B00F362D4 /* MyProjectApiService.swift */,
+				16C6E7E224AA291B00F362D4 /* HTTP.swift */,
 			);
 			path = MyProject;
 			sourceTree = "<group>";
 		};
-		16C6E79E24AA28DA00F362D4 /* Assets */ = {
+		16C6E7E824AA291B00F362D4 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				16C6E79F24AA28DA00F362D4 /* Assets.xcassets */,
-				16C6E7A024AA28DA00F362D4 /* MyProject.entitlements */,
-				16C6E7A124AA28DA00F362D4 /* LaunchScreen.storyboard */,
-				16C6E7A324AA28DA00F362D4 /* Info.plist */,
+				16C6E7E924AA291B00F362D4 /* Assets.xcassets */,
+				16C6E7EA24AA291B00F362D4 /* MyProject.entitlements */,
+				16C6E7EB24AA291B00F362D4 /* LaunchScreen.storyboard */,
+				16C6E7ED24AA291B00F362D4 /* Info.plist */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -271,7 +271,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Tibor Bodecs";
 				TargetAttributes = {
 					16C6E71D24AA231000F362D4 = {
@@ -305,8 +305,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16C6E7BF24AA28DA00F362D4 /* Assets.xcassets in Resources */,
-				16C6E7C024AA28DA00F362D4 /* LaunchScreen.storyboard in Resources */,
+				16C6E80924AA291B00F362D4 /* Assets.xcassets in Resources */,
+				16C6E80A24AA291B00F362D4 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,43 +317,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16C6E7B024AA28DA00F362D4 /* AccountRouter.swift in Sources */,
-				16C6E7B124AA28DA00F362D4 /* AccountModule.swift in Sources */,
-				16C6E7B724AA28DA00F362D4 /* ServiceInteractor.swift in Sources */,
-				16C6E7A824AA28DA00F362D4 /* ModuleRouter.swift in Sources */,
-				16C6E7B624AA28DA00F362D4 /* App.swift in Sources */,
-				16C6E7BD24AA28DA00F362D4 /* ServiceBuilder.swift in Sources */,
-				16C6E7B424AA28DA00F362D4 /* AccountView.swift in Sources */,
-				16C6E7A724AA28DA00F362D4 /* AppDelegate.swift in Sources */,
-				16C6E7B524AA28DA00F362D4 /* ModuleBuilder.swift in Sources */,
-				16C6E7A424AA28DA00F362D4 /* CustomCell.swift in Sources */,
-				16C6E7A924AA28DA00F362D4 /* ModuleBuilderInterface.swift in Sources */,
-				16C6E7BE24AA28DA00F362D4 /* SceneDelegate.swift in Sources */,
-				16C6E7BA24AA28DA00F362D4 /* ApiServiceInterface.swift in Sources */,
-				16C6E7B324AA28DA00F362D4 /* AccountPresenter.swift in Sources */,
-				16C6E7AF24AA28DA00F362D4 /* RootEntity.swift in Sources */,
-				16C6E7AD24AA28DA00F362D4 /* RootView.swift in Sources */,
-				16C6E7B224AA28DA00F362D4 /* AccountInteractor.swift in Sources */,
-				16C6E7BC24AA28DA00F362D4 /* ServiceInterface.swift in Sources */,
-				16C6E7AC24AA28DA00F362D4 /* RootRouter.swift in Sources */,
-				16C6E7B924AA28DA00F362D4 /* HTTP.swift in Sources */,
-				16C6E7BB24AA28DA00F362D4 /* ServiceBuilderInterface.swift in Sources */,
-				16C6E7AE24AA28DA00F362D4 /* RootPresenter.swift in Sources */,
-				16C6E7AA24AA28DA00F362D4 /* RootModule.swift in Sources */,
-				16C6E7A524AA28DA00F362D4 /* URLSession+DowloadTaskPublisher.swift in Sources */,
-				16C6E7B824AA28DA00F362D4 /* MyProjectApiService.swift in Sources */,
-				16C6E7AB24AA28DA00F362D4 /* RootInteractor.swift in Sources */,
-				16C6E7A624AA28DA00F362D4 /* URLSession+DownloadTaskSubscription.swift in Sources */,
+				16C6E7FA24AA291B00F362D4 /* AccountRouter.swift in Sources */,
+				16C6E7FB24AA291B00F362D4 /* AccountModule.swift in Sources */,
+				16C6E80124AA291B00F362D4 /* ServiceInteractor.swift in Sources */,
+				16C6E7F224AA291B00F362D4 /* ModuleRouter.swift in Sources */,
+				16C6E80024AA291B00F362D4 /* App.swift in Sources */,
+				16C6E80724AA291B00F362D4 /* ServiceBuilder.swift in Sources */,
+				16C6E7FE24AA291B00F362D4 /* AccountView.swift in Sources */,
+				16C6E7F124AA291B00F362D4 /* AppDelegate.swift in Sources */,
+				16C6E7FF24AA291B00F362D4 /* ModuleBuilder.swift in Sources */,
+				16C6E7EE24AA291B00F362D4 /* CustomCell.swift in Sources */,
+				16C6E7F324AA291B00F362D4 /* ModuleBuilderInterface.swift in Sources */,
+				16C6E80824AA291B00F362D4 /* SceneDelegate.swift in Sources */,
+				16C6E80424AA291B00F362D4 /* ApiServiceInterface.swift in Sources */,
+				16C6E7FD24AA291B00F362D4 /* AccountPresenter.swift in Sources */,
+				16C6E7F924AA291B00F362D4 /* RootEntity.swift in Sources */,
+				16C6E7F724AA291B00F362D4 /* RootView.swift in Sources */,
+				16C6E7FC24AA291B00F362D4 /* AccountInteractor.swift in Sources */,
+				16C6E80624AA291B00F362D4 /* ServiceInterface.swift in Sources */,
+				16C6E7F624AA291B00F362D4 /* RootRouter.swift in Sources */,
+				16C6E80324AA291B00F362D4 /* HTTP.swift in Sources */,
+				16C6E80524AA291B00F362D4 /* ServiceBuilderInterface.swift in Sources */,
+				16C6E7F824AA291B00F362D4 /* RootPresenter.swift in Sources */,
+				16C6E7F424AA291B00F362D4 /* RootModule.swift in Sources */,
+				16C6E7EF24AA291B00F362D4 /* URLSession+DowloadTaskPublisher.swift in Sources */,
+				16C6E80224AA291B00F362D4 /* MyProjectApiService.swift in Sources */,
+				16C6E7F524AA291B00F362D4 /* RootInteractor.swift in Sources */,
+				16C6E7F024AA291B00F362D4 /* URLSession+DownloadTaskSubscription.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		16C6E7A124AA28DA00F362D4 /* LaunchScreen.storyboard */ = {
+		16C6E7EB24AA291B00F362D4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				16C6E7A224AA28DA00F362D4 /* Base */,
+				16C6E7EC24AA291B00F362D4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -387,6 +387,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -447,6 +448,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

@@ -132,12 +132,12 @@ extension RootView: UITableViewDataSource {
         cell.coverView.image = defaultImage
 
         self.operations["cell-\(indexPath.row)"]?.cancel()
-        self.operations["cell-\(indexPath.row)"] = URLSession.shared
-            .downloadTaskPublisher(for: item.imageUrl)
-            .map { UIImage(contentsOfFile: $0.url.path) ?? defaultImage  }
-            .replaceError(with: defaultImage)
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: cell.coverView)
+//        self.operations["cell-\(indexPath.row)"] = URLSession.shared
+//            .downloadTaskPublisher(for: item.imageUrl)
+//            .map { UIImage(contentsOfFile: $0.url.path) ?? defaultImage  }
+//            .replaceError(with: defaultImage)
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.image, on: cell.coverView)
 
         return cell
     }

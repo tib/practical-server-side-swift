@@ -49,30 +49,12 @@ main {
 #content {
     padding: 0px 16px;
 }
+#blog img {
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0 , 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
 #blog article {
     margin: 32px 0px;
-}
-label {
-    display: block;
-    margin-bottom: 8px;
-}
-input {
-    display: block;
-    padding: 8px;
-    margin-bottom: 16px;
-    font-size: 16px;
-}
-input.field {
-    background: #fff;
-    color: #000;
-}
-input.submit {
-    border-width: 4px;
-    border-style: solid;
-    padding: 8px 16px;
-}
-input.submit:hover {
-    cursor: pointer;
 }
 .signin-button {
     width: 240px;
@@ -89,7 +71,6 @@ input.submit:hover {
 .signin-button > div {
     outline: none;
 }
-
 @media (max-width: 599px) {}
 @media (min-width: 600px) {}
 @media (min-width: 900px) {}
@@ -119,6 +100,28 @@ header {
 header h1 {
     color: #000;
 }
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+input {
+    display: block;
+    padding: 8px;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+input.field {
+    background: #fff;
+    color: #000;
+}
+input.submit {
+    border-width: 4px;
+    border-style: solid;
+    padding: 8px 16px;
+}
+input.submit:hover {
+    cursor: pointer;
+}
 input.submit {
     color: #fff;
     background: #2B7DF6;
@@ -128,8 +131,6 @@ input.submit:hover {
     background: #555BCF;
     border-color: #555BCF;
 }
-
-
 /* dark mode colors */
 @media (prefers-color-scheme: dark) {
     body {

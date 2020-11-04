@@ -4,7 +4,7 @@ import XCTVapor
 final class FrontendTests: AppTestCase {
 
     func testHomePage() throws {
-        let app = try self.createTestApp()
+        let app = try createTestApp()
         defer { app.shutdown() }
 
         try app.testable(method: .inMemory).test(.GET, "") { res in

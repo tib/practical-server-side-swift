@@ -1,0 +1,11 @@
+#define(body):
+<section id="blog" class="wrapper">
+    <img src="#(post.image)">
+    <h2>#(post.title)</h2>
+    <p>#(post.excerpt)</p>
+    <p class="category">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category.title ?? "Uncategorized")</p>
+    <hr>
+    <p>#(post.content)</p>
+</section>
+#enddefine
+#inline("Frontend/Index")

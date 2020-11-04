@@ -1,9 +1,9 @@
 import Vapor
-import ViewKit
+import Leaf
 
 final class BlogPostEditForm: Form {
     typealias Model = BlogPostModel
-
+    
     struct Input: Decodable {
         var id: String
         var title: String
@@ -15,98 +15,104 @@ final class BlogPostEditForm: Form {
         var image: File?
         var imageDelete: Bool?
     }
-    
+
     var id: String? = nil
-    var title = BasicFormField()
-    var slug = BasicFormField()
-    var excerpt = BasicFormField()
-    var date = BasicFormField()
-    var content = BasicFormField()
-    var categoryId = SelectionFormField()
+    var title = StringFormField()
+    var slug = StringFormField()
+    var excerpt = StringFormField()
+    var date = StringFormField()
+    var content = StringFormField()
+    var category = StringSelectionFormField()
     var image = FileFormField()
     
+    var leafData: LeafData {
+        .dictionary([
+            "id": .string(id),
+            "title": title.leafData,
+            "slug": slug.leafData,
+            "excerpt": excerpt.leafData,
+            "date": date.leafData,
+            "content": content.leafData,
+            "category": category.leafData,
+            "image": image.leafData,
+        ])
+    }
+
     init() {}
-    
+
     init(req: Request) throws {
         let context = try req.content.decode(Input.self)
         if !context.id.isEmpty {
-            self.id = context.id
+            id = context.id
         }
-        self.title.value = context.title
-        self.slug.value = context.slug
-        self.excerpt.value = context.excerpt
-        self.date.value = context.date
-        self.content.value = context.content
-        self.categoryId.value = context.categoryId
-
-        self.image.delete = context.imageDelete ?? false
-        if
-            let image = context.image,
-            let data = image.data.getData(at: 0, length: image.data.readableBytes),
-            !data.isEmpty
-        {
-            self.image.data = data
-        }
-    }
-    
-    func read(from model: Model)  {
-        self.id = model.id!.uuidString
-        self.title.value = model.title
-        self.slug.value = model.slug
-        self.excerpt.value = model.excerpt
-        self.date.value = DateFormatter.year.string(from: model.date)
-        self.content.value = model.content
-        self.categoryId.value = model.$category.id.uuidString
-        self.image.value = model.image
-    }
-
-    func write(to model: Model) {
-        model.title = self.title.value
-        model.slug = self.slug.value
-        model.excerpt = self.excerpt.value
-        model.date = DateFormatter.year.date(from: self.date.value)!
-        model.content = self.content.value
-        model.$category.id = UUID(uuidString: self.categoryId.value)!
-        if !self.image.value.isEmpty {
-            model.image = self.image.value
-        }
-        if self.image.delete {
-            model.image = ""
+        title.value = context.title
+        slug.value = context.slug
+        excerpt.value = context.excerpt
+        date.value = context.date
+        content.value = context.content
+        category.value = context.categoryId
+        image.delete = context.imageDelete ?? false
+        if let img = context.image, let data = img.data.getData(at: 0, length: img.data.readableBytes), !data.isEmpty {
+            image.data = data
         }
     }
     
     func validate(req: Request) -> EventLoopFuture<Bool> {
         var valid = true
         
-        if self.title.value.isEmpty {
-            self.title.error = "Title is required"
+        if title.value.isEmpty {
+            title.error = "Title is required"
             valid = false
         }
-        if self.slug.value.isEmpty {
-            self.slug.error = "Slug is required"
+        if slug.value.isEmpty {
+            slug.error = "Slug is required"
             valid = false
         }
-        if self.excerpt.value.isEmpty {
-            self.excerpt.error = "Excerpt is required"
+        if excerpt.value.isEmpty {
+            excerpt.error = "Excerpt is required"
             valid = false
         }
-        if DateFormatter.year.date(from: self.date.value) == nil {
-            self.date.error = "Invalid date"
+        if DateFormatter.custom.date(from: date.value) == nil {
+            date.error = "Invalid date"
             valid = false
         }
-        if self.content.value.isEmpty {
-            self.content.error = "Content is required"
+        if content.value.isEmpty {
+            content.error = "Content is required"
             valid = false
         }
-
-        let uuid = UUID(uuidString: self.categoryId.value)
-        return BlogCategoryModel.find(uuid, on: req.db)
-        .map { model in
+        let uuid = UUID(uuidString: category.value)
+        return BlogCategoryModel.find(uuid, on: req.db).map { [unowned self] model in
             if model == nil {
-                self.categoryId.error = "Category identifier error"
+                category.error = "Category identifier error"
                 valid = false
             }
             return valid
+        }
+    }
+    
+    func read(from model: Model)  {
+        id = model.id!.uuidString
+        title.value = model.title
+        slug.value = model.slug
+        excerpt.value = model.excerpt
+        date.value = DateFormatter.custom.string(from: model.date)
+        content.value = model.content
+        category.value = model.$category.id.uuidString
+        image.value = model.image
+    }
+    
+    func write(to model: Model) {
+        model.title = title.value
+        model.slug = slug.value
+        model.excerpt = excerpt.value
+        model.date = DateFormatter.custom.date(from: date.value)!
+        model.content = content.value
+        model.$category.id = UUID(uuidString: category.value)!
+        if !image.value.isEmpty {
+            model.image = image.value
+        }
+        if image.delete {
+            model.image = ""
         }
     }
 }
