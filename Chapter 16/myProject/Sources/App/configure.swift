@@ -2,9 +2,9 @@ import Vapor
 import Leaf
 import LeafFoundation
 import Fluent
-import FluentSQLiteDriver
+import FluentPostgresDriver
 import Liquid
-import LiquidLocalDriver
+import LiquidAwsS3Driver
 import JWT
 import APNS
 @_exported import ContentApi
@@ -37,12 +37,17 @@ public func configure(_ app: Application) throws {
             environment: .sandbox
         )
 
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
-    
+    let configuration = PostgresConfiguration(hostname: Environment.Postgres.host,
+                                              port: Environment.Postgres.port,
+                                              username: Environment.Postgres.user,
+                                              password: Environment.Postgres.pass,
+                                              database: Environment.Postgres.database)
+    app.databases.use(.postgres(configuration: configuration), as: .psql)
+
     app.routes.defaultMaxBodySize = "10mb"
-    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
-                                publicPath: app.directory.publicDirectory,
-                                workDirectory: "assets"), as: .local)
+
+    app.fileStorages.use(.awsS3(region: .init(rawValue: Environment.Aws.region),
+                                bucket: .init(stringLiteral: Environment.Aws.bucket)), as: .awsS3)
 
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)

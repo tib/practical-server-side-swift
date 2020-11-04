@@ -27,4 +27,20 @@ extension Environment {
         /// com.example.ios.app
         static let topic = Environment.get("APNS_TOPIC")!
     }
+
+    struct Postgres {
+        /// postgres://myuser:mypass@localhost:5432/mydb
+        //static let connectionUrl = Environment.get("PSQL_CONNECTION_URL")!
+
+        static let host = Environment.get("DB_HOST")!
+        static let port = Int(Environment.get("DB_PORT")!)!
+        static let user = Environment.get("DB_USER")!
+        static let pass = Environment.get("DB_PASS")!
+        static let database = Environment.get("DB_NAME")!
+    }
+
+    struct Aws {
+        static let region = Environment.get("AWS_REGION")!
+        static let bucket = Environment.get("AWS_BUCKET")!
+    }
 }

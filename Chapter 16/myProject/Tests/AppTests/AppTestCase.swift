@@ -3,6 +3,10 @@ import XCTVapor
 import XCTLeafKit
 import Leaf
 import Fluent
+import FluentSQLiteDriver
+import Liquid
+import LiquidLocalDriver
+//...
 
 extension XCTApplicationTester {
     @discardableResult public func test<T>(
@@ -25,8 +29,16 @@ open class AppTestCase: LeafKitTestCase {
 
         try configure(app)
         app.databases.reinitialize()
+
         app.databases.use(.sqlite(.memory), as: .sqlite)
         app.databases.default(to: .sqlite)
+
+        app.fileStorages.reinitialize()
+        app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
+                                    publicPath: app.directory.publicDirectory,
+                                    workDirectory: "assets"), as: .local)
+        app.fileStorages.default(to: .local)
+
         try app.autoMigrate().wait()
         return app
     }
