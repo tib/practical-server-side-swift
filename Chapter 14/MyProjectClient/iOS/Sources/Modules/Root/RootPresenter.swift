@@ -48,4 +48,8 @@ extension RootPresenter: RootPresenterViewInterface {
         }
     }
 
+    func account() {
+        self.router.showAccount()
+    }
+
 }

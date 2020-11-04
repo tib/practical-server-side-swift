@@ -38,3 +38,12 @@ extension UserTokenModel: ModelTokenAuthenticatable {
         true
     }
 }
+
+extension UserTokenModel {
+
+    static func create(on db: Database, for userId: UUID) -> EventLoopFuture<UserTokenModel> {
+        let tokenValue = [UInt8].random(count: 16).base64
+        let token = UserTokenModel(value: tokenValue, userId: userId)
+        return token.create(on: db).map { token }
+    }
+}

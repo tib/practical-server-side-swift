@@ -56,6 +56,21 @@ main {
 #blog article {
     margin: 32px 0px;
 }
+.signin-button {
+    width: 240px;
+    height: 40px;
+}
+.signin-button > div > div > svg {
+    width: 100%;
+    height: 100%;
+    color: red;
+}
+.signin-button:hover {
+    cursor: pointer;
+}
+.signin-button > div {
+    outline: none;
+}
 @media (max-width: 599px) {}
 @media (min-width: 600px) {}
 @media (min-width: 900px) {}

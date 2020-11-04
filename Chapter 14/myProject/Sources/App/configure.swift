@@ -5,6 +5,7 @@ import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
+import JWT
 @_exported import ContentApi
 @_exported import ViewKit
 @_exported import ViperKit
@@ -20,6 +21,10 @@ extension ViperAdminViewController {
 }
 
 public func configure(_ app: Application) throws {
+
+    app.jwt.apple.applicationIdentifier = Environment.SignInWithApple.id
+    let signer = try JWTSigner.es256(key: .private(pem: Environment.SignInWithApple.privateKey.bytes))
+    app.jwt.signers.use(signer, kid: .apple, isDefault: false)
 
     app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
     

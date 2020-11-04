@@ -31,7 +31,7 @@ let package = Package(
             .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
             .product(name: "Liquid", package: "liquid"),
             .product(name: "LiquidLocalDriver", package: "liquid-local-driver"),
-            .product(name: "JWT", package: "JWT"),
+            .product(name: "JWT", package: "jwt"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
             .product(name: "MyProjectApi", package: "MyProjectApi"),
             .product(name: "ContentApi", package: "content-api"),

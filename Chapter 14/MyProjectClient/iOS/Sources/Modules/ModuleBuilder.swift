@@ -13,4 +13,8 @@ final class ModuleBuilder: ModuleBuilderInterface {
     func root() -> UIViewController {
         RootModule().build()
     }
+
+    func account() -> UIViewController {
+        AccountModule().build()
+    }
 }

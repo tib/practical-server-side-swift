@@ -73,6 +73,7 @@ final class RootView: UIViewController, ViewInterface {
         self.tableView.separatorInset = .zero
                 
         self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .refresh, target: self, action: #selector(self.refresh))
+        self.navigationItem.leftBarButtonItem = .init(barButtonSystemItem: .play, target: self, action: #selector(self.account))
         
         self.failureButton.addTarget(self, action: #selector(self.refresh), for: .touchUpInside)
         
@@ -81,6 +82,10 @@ final class RootView: UIViewController, ViewInterface {
     
     @objc func refresh() {
         self.presenter.reload()
+    }
+    
+    @objc func account() {
+        self.presenter.account()
     }
 }
 

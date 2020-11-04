@@ -12,7 +12,7 @@ import MyProjectApi
 // MARK: - router
 
 protocol RootRouterPresenterInterface: RouterPresenterInterface {
-
+    func showAccount()
 }
 
 // MARK: - presenter
@@ -28,6 +28,7 @@ protocol RootPresenterInteractorInterface: PresenterInteractorInterface {
 protocol RootPresenterViewInterface: PresenterViewInterface {
     func start()
     func reload()
+    func account()
 }
 
 // MARK: - interactor

@@ -11,4 +11,5 @@ import UIKit
 protocol ModuleBuilderInterface {
 
     func root() -> UIViewController
+    func account() -> UIViewController
 }

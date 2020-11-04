@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class RootRouter: RouterInterface {
+final class RootRouter: ModuleRouter, RouterInterface {
 
     weak var presenter: RootPresenterRouterInterface!
 
@@ -17,4 +17,9 @@ final class RootRouter: RouterInterface {
 
 extension RootRouter: RootRouterPresenterInterface {
 
+    func showAccount() {
+        let viewController = self.modules.account()
+        let navController = UINavigationController(rootViewController: viewController)
+        self.viewController?.present(navController, animated: true)
+    }
 }

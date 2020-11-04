@@ -79,8 +79,8 @@ final class BlogPostApiTests: AppTestCase {
     }
     
     func testUpdatePost() throws {
-        let app = try self.createTestApp()
-        let token = try self.getApiToken(app)
+        let app = try createTestApp()
+        let token = try getApiToken(app)
         defer { app.shutdown() }
         
         let post = try BlogPostModel
