@@ -9,8 +9,8 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor", from: "4.34.0"),
-        .package(url: "https://github.com/vapor/leaf", from: "4.0.0-tau"),
-        .package(url: "https://github.com/vapor/leaf-kit", from: "1.0.0-tau"),
+        .package(url: "https://github.com/vapor/leaf", .exact("4.0.0-tau.1")),
+        .package(url: "https://github.com/vapor/leaf-kit", .exact("1.0.0-tau.1.1")),
         .package(url: "https://github.com/vapor/fluent", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver", from: "2.0.0"),
