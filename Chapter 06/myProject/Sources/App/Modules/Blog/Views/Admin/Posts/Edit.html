@@ -7,7 +7,7 @@
     #endif
 </div>
 
-<form id="post-edit-form" class="wrapper" method="post" action="/admin/blog/posts/#(edit.id ?? "new")">
+<form id="post-edit-form" class="wrapper" method="post" action="/admin/blog/posts/#(edit.id ?? "new")/">
     <input type="hidden" name="id" value="#(edit.id)">
 
     <section>
@@ -43,7 +43,7 @@
     </section>
 
     <section>
-        <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</label></span>
+        <label for="date">Date <span class="required">(Y.MM.dd. HH:mm:ss)</span></label>
         <input type="text" name="date" value="#(edit.date.value)" class="field">
         #if(edit.date.error != nil):
         <span class="error">#(edit.date.error)</span>

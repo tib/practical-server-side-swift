@@ -4,7 +4,7 @@
     <h2><a href="/admin/blog/categories/">Categories</a> / #(edit.id != nil ? "Edit" : "Create")</h2>
 </div>
 
-<form id="category-edit-form" class="wrapper" method="post" action="/admin/blog/categories/#(edit.id ?? "new")">
+<form id="category-edit-form" class="wrapper" method="post" action="/admin/blog/categories/#(edit.id ?? "new")/">
     <input type="hidden" name="id" value="#(edit.id)">
 
     <section>
