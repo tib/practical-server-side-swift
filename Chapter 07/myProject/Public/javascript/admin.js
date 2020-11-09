@@ -9,7 +9,7 @@ function confirmDelete(path, id) {
             var tr = element.parentElement.parentElement;
             tr.parentNode.removeChild(tr);
         }
-        xmlHttp.open("POST", path + id + "/delete", true);
+        xmlHttp.open("POST", path + id + "/delete/", true);
         xmlHttp.send(null);
     }
 }
