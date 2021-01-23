@@ -4,11 +4,10 @@ import PackageDescription
 let package = Package(
     name: "myProject",
     platforms: [
-       .macOS(.v11)
+       .macOS(.v10_15)
     ],
     dependencies: [
-        // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor", from: "4.35.0"),
+        .package(url: "https://github.com/vapor/vapor", from: "4.38.0"),
         .package(url: "https://github.com/vapor/leaf", .exact("4.0.0-tau.1")),
         .package(url: "https://github.com/vapor/leaf-kit", .exact("1.0.0-tau.1.1")),
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1")
@@ -16,6 +15,7 @@ let package = Package(
     targets: [
         .target(name: "App", dependencies: [
             .product(name: "Leaf", package: "leaf"),
+            .product(name: "LeafKit", package: "leaf-kit"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
             .product(name: "Vapor", package: "vapor"),
         ]),

@@ -1,11 +1,19 @@
 #define(body):
-<section id="blog" class="wrapper">
-    <img src="#(post.image)">
-    <h2>#(post.title)</h2>
-    <p>#(post.excerpt)</p>
-    <p class="category">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category ?? "Uncategorized")</p>
-    <hr>
-    <p>#(post.content)</p>
-</section>
+<div id="post">
+    <section class="">
+        <p class="margin-top-zero color-3">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category ?? "Uncategorized")</p>
+        <h1 class="margin-top-zero">#(post.title)</h1>
+        <p class="margin-top-zero">#(post.excerpt)</p>
+    </section>
+
+    <img src="#(post.image)" class="size-full radius-s margin-vertical">
+    
+    <article>
+        #(post.content)
+    </article>
+</div>
 #enddefine
 #inline("index")
+
+
+

@@ -1,9 +1,17 @@
 #define(body):
-<section class="wrapper">
-    <h2>#(header)</h2>
-</section>
-<section class="wrapper">
-    <p>#(message)</p>
-</section>
+<div id="home">
+    <section class="margin-bottom-xl">
+        <span class="h1">#(icon)</span>
+        <h1 class="margin-top-zero">#(header)</h1>
+        <p class="margin-top-zero">#(message)</p>
+    </section>
+    
+    #for(paragraph in paragraphs):
+        <p>#(paragraph)</p>
+    #endfor
+
+    <a href="#(link.url)" class="button margin-top">#(link.label)</a>
+
+</div>
 #enddefine
 #inline("index")

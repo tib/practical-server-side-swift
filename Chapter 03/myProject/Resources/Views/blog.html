@@ -1,18 +1,24 @@
 #define(body):
-<section id="blog" class="wrapper">
-    <h2>Blog</h2>
+<div id="blog">
+    <section class="margin-bottom-xl">
+        <span class="h1">#(icon ?? "🔥")</span>
+        <h1 class="margin-top-zero">#(header ?? "Blog")</h1>
+        <p class="margin-top-zero">#(message ?? "Hot news and stories about everything.")</p>
+    </section>
 
+    <div class="grid-221 grid-gap">
     #for(post in posts):
-    <article>
+    <article class="grid-col1 margin-bottom radius-s">
         <a href="/#(post.slug)/">
-            <img src="#(post.image)">
-            <h3>#(post.title)</h3>
-            <p>#(post.excerpt)</p>
-            <p class="category">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category ?? "Uncategorized")</p>
+            <img src="#(post.image)" class="size-width-full radius-s">
+            <h2 class="h5 margin-top-zero color-1">#(post.title)</h2>
+            <p class="margin-top-zero color-2">#(post.excerpt)</p>
         </a>
     </article>
+    
     #endfor
+    </div>
 
-</section>
+</div>
 #enddefine
 #inline("index")

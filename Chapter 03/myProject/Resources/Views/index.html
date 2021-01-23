@@ -1,32 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>#(title)</title>
-        <link rel="stylesheet" href="/css/frontend.css">
-        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    </head>
-    <body>
-        <header>
-            <a href="/" id="logo">
-                <img src="/images/logo.png">
-                <h1>myPage</h1>
-            </a>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <nav id="navigation">
-                <a href="/">Home</a> &middot;
-                <a href="/blog/">Blog</a> &middot;
-                <a href="#" onClick="javascript:about();">About</a>
-            </nav>
-        </header>
+    <title>#(title)</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 
-        <main>
-            <div id="content">
-                #evaluate(body)
-            </div>
-        </main>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/binarybirds/peacock-css@1.0.0-beta.1/peacock.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 
-        <script src="/javascript/frontend.js"></script>
-    </body>
+</head>
+
+<body>
+    <header id="header" class="margin-bottom-xl background-1 padding-s">
+        <a href="/" id="logo">
+            <img src="/images/logo.png">
+                </a>
+        
+        <input type="checkbox" id="menu-button" class="selection-off" />
+        <label for="menu-button" id="menu-icon" class="selection-off"><span></span></label>
+        
+        <nav id="nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="#" onClick="javascript:about();">About</a></li>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="padding-horizontal margin-bottom-xl">
+            #evaluate(body)
+        </div>
+    </main>
+    
+    <footer id="footer" class="margin-top-xl background-1 padding-xl">
+        <div class="container">
+            <p class="text-align-center">This site is powered by <a href="https://swift.org" target="_blank">Swift</a> & <a href="https://vapor.codes" target="_blank">Vapor</a>.</p>
+            <p class="text-align-center text-xs">myPage &copy; 2020-2021</p>
+        </div>
+    </footer>
+
+    <script src="/javascript/main.js"></script>
+</body>
 </html>
