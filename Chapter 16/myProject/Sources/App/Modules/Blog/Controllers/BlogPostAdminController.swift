@@ -5,7 +5,7 @@ import Liquid
 
 struct BlogPostAdminController: ViperAdminViewController {
     typealias Module = BlogModule
-    typealias Model = BlogCategoryModel
+    typealias Model = BlogPostModel
     typealias EditForm = BlogPostEditForm
 
     private func generateUniqueAssetLocationKey() -> String {
