@@ -1,18 +1,18 @@
 #define(body):
 <div id="blog">
-    <section class="margin-bottom-xl">
-        <span class="h1">#(icon ?? "🔥")</span>
-        <h1 class="margin-top-zero">#(header ?? "Blog")</h1>
-        <p class="margin-top-zero">#(message ?? "Hot news and stories about everything.")</p>
+    <section class="lead">
+        <p>#(icon ?? "🔥")</p>
+        <h1>#(header ?? "Blog")</h1>
+        <p>#(message ?? "Hot news and stories about everything.")</p>
     </section>
 
     <div class="grid-221 grid-gap">
     #for(post in posts):
-    <article class="grid-col1 margin-bottom radius-s">
+    <article class="grid-col1">
         <a href="/#(post.slug)/">
-            <img src="#(post.image)" class="size-width-full radius-s">
-            <h2 class="h5 margin-top-zero color-1">#(post.title)</h2>
-            <p class="margin-top-zero color-2">#(post.excerpt)</p>
+            <img src="#(post.image)">
+            <h2>#(post.title)</h2>
+            <p>#(post.excerpt)</p>
         </a>
     </article>
     

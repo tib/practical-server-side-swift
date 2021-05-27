@@ -1,16 +1,16 @@
 #define(body):
 <div id="home">
-    <section class="margin-bottom-xl">
-        <span class="h1">#(icon)</span>
-        <h1 class="margin-top-zero">#(header)</h1>
-        <p class="margin-top-zero">#(message)</p>
+    <section class="lead">
+        <p>#(icon)</p>
+        <h1>#(header)</h1>
+        <p>#(message)</p>
     </section>
     
     #for(paragraph in paragraphs):
         <p>#(paragraph)</p>
     #endfor
 
-    <a href="#(link.url)" class="button margin-top">#(link.label)</a>
+    <a href="#(link.url)" class="button">#(link.label)</a>
 
 </div>
 #enddefine

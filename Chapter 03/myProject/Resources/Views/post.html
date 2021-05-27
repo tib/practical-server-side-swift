@@ -1,12 +1,13 @@
 #define(body):
 <div id="post">
-    <section class="">
-        <p class="margin-top-zero color-3">#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category ?? "Uncategorized")</p>
-        <h1 class="margin-top-zero">#(post.title)</h1>
-        <p class="margin-top-zero">#(post.excerpt)</p>
+
+    <section class="lead">
+        <p>#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category ?? "Uncategorized")</p>
+        <h1>#(post.title)</h1>
+        <p>#(post.excerpt)</p>
     </section>
 
-    <img src="#(post.image)" class="size-full radius-s margin-vertical">
+    <img src="#(post.image)">
     
     <article>
         #(post.content)

@@ -7,16 +7,14 @@ let package = Package(
        .macOS(.v10_15)
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor", from: "4.38.0"),
-        .package(url: "https://github.com/vapor/leaf", .exact("4.0.0-tau.1")),
-        .package(url: "https://github.com/vapor/leaf-kit", .exact("1.0.0-tau.1.1")),
+        .package(url: "https://github.com/vapor/vapor", from: "4.45.5"),
+        .package(url: "https://github.com/binarybirds/tau", from: "1.0.0"),
         .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1")
     ],
     targets: [
         .target(name: "App", dependencies: [
-            .product(name: "Leaf", package: "leaf"),
-            .product(name: "LeafKit", package: "leaf-kit"),
             .product(name: "LoremSwiftum", package: "LoremSwiftum"),
+            .product(name: "Tau", package: "tau"),
             .product(name: "Vapor", package: "vapor"),
         ]),
         .target(name: "Run", dependencies: ["App"]),

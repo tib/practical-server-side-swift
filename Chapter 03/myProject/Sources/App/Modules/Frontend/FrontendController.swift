@@ -1,11 +1,11 @@
 import Vapor
-import Leaf
+import Tau
 import LoremSwiftum
 
 struct FrontendController {
     
     func homeView(req: Request) throws -> EventLoopFuture<View> {
-        return req.leaf.render(template: "home", context: [
+        return req.tau.render(template: "home", context: [
             "title": "myPage - Home",
 
             "icon": "👋",

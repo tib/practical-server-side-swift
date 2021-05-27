@@ -23,9 +23,9 @@ let package = Package(
         .package(name: "MyProjectApi", path: "../MyProjectApi"),
         .package(url: "https://github.com/binarybirds/spec", from: "1.1.0"),
         .package(url: "https://github.com/binarybirds/content-api", from: "1.0.0"),
-        .package(url: "https://github.com/binarybirds/view-kit", from: "1.2.0-rc"),
+        .package(url: "https://github.com/binarybirds/view-kit", .exact("1.2.0-rc.3.2")),
         .package(url: "https://github.com/binarybirds/leaf-foundation", from: "1.0.0-beta"),
-        .package(url: "https://github.com/binarybirds/viper-kit", from: "1.4.0-beta"),
+        .package(url: "https://github.com/binarybirds/viper-kit", .exact("1.4.0-beta.4")),
     ],
     targets: [
         .target(name: "App", dependencies: [

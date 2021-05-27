@@ -1,25 +1,25 @@
 import Vapor
-import Leaf
+import Tau
 
 public func configure(_ app: Application) throws {
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
     app.middleware.use(ExtendPathMiddleware())
     
-    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
-    LeafEngine.rootDirectory = detected
+    let detected = TemplateEngine.rootDirectory ?? app.directory.viewsDirectory
+    TemplateEngine.rootDirectory = detected
     
-    LeafEngine.sources = .singleSource(NIOLeafFiles(fileio: app.fileio,
-                                                    limits: .default,
-                                                    sandboxDirectory: detected,
-                                                    viewDirectory: detected,
-                                                    defaultExtension: "html"))
+    TemplateEngine.sources = .singleSource(FileSource(fileio: app.fileio,
+                                                      limits: .default,
+                                                      sandboxDirectory: detected,
+                                                      viewDirectory: detected,
+                                                      defaultExtension: "html"))
 
     if !app.environment.isRelease {
-        LeafRenderer.Option.caching = .bypass
+        TemplateRenderer.Option.caching = .bypass
     }
 
-    app.views.use(.leaf)
+    app.views.use(.tau)
 
     let routers: [RouteCollection] = [
         FrontendRouter(),

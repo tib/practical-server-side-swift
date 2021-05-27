@@ -1,5 +1,5 @@
 import Vapor
-import Leaf
+import Tau
 import LoremSwiftum
 
 struct BlogFrontendController {
@@ -18,20 +18,22 @@ struct BlogFrontendController {
     }()
     
     func blogView(req: Request) throws -> EventLoopFuture<View> {
-        return req.leaf.render(template: "blog", context: [
+        return req.tau.render(template: "blog", context: [
             "title": "myPage - Blog",
-            "posts": .array(posts.map(\.leafData))
+            "posts": .array(posts.map(\.templateData))
         ])
     }
-    
+
     func postView(req: Request) throws -> EventLoopFuture<Response> {
         let slug = req.url.path.trimmingCharacters(in: .init(charactersIn: "/"))
         guard let post = posts.first(where: { $0.slug == slug }) else {
             return req.eventLoop.future(req.redirect(to: "/"))
         }
-        return req.leaf.render(template: "post", context: [
+        return req.tau.render(template: "post", context: [
             "title": .string("myPage - \(post.title)"),
-            "post": post.leafData
+            "post": post.templateData
         ]).encodeResponse(for: req)
     }
 }
+
+

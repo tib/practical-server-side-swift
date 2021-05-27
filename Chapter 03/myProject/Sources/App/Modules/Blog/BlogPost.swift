@@ -1,5 +1,5 @@
 import Foundation
-import Leaf
+import Tau
 
 struct BlogPost {
     let title: String
@@ -11,8 +11,9 @@ struct BlogPost {
     let content: String
 }
 
-extension BlogPost: LeafDataRepresentable {
-    var leafData: LeafData {
+extension BlogPost: TemplateDataRepresentable {
+    
+    var templateData: TemplateData {
         .dictionary([
             "title": .string(title),
             "slug": .string(slug),
