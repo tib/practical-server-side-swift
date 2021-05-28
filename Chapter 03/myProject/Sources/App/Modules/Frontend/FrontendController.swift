@@ -7,7 +7,6 @@ struct FrontendController {
     func homeView(req: Request) throws -> EventLoopFuture<View> {
         return req.tau.render(template: "home", context: [
             "title": "myPage - Home",
-
             "icon": "👋",
             "header": "Hello,",
             "message": "welcome to my Vapor powered website.",

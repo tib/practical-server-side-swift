@@ -9,7 +9,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/vapor/vapor", from: "4.45.5"),
         .package(url: "https://github.com/binarybirds/tau", from: "1.0.0"),
-        .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1")
+        .package(url: "https://github.com/lukaskubanek/LoremSwiftum", from: "2.2.1"),
     ],
     targets: [
         .target(name: "App", dependencies: [

@@ -1,5 +1,4 @@
 import Vapor
-import Tau
 import LoremSwiftum
 
 struct BlogFrontendController {
@@ -9,19 +8,21 @@ struct BlogFrontendController {
             let title = Lorem.title
             return BlogPost(title: title,
                             slug: title.lowercased().replacingOccurrences(of: " ", with: "-"),
-                            image: "/images/posts/\(String(format: "%02d", index + 1)).jpg",
+                            image: "/img/posts/\(String(format: "%02d", index + 1)).jpg",
                             excerpt: Lorem.sentence,
                             date: Date().addingTimeInterval(-Double.random(in: 0...(86400 * 60))),
                             category: Bool.random() ? Lorem.word.capitalized : nil,
                             content: Lorem.paragraph)
         }.sorted() { $0.date > $1.date }
     }()
-    
+
     func blogView(req: Request) throws -> EventLoopFuture<View> {
-        return req.tau.render(template: "blog", context: [
-            "title": "myPage - Blog",
-            "posts": .array(posts.map(\.templateData))
-        ])
+        struct Context: Codable {
+            let title: String
+            let posts: [BlogPost]
+        }
+        let ctx = Context(title: "myPage - Blog", posts: posts)
+        return req.view.render("blog", ctx)
     }
 
     func postView(req: Request) throws -> EventLoopFuture<Response> {
@@ -29,10 +30,12 @@ struct BlogFrontendController {
         guard let post = posts.first(where: { $0.slug == slug }) else {
             return req.eventLoop.future(req.redirect(to: "/"))
         }
-        return req.tau.render(template: "post", context: [
-            "title": .string("myPage - \(post.title)"),
-            "post": post.templateData
-        ]).encodeResponse(for: req)
+        struct Context: Codable {
+            let title: String
+            let post: BlogPost
+        }
+        let ctx = Context(title: "myPage - \(post.title)", post: post)
+        return req.view.render("post", ctx).encodeResponse(for: req)
     }
 }
 
