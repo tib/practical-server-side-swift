@@ -3,7 +3,6 @@ import Tau
 import LoremSwiftum
 
 struct FrontendController {
-    
     func homeView(req: Request) throws -> EventLoopFuture<View> {
         return req.tau.render(template: "home", context: [
             "title": "myPage - Home",

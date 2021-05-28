@@ -38,5 +38,3 @@ struct BlogFrontendController {
         return req.view.render("post", ctx).encodeResponse(for: req)
     }
 }
-
-

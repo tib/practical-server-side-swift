@@ -30,4 +30,3 @@ public func configure(_ app: Application) throws {
         try router.boot(routes: app.routes)
     }
 }
-
