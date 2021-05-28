@@ -6,19 +6,17 @@
         <p>#(message ?? "Hot news and stories about everything.")</p>
     </section>
 
-    <div class="grid-221 grid-gap">
+    <div class="grid-221">
     #for(post in posts):
-    <article class="grid-col1">
-        <a href="/#(post.slug)/">
-            <img src="#(post.image)">
-            <h2>#(post.title)</h2>
-            <p>#(post.excerpt)</p>
-        </a>
-    </article>
-    
+        <article>
+            <a href="/#(post.slug)/">
+                <img src="#(post.image)">
+                <h2>#(post.title)</h2>
+                <p>#(post.excerpt)</p>
+            </a>
+        </article>
     #endfor
     </div>
-
 </div>
 #enddefine
 #inline("index")
