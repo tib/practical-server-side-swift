@@ -1,6 +1,5 @@
 import Vapor
 import Tau
-import Plot
 
 public func configure(_ app: Application) throws {
 
