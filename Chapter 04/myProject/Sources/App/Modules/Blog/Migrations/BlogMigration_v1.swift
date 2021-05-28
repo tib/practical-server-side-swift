@@ -1,14 +1,14 @@
 import Fluent
 
-struct BlogMigration_v1_0_0: Migration {
-    
-    func prepare(on db: Database) -> EventLoopFuture<Void> {
-        db.eventLoop.flatten([
-            db.schema(BlogCategoryModel.schema)
+struct BlogMigration_v1: Migration {
+
+    func prepare(on database: Database) -> EventLoopFuture<Void> {
+        database.eventLoop.flatten([
+            database.schema(BlogCategoryModel.schema)
                 .id()
                 .field(BlogCategoryModel.FieldKeys.title, .string, .required)
                 .create(),
-            db.schema(BlogPostModel.schema)
+            database.schema(BlogPostModel.schema)
                 .id()
                 .field(BlogPostModel.FieldKeys.title, .string, .required)
                 .field(BlogPostModel.FieldKeys.slug, .string, .required)
@@ -19,17 +19,17 @@ struct BlogMigration_v1_0_0: Migration {
                 .field(BlogPostModel.FieldKeys.categoryId, .uuid)
                 .foreignKey(BlogPostModel.FieldKeys.categoryId,
                             references: BlogCategoryModel.schema, .id,
-                            onDelete: .cascade,
+                            onDelete: DatabaseSchema.ForeignKeyAction.setNull,
                             onUpdate: .cascade)
                 .unique(on: BlogPostModel.FieldKeys.slug)
                 .create(),
         ])
     }
-    
-    func revert(on db: Database) -> EventLoopFuture<Void> {
-        db.eventLoop.flatten([
-            db.schema(BlogCategoryModel.schema).delete(),
-            db.schema(BlogPostModel.schema).delete(),
+
+    func revert(on database: Database) -> EventLoopFuture<Void> {
+        database.eventLoop.flatten([
+            database.schema(BlogCategoryModel.schema).delete(),
+            database.schema(BlogPostModel.schema).delete(),
         ])
     }
 }

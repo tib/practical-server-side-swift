@@ -1,8 +1,8 @@
-import Leaf
+import Tau
 
-extension BlogPostModel: LeafDataRepresentable {
+extension BlogPostModel: TemplateDataRepresentable {
 
-    var leafData: LeafData {
+    var templateData: TemplateData {
         .dictionary([
             "id": .string(id?.uuidString),
             "title": .string(title),
@@ -11,7 +11,7 @@ extension BlogPostModel: LeafDataRepresentable {
             "excerpt": .string(excerpt),
             "date": .double(date.timeIntervalSinceReferenceDate),
             "content": .string(content),
-            "category": $category.value != nil ? category.leafData : .dictionary(nil),
+            "category": $category.value != nil ? category.templateData : .dictionary(nil),
         ])
     }
 }

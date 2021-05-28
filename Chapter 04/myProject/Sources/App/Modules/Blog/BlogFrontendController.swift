@@ -1,26 +1,28 @@
 import Vapor
+import Tau
 import Fluent
-import Leaf
 
 struct BlogFrontendController {
-
+    
     func blogView(req: Request) throws -> EventLoopFuture<View> {
         BlogPostModel.query(on: req.db)
             .sort(\.$date, .descending)
             .with(\.$category)
             .all()
-            .mapEach(\.leafData)
+            .mapEach(\.templateData)
             .flatMap {
-                req.leaf.render(template: "blog", context: [
+                req.tau.render(template: "blog", context: [
                     "title": .string("myPage - Blog"),
                     "posts": .array($0),
                 ])
             }
     }
-
+    
+    //...
+    
     func postView(req: Request) throws -> EventLoopFuture<Response> {
         let slug = req.url.path.trimmingCharacters(in: .init(charactersIn: "/"))
-        
+
         return BlogPostModel.query(on: req.db)
             .filter(\.$slug == slug)
             .with(\.$category)
@@ -29,11 +31,11 @@ struct BlogFrontendController {
                 guard let post = post else {
                     return req.eventLoop.future(req.redirect(to: "/"))
                 }
-                let context: LeafRenderer.Context = [
+                return req.tau.render(template: "post", context: [
                     "title": .string("myPage - \(post.title)"),
-                    "post": post.leafData,
-                ]
-                return req.leaf.render(template: "post", context: context).encodeResponse(for: req)
+                    "post": post.templateData,
+                ]).encodeResponse(for: req)
             }
     }
+    
 }

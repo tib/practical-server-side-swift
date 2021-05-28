@@ -1,37 +1,30 @@
 import Vapor
-import Leaf
+import Tau
 import Fluent
 import FluentSQLiteDriver
 
 public func configure(_ app: Application) throws {
 
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
+    let dbPath = app.directory.resourcesDirectory + "db.sqlite"
+    app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
+
 
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
     app.middleware.use(ExtendPathMiddleware())
 
-    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
-    LeafEngine.rootDirectory = detected
-
-    LeafEngine.sources = .singleSource(NIOLeafFiles(fileio: app.fileio,
-                                                    limits: .default,
-                                                    sandboxDirectory: detected,
-                                                    viewDirectory: detected,
-                                                    defaultExtension: "html"))
-
     if !app.environment.isRelease {
-        LeafRenderer.Option.caching = .bypass
+        TemplateRenderer.Option.caching = .bypass
     }
-    app.views.use(.leaf)
+    app.views.use(.tau)
 
     let modules: [Module] = [
         FrontendModule(),
         BlogModule(),
     ]
-
+    
     for module in modules {
-        try module.configure(app)
+        try module.boot(app)
     }
-
+    
     try app.autoMigrate().wait()
 }

@@ -1,12 +1,11 @@
-import Leaf
+import Tau
 
-extension BlogCategoryModel: LeafDataRepresentable {
+extension BlogCategoryModel: TemplateDataRepresentable {
 
-    var leafData: LeafData { 
+    var templateData: TemplateData {
         .dictionary([
             "id": .string(id?.uuidString),
             "title": .string(title),
         ])
     }
 }
-
