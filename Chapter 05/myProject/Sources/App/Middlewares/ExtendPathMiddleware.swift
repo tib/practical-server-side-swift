@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2020. 10. 14..
-//
-
 import Vapor
 
 struct ExtendPathMiddleware: Middleware {

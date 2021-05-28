@@ -1,11 +1,12 @@
 import Vapor
-import Leaf
+import Tau
 import Fluent
 import FluentSQLiteDriver
 
 public func configure(_ app: Application) throws {
 
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
+    let dbPath = app.directory.resourcesDirectory + "db.sqlite"
+    app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
 
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
@@ -14,42 +15,49 @@ public func configure(_ app: Application) throws {
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
     app.middleware.use(ExtendPathMiddleware())
 
-    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
-    LeafEngine.rootDirectory = detected
+    //...
+    
+    /// replace views with templates
+    let templatesFolderName = "Templates"
+    app.directory.viewsDirectory = app.directory.resourcesDirectory + templatesFolderName + "/"
 
-    if !app.environment.isRelease {
-        LeafRenderer.Option.caching = .bypass
-    }
-
-    let defaultSource = NIOLeafFiles(fileio: app.fileio,
-                                     limits: .default,
-                                     sandboxDirectory: detected,
-                                     viewDirectory: detected,
-                                     defaultExtension: "html")
-
-    let modulesSource = ModuleViewsLeafSource(rootDirectory: app.directory.workingDirectory,
-                                              modulesLocation: "Sources/App/Modules",
-                                              viewsFolderName: "Views",
-                                              fileExtension: "html",
-                                              fileio: app.fileio)
-
-    let multipleSources = LeafSources()
+    let detected = TemplateEngine.rootDirectory ?? app.directory.viewsDirectory
+    TemplateEngine.rootDirectory = detected
+    
+    let defaultSource = FileSource(fileio: app.fileio,
+                                   limits: .default,
+                                   sandboxDirectory: detected,
+                                   viewDirectory: detected,
+                                   defaultExtension: "html")
+    
+    let modulesSource = ModuleTemplateSource(rootDirectory: app.directory.workingDirectory,
+                                             modulesLocation: "Sources/App/Modules",
+                                             folderName: templatesFolderName,
+                                             fileExtension: "html",
+                                             fileio: app.fileio)
+    
+    let multipleSources = TemplateSources()
     try multipleSources.register(using: defaultSource)
     try multipleSources.register(source: "modules", using: modulesSource)
+    TemplateEngine.sources = multipleSources
+    
+    
+    if !app.environment.isRelease {
+        TemplateRenderer.Option.caching = .bypass
+    }
+    app.views.use(.tau)
 
-    LeafEngine.sources = multipleSources
-    app.views.use(.leaf)
-
+    //...
+    
     let modules: [Module] = [
-        UserModule(),
         FrontendModule(),
         BlogModule(),
+        UserModule(),
     ]
-
+    
     for module in modules {
-        try module.configure(app)
+        try module.boot(app)
     }
-
-
+    
     try app.autoMigrate().wait()
 }

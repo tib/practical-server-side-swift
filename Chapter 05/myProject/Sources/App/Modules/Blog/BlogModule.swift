@@ -1,14 +1,11 @@
 import Vapor
-import Fluent
 
 struct BlogModule: Module {
-        
-    var router: RouteCollection? { BlogRouter() }
 
-    var migrations: [Migration] {
-        [
-            BlogMigration_v1_0_0(),
-            BlogMigrationSeed(),
-        ]
+    func boot(_ app: Application) throws {
+        app.migrations.add(BlogMigration_v1())
+        app.migrations.add(BlogMigrationSeed())
+        
+        try BlogRouter().boot(routes: app.routes)
     }
 }
