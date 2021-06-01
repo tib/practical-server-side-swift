@@ -1,19 +1,22 @@
 import Vapor
-import Leaf
+import Tau
+import LoremSwiftum
 
 struct FrontendController {
-    
     func homeView(req: Request) throws -> EventLoopFuture<View> {
-        var email: String?
-        if let user = req.auth.get(UserModel.self) {
-            email = user.email
-        }
-        return req.leaf.render(template: "Frontend/Home", context: [
-            "title": .string("myPage - Home"),
-            "header": .string("Hi there, "),
-            "message": .string("welcome to my awesome page!"),
-            "isLoggedIn": .bool(email != nil),
-            "email": .string(email),
+        return req.tau.render(template: "Frontend/Home", context: [
+            "title": "myPage - Home",
+            "icon": "👋",
+            "header": "Hello,",
+            "message": "welcome to my Vapor powered website.",
+            "paragraphs": .array([
+                Lorem.sentences(6),
+                Lorem.sentences(8),
+            ]),
+            "link": .dictionary([
+                "label": "Read my blog →",
+                "url": "/blog/",
+            ])
         ])
     }
 }

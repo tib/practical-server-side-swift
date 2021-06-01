@@ -14,7 +14,7 @@ final class BlogPostModel: Model {
         static var content: FieldKey { "content" }
         static var categoryId: FieldKey { "category_id" }
     }
-    
+
     @ID() var id: UUID?
     @Field(key: FieldKeys.title) var title: String
     @Field(key: FieldKeys.slug) var slug: String
