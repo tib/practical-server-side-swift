@@ -1,6 +1,7 @@
 import Foundation
+import Vapor
 
-open class Form: Encodable {
+open class Form: FormComponent {
 
     enum CodingKeys: CodingKey {
         case action
@@ -33,12 +34,12 @@ open class Form: Encodable {
 
     var action: Action
     var error: String?
-    var fields: [FormFieldView]
+    var fields: [FormComponent]
     var submit: String?
 
     init(action: Action = .init(),
                 error: String? = nil,
-                fields: [FormFieldView] = [],
+                fields: [FormComponent] = [],
                 submit: String? = nil) {
         
         self.action = action
@@ -60,6 +61,32 @@ open class Form: Encodable {
         for field in fields {
             try field.encode(to: fieldsArrayContainer.superEncoder())
         }
+    }
+    
+    // MARK: - form component
+    
+    open func load(req: Request) -> EventLoopFuture<Void> {
+        return req.eventLoop.flatten(fields.map { $0.load(req: req) })
+    }
+
+    open func process(req: Request) -> EventLoopFuture<Void> {
+        req.eventLoop.flatten(fields.map { $0.process(req: req) })
+    }
+    
+    open func validate(req: Request) -> EventLoopFuture<Bool> {
+        req.eventLoop.future(true)
+    }
+
+    open func save(req: Request) -> EventLoopFuture<Void> {
+        req.eventLoop.flatten(fields.map { $0.save(req: req) })
+    }
+    
+    open func read(req: Request) -> EventLoopFuture<Void> {
+        req.eventLoop.flatten(fields.map { $0.read(req: req) })
+    }
+
+    open func write(req: Request) -> EventLoopFuture<Void> {
+        req.eventLoop.flatten(fields.map { $0.write(req: req) })
     }
     
 }

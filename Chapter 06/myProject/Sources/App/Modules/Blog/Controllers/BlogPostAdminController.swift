@@ -10,6 +10,10 @@ struct BlogPostAdminController {
         ])
     }
     
+    func create(req: Request) throws -> EventLoopFuture<Response> {
+        req.eventLoop.future(req.redirect(to: ""))
+    }
+    
     func listView(req: Request) throws -> EventLoopFuture<View> {
         BlogPostModel.query(on: req.db)
             .all()
