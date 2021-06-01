@@ -24,6 +24,7 @@ let package = Package(
             "Modules/Blog/Templates",
             "Modules/Frontend/Templates",
             "Modules/User/Templates",
+            "Modules/Common/Templates",
         ]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [
