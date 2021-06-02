@@ -3,7 +3,7 @@ import Vapor
 struct BlogRouter: RouteCollection {
     
     let frontendController = BlogFrontendController()
-    let adminController = BlogPostAdminController()
+    let postsAdminController = BlogPostAdminController()
     
     func boot(routes: RoutesBuilder) throws {
         routes.get("blog", use: frontendController.blogView)
@@ -13,10 +13,16 @@ struct BlogRouter: RouteCollection {
             .grouped(UserModel.redirectMiddleware(path: "/"))
             .grouped("admin", "blog", "posts")
             
-        posts.get(use: self.adminController.listView)
-        posts.get("new", use: adminController.createView)
-        posts.post("new", use: adminController.create)
-        posts.get(":id", use: self.adminController.updateView)
-        posts.post(":id", use: self.adminController.update)
+        posts.get(use: postsAdminController.listView)
+        posts.get("new", use: postsAdminController.createView)
+        posts.post("new", use: postsAdminController.create)
+        
+        let singlePost = posts.grouped(":id")
+        
+        singlePost.get(use: postsAdminController.updateView)
+        singlePost.post(use: postsAdminController.update)
+        
+        singlePost.get("delete", use: postsAdminController.deleteView)
+        singlePost.post("delete", use: postsAdminController.delete)
     }
 }

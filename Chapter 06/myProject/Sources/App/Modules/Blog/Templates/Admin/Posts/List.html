@@ -9,8 +9,9 @@
         <tr>
             <th>Image</th>
             <th>Title</th>
-            <th>Edit</th>
             <th>Preview</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -18,8 +19,9 @@
         <tr>
             <td><img src="#(item.image)"></td>
             <td>#(item.title)</td>
-            <td><a href="/admin/blog/posts/#(item.id)/">Edit</a></td>
             <td><a href="/#(item.slug)/" target="_blank">Preview</a></td>
+            <td><a href="/admin/blog/posts/#(item.id)/">Edit</a></td>
+            <td><a href="/admin/blog/posts/#(item.id)/delete/">Delete</a></td>
         </tr>
     #endfor
     </tbody>
