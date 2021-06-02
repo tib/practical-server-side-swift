@@ -1,5 +1,5 @@
 tr {
-    grid-template-columns: 4rem 1fr 4rem;
+    grid-template-columns: 4rem 1fr 4rem 4rem;
     column-gap: 1rem;
 }
 td img {
