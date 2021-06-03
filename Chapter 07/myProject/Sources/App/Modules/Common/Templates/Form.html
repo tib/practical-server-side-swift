@@ -1,0 +1,23 @@
+<form
+    method="#(form.action.method ?? "post")"
+    #if(form.action.url ?? false): action="#(form.action.url)"#endif
+    class="container"
+    >
+
+    #if(form.error ?? false):
+    <section>
+        <p class="error">#(form.error)</p>
+    </section>
+    #endif
+
+    #var(field = nil)
+    #for(field in form.fields):
+        #if(field.type == "text"):                  #inline("Common/Fields/Text")
+        #elseif(field.type == "textarea"):          #inline("Common/Fields/Textarea")
+        #endif
+    #endfor
+        
+    <section>
+        <input type="submit" value="#(form.submit ?? "Save")">
+    </section>
+</form>

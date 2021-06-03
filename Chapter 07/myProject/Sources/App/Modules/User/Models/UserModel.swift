@@ -33,7 +33,3 @@ extension UserModel: SessionAuthenticatable {
 
     var sessionID: SessionID { id! }
 }
-
-extension UserModel: Authenticatable {
-    
-}

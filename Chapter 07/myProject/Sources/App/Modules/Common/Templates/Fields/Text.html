@@ -1,0 +1,5 @@
+<section>
+    #inline("Common/Fields/Label")
+    <input type="#(field.format ?? "text")" id="#(field.key)" name="#(field.key)" value="#(field.value ?? "")" placeholder="#(field.placeholder ?? "")" class="field"#if(field.required ?? false): aria-required="true"#endif>
+    #inline("Common/Fields/Error")
+</section>

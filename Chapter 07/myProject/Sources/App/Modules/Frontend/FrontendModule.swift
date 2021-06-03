@@ -1,9 +1,8 @@
 import Vapor
-import Fluent
 
 struct FrontendModule: Module {
-
-    var name: String = "frontend"
     
-    var router: RouteCollection? { FrontendRouter() }
+    func boot(_ app: Application) throws {
+        try FrontendRouter().boot(routes: app.routes)
+    }
 }

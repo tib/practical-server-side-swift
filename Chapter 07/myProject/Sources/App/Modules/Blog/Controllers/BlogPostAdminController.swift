@@ -1,61 +1,47 @@
 import Vapor
 import Fluent
-import Leaf
-import Liquid
+import Tau
 
 struct BlogPostAdminController {
     
-    func listView(req: Request) throws -> EventLoopFuture<View> {
-        return BlogPostModel.query(on: req.db)
-            .all()
-            .mapEach(\.leafData)
-            .flatMap {
-                req.leaf.render(template: "Blog/Admin/Posts/List", context: ["list": .array($0)])
-            }
-    }
-    
-    func beforeRender(req: Request, form: BlogPostEditForm) -> EventLoopFuture<Void> {
-        BlogCategoryModel.query(on: req.db).all()
-            .mapEach(\.formFieldStringOption)
-            .map { form.category.options = $0 }
-    }
-    
-    func render(req: Request, form: BlogPostEditForm) -> EventLoopFuture<View> {
-        beforeRender(req: req, form: form).flatMap {
-            req.leaf.render(template: "Blog/Admin/Posts/Edit", context: ["edit": form.leafData])
-        }
+    private func render(_ req: Request, _ form: BlogPostEditForm) -> EventLoopFuture<View> {
+        req.tau.render(template: "Blog/Admin/Posts/Edit", context: [
+            "form": form.encodeToTemplateData(),
+        ])
     }
     
     func createView(req: Request) throws -> EventLoopFuture<View> {
-        return render(req: req, form: .init())
-    }
-    
-    func beforeCreate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if let data = form.image.data {
-            let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-            future = req.fs.upload(key: key, data: data).map { url in
-                form.image.value = url
-                model.imageKey = key
-                model.image = url
-                return model
-            }
-        }
-        return future
+        render(req, .init())
     }
     
     func create(req: Request) throws -> EventLoopFuture<Response> {
-        let form = try BlogPostEditForm(req: req)
-        return form.validate(req: req).flatMap { isValid -> EventLoopFuture<Response> in
-            guard isValid else {
-                return render(req: req, form: form).encodeResponse(for: req)
+        let form = BlogPostEditForm()
+        form.model = BlogPostModel()
+        
+        return form.process(req: req)
+            .flatMap { form.validate(req: req) }
+            .flatMap { isValid in
+                guard isValid else {
+                    return render(req, form).encodeResponse(for: req)
+                }
+                return form.save(req: req)
+                    .flatMap { form.model!.save(on: req.db) }
+                    .flatMap { form.load(req: req) }
+                    .flatMap { render(req, form) }
+                    .encodeResponse(for: req)
             }
-            let model = BlogPostModel()
-            form.write(to: model)
-            return beforeCreate(req: req, model: model, form: form).flatMap { model in
-                model.create(on: req.db).map { req.redirect(to: model.id!.uuidString) }
+    }
+    
+    
+    func listView(req: Request) throws -> EventLoopFuture<View> {
+        BlogPostModel.query(on: req.db)
+            .all()
+            .mapEach { $0.encodeToTemplateData() }
+            .flatMap {
+                req.tau.render(template: "Blog/Admin/Posts/List", context: [
+                    "list": .array($0)
+                ])
             }
-        }
     }
     
     func find(_ req: Request) throws -> EventLoopFuture<BlogPostModel> {
@@ -63,80 +49,50 @@ struct BlogPostAdminController {
             let id = req.parameters.get("id"),
             let uuid = UUID(uuidString: id)
         else {
-            throw Abort(.badRequest)
+            throw Abort(.notFound)
         }
         return BlogPostModel.find(uuid, on: req.db).unwrap(or: Abort(.notFound))
     }
-    
+
     func updateView(req: Request) throws -> EventLoopFuture<View>  {
-        try find(req).flatMap { model in
-            let form = BlogPostEditForm()
-            form.read(from: model)
-            return render(req: req, form: form)
+        let form = BlogPostEditForm()
+        return try find(req).flatMap { model in
+            form.model = model
+            return form.load(req: req)
         }
+        .flatMap { render(req, form) }
     }
-    
-    func beforeUpdate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if
-            (form.image.delete || form.image.data != nil),
-            let imageKey = model.imageKey
-        {
-            future = req.fs.delete(key: imageKey).map {
-                form.image.value = ""
-                model.image = ""
-                model.imageKey = nil
-                return model
-            }
-        }
-        if let data = form.image.data {
-            return future.flatMap { model in
-                let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-                return req.fs.upload(key: key, data: data).map { url in
-                    form.image.value = url
-                    model.imageKey = key
-                    model.image = url
-                    return model
+
+    func update(req: Request) throws -> EventLoopFuture<Response> {
+        let form = BlogPostEditForm()
+        return form.process(req: req)
+            .flatMap {
+                do {
+                    return try find(req).map { model in form.model = model }
+                }
+                catch {
+                    return req.eventLoop.future(error: error)
                 }
             }
+            .flatMap { form.save(req: req) }
+            .flatMap { form.model!.save(on: req.db) }
+            .flatMap { form.load(req: req) }
+            .flatMap { render(req, form) }
+            .encodeResponse(for: req)
+    }
+    
+    // ...
+    func deleteView(req: Request) throws -> EventLoopFuture<View> {
+        try find(req).flatMap { model in
+            req.tau.render(template: "Blog/Admin/Posts/Delete", context: [
+                "post": model.encodeToTemplateData()
+            ])
         }
-        return future
     }
 
-    func update(req: Request) throws -> EventLoopFuture<View> {
-        let form = try BlogPostEditForm(req: req)
-        return form.validate(req: req).flatMap { isValid in
-            guard isValid else {
-                return render(req: req, form: form)
-            }
-            do {
-                return try find(req).flatMap { model in beforeUpdate(req: req, model: model, form: form) }
-                    .flatMap { model in
-                        form.write(to: model)
-                        return model.update(on: req.db).map {
-                            form.read(from: model)
-                        }
-                    }
-                    .flatMap { render(req: req, form: form) }
-            }
-            catch {
-                return req.eventLoop.future(error: error)
-            }
-        }
-    }
-    
-    func beforeDelete(req: Request, model: BlogPostModel) -> EventLoopFuture<BlogPostModel> {
-        if let key = model.imageKey {
-            return req.fs.delete(key: key).map { model }
-        }
-        return req.eventLoop.future(model)
-    }
-    
-    func delete(req: Request) throws -> EventLoopFuture<String> {
+    func delete(req: Request) throws -> EventLoopFuture<Response> {
         try self.find(req)
-            .flatMap { beforeDelete(req: req, model: $0) }
-            .flatMap { model in model.delete(on: req.db).map { model.id!.uuidString } }
+            .flatMap { $0.delete(on: req.db) }
+            .map { req.redirect(to: "/admin/blog/posts/") }
     }
-    
 }
-

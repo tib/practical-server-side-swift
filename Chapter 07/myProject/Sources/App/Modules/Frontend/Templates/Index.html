@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>#(title)</title>
+    
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/feathercms/feather-core@1.0.0-beta.44/feather.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div id="navigation">
+            <a id="site-logo" href="/">
+                <img src="/img/logo.png">
+            </a>
+
+            <nav id="primary-menu">
+                <input type="checkbox" id="primary-menu-button" name="menu-button" class="menu-button">
+                <label for="primary-menu-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </label>
+                <div class="menu-items">
+                    <a href="/">Home</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="#" onClick="javascript:about();">About</a>
+
+                    #if($user.isAuthenticated):
+                    <a href="/admin/">Admin</a>
+                    <a href="/sign-out/">Logout</a>
+                    #else:
+                    <a href="/sign-in/">Login</a>
+                    #endif
+
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        #evaluate(body)
+    </main>
+    
+    <footer>
+        <section>
+            <p>User &middot; #if($user.isAuthenticated):#($user.email)#else:Guest#endif</p>
+            <p>This site is powered by <a href="https://swift.org" target="_blank">Swift</a> & <a href="https://vapor.codes" target="_blank">Vapor</a>.</p>
+            <p>myPage &copy; 2020-2021</p>
+        </section>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

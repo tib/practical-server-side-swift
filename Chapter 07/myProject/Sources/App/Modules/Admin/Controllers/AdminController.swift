@@ -1,13 +1,9 @@
 import Vapor
-import Leaf
 
 struct AdminController {
-    
-    func homeView(req: Request) throws -> EventLoopFuture<View> {
-        let user = try req.auth.require(UserModel.self) 
-        return req.leaf.render(template: "Admin/Home", context: [
-            "header": .string("Hi \(user.email)"),
-            "message": .string("welcome to the CMS!"),
-        ])
+
+    func dashboardView(req: Request) throws -> EventLoopFuture<View> {
+        // try req.auth.require(UserModel.self)
+        req.view.render("Admin/Dashboard")
     }
 }
