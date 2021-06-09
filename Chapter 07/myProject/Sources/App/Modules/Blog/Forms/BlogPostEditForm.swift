@@ -2,19 +2,19 @@ import Foundation
 import Vapor
 
 final class BlogPostEditForm: Form {
-
+    
     var model: BlogPostModel?
-
+    
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         return formatter
     }()
-
+    
     init() {
         super.init()
-
+        
         self.fields = [
             TextField(key: "title")
                 .config { $0.output.required = true }
@@ -25,7 +25,7 @@ final class BlogPostEditForm: Form {
                 .save { [unowned self] in
                     model?.title = $1.input
                 },
-                
+            
             TextField(key: "slug")
                 .config { $0.output.required = true }
                 .validators { [
@@ -57,7 +57,20 @@ final class BlogPostEditForm: Form {
                 .load { [unowned self] in $1.output.value = formatter.string(from: model?.date ?? Date()) }
                 .save { [unowned self] in model?.date = formatter.date(from: $1.input) ?? Date() }
             ,
-                
+            
+            SelectionField(key: "category", value: model?.$category.id.uuidString ?? "")
+                .load { req, field in
+                    BlogCategoryModel.query(on: req.db).all()
+                        .mapEach { FormFieldOption(key: $0.id!.uuidString, label: $0.title) }
+                        .map { field.output.options = $0 }
+                }
+                .read { [unowned self] req, field in
+                    field.output.value = model!.$category.id.uuidString
+                }
+                .save { [unowned self] req, field in
+                    model!.$category.id = UUID(uuidString: field.input)!
+                },
+            
             TextareaField(key: "content")
                 .config {
                     $0.output.required = true
@@ -72,14 +85,11 @@ final class BlogPostEditForm: Form {
     // ...
     override func save(req: Request) -> EventLoopFuture<Void> {
         super.save(req: req)
-            .flatMap { [unowned self] in
+            .map { [unowned self] in
                 if let _ = req.parameters.get("id") {
-                    return req.eventLoop.future()
+                    return
                 }
                 model?.image = "/img/posts/01.jpg"
-                return BlogCategoryModel.query(on: req.db).first().map {
-                    model?.$category.id = $0!.id!
-                }
-        }
+            }
     }
 }

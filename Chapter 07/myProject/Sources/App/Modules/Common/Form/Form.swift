@@ -72,8 +72,7 @@ open class Form: FormComponent {
     open func process(req: Request) -> EventLoopFuture<Void> {
         req.eventLoop.flatten(fields.map { $0.process(req: req) })
     }
-    
-    //...
+
     open func validate(req: Request) -> EventLoopFuture<Bool> {
         return req.eventLoop.mergeTrueFutures(fields.map { $0.validate(req: req) })
     }
