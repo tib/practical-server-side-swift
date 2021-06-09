@@ -9,7 +9,6 @@ struct RequestValidator {
         self.validators = validators
     }
     
-    /// this is magic, don't touch it
     func validate(_ req: Request, message: String? = nil) -> EventLoopFuture<Void> {
         let initial: EventLoopFuture<[ValidationErrorDetail]> = req.eventLoop.future([])
         return validators.reduce(initial) { res, next -> EventLoopFuture<[ValidationErrorDetail]> in
@@ -27,7 +26,7 @@ struct RequestValidator {
         }
         .flatMap { details -> EventLoopFuture<Void> in
             guard details.isEmpty else {
-                return req.eventLoop.future(error: ValidationAbort(abort: Abort(.badRequest, reason: message), details: details))
+                return req.eventLoop.future(error: Abort(.badRequest, reason: message))
             }
             return req.eventLoop.future()
         }
