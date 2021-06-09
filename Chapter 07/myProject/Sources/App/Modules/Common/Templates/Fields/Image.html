@@ -1,0 +1,27 @@
+<section class="#(field.class ?? "large")-uploader uploader">
+
+    #if(field.currentKey ?? false):
+        <input id="#(field.key)CurrentKey" name="#(field.key)CurrentKey" type="hidden" value="#(field.currentKey)">
+        <img id="preview" src="#(field.currentKey.resolve())">
+    #else:
+        <div id="placeholder" class="p:l">Placeholder image</div>
+    #endif
+
+    #inline("Common/Fields/Label")
+    <input id="#(field.key)" name="#(field.key)" type="file"#if(field.accept ?? false): accept="#(field.accept)"#endif #if(field.required ?? false): aria-required="true"#endif>
+
+    #if(!field.required ?? false):
+    <input id="#(field.key)Remove" name="#(field.key)Remove" type="checkbox" value="true" #if(field.remove == true):checked#endif>
+    <label for="#(field.key)Remove">Remove</label>
+    #endif
+
+    #if(field.temporaryKey ?? false):
+    <input id="#(field.key)TemporaryKey" name="#(field.key)TemporaryKey" type="hidden" value="#(field.temporaryKey)">
+    #endif
+    
+    #if(field.temporaryName ?? false):
+    <input id="#(field.key)TemporaryName" name="#(field.key)TemporaryName" type="hidden" value="#(field.temporaryName)">
+    #endif
+
+    #inline("Common/Fields/Error")
+</section>

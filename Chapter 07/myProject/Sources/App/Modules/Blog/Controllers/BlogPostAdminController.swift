@@ -30,6 +30,7 @@ struct BlogPostAdminController {
                     return render(req, form).encodeResponse(for: req)
                 }
                 return form.save(req: req)
+                    .flatMap { form.write(req: req) }
                     .flatMap { form.model!.save(on: req.db) }
                     .flatMap { form.load(req: req) }
                     .flatMap { render(req, form) }
@@ -81,6 +82,7 @@ struct BlogPostAdminController {
                     return req.eventLoop.future(error: error)
                 }
             }
+            .flatMap { form.write(req: req) }
             .flatMap { form.save(req: req) }
             .flatMap { form.model!.save(on: req.db) }
             .flatMap { form.load(req: req) }

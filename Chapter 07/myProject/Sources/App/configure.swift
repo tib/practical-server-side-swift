@@ -2,11 +2,19 @@ import Vapor
 import Tau
 import Fluent
 import FluentSQLiteDriver
+import Liquid
+import LiquidLocalDriver
 
 public func configure(_ app: Application) throws {
 
     let dbPath = app.directory.resourcesDirectory + "db.sqlite"
     app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
+
+    app.routes.defaultMaxBodySize = "10mb"
+    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
+                                publicPath: app.directory.publicDirectory,
+                                workDirectory: "assets"), as: .local)
+
 
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
@@ -45,6 +53,9 @@ public func configure(_ app: Application) throws {
     if !app.environment.isRelease {
         TemplateRenderer.Option.caching = .bypass
     }
+    
+    TemplateEngine.entities.use(ResolveEntity(), asMethod: "resolve")
+
     app.views.use(.tau)
 
     //...

@@ -9,3 +9,4 @@ struct BlogModule: Module {
         try BlogRouter().boot(routes: app.routes)
     }
 }
+

@@ -1,6 +1,7 @@
 <form
     method="#(form.action.method ?? "post")"
     #if(form.action.url ?? false): action="#(form.action.url)"#endif
+    #if(form.action.multipart ?? false): enctype="multipart/form-data"#endif
     class="container"
     >
 
@@ -15,6 +16,7 @@
         #if(field.type == "text"):                  #inline("Common/Fields/Text")
         #elseif(field.type == "textarea"):          #inline("Common/Fields/Textarea")
         #elseif(field.type == "selection"):         #inline("Common/Fields/Selection")
+        #elseif(field.type == "image"):             #inline("Common/Fields/Image")
         #endif
     #endfor
         

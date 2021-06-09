@@ -15,7 +15,14 @@ final class BlogPostEditForm: Form {
     init() {
         super.init()
         
+        action.multipart = true
+        
         self.fields = [
+            
+            ImageField(key: "image", path: "blog/posts/")
+                .read { [unowned self] in ($1 as! ImageField).imageKey = model?.image }
+                .write { [unowned self] in model?.image = ($1 as! ImageField).imageKey ?? "" },
+            
             TextField(key: "title")
                 .config { $0.output.required = true }
                 .validators { [
@@ -80,16 +87,5 @@ final class BlogPostEditForm: Form {
                 .save { [unowned self] in model?.content = $1.input }
             ,
         ]
-    }
-    
-    // ...
-    override func save(req: Request) -> EventLoopFuture<Void> {
-        super.save(req: req)
-            .map { [unowned self] in
-                if let _ = req.parameters.get("id") {
-                    return
-                }
-                model?.image = "/img/posts/01.jpg"
-            }
     }
 }
