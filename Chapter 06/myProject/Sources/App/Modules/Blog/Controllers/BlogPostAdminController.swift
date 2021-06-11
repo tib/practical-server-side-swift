@@ -16,14 +16,19 @@ struct BlogPostAdminController {
     
     func create(req: Request) throws -> EventLoopFuture<Response> {
         let form = BlogPostEditForm()
-        form.model = BlogPostModel()
-        
-        return form.process(req: req)
-            .flatMap { form.save(req: req) }
-            .flatMap { form.model!.save(on: req.db) }
-            .flatMap { form.load(req: req) }
-            .flatMap { render(req, form) }
-            .encodeResponse(for: req)
+                
+        return form.load(req: req)
+            .flatMap { form.process(req: req) }
+            .flatMap {
+                let model = BlogPostModel()
+                form.model = model
+                return form.write(req: req)
+                    .flatMap { form.model!.create(on: req.db) }
+                    .flatMap { form.load(req: req) }
+                    .flatMap { form.read(req: req) }
+                    .flatMap { render(req, form) }
+                    .encodeResponse(for: req)
+            }
     }
     
     func listView(req: Request) throws -> EventLoopFuture<View> {
@@ -52,26 +57,30 @@ struct BlogPostAdminController {
         return try find(req).flatMap { model in
             form.model = model
             return form.load(req: req)
+                .flatMap { form.read(req: req) }
         }
         .flatMap { render(req, form) }
     }
 
     func update(req: Request) throws -> EventLoopFuture<Response> {
         let form = BlogPostEditForm()
-        return form.process(req: req)
+        return form.load(req: req)
+            .flatMap { form.process(req: req) }
             .flatMap {
                 do {
-                    return try find(req).map { model in form.model = model }
+                    return try find(req)
+                        .map { model in form.model = model }
+                        .flatMap { form.write(req: req) }
+                        .flatMap { form.model!.update(on: req.db) }
+                        .flatMap { form.save(req: req) }
+                        .flatMap { form.read(req: req) }
+                        .flatMap { render(req, form) }
+                        .encodeResponse(for: req)
                 }
                 catch {
                     return req.eventLoop.future(error: error)
                 }
             }
-            .flatMap { form.save(req: req) }
-            .flatMap { form.model!.save(on: req.db) }
-            .flatMap { form.load(req: req) }
-            .flatMap { render(req, form) }
-            .encodeResponse(for: req)
     }
     
     // ...
