@@ -6,6 +6,8 @@ struct BlogModule: Module {
         app.migrations.add(BlogMigration_v1())
         app.migrations.add(BlogMigrationSeed())
         
+        app.commands.use(BlogCommandGroup(), as: "blog")
+        
         try BlogRouter().boot(routes: app.routes)
     }
 }
