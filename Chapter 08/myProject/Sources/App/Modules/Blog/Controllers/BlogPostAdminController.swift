@@ -4,11 +4,17 @@ import Tau
 
 struct BlogPostAdminController: ListController {
     typealias Model = BlogPostModel
-    
+
+    func listContext(req: Request, table: Table) -> ListContext {
+        .init(title: "Posts", table: table)
+    }
     
     func listTable(_ models: [Model]) -> Table {
-        Table(columns: ["title"], rows: models.map { model in
-            TableRow(id: model.id!.uuidString, cells: [TableCell(model.title)])
+        Table(columns: ["image", "title"], rows: models.map { model in
+            TableRow(id: model.id!.uuidString, cells: [
+                TableCell(type: .image, model.image),
+                TableCell(model.title),
+            ])
         })
     }
     

@@ -1,7 +1,6 @@
-#let(title = "Table")
 #let(tableActions = [
-    ["url": "/update/", "label": "Edit", "icon": "edit-2", "width": "4rem"],
-    ["url": "/delete/", "label": "Delete", "icon": "trash", "width": "4rem"]
+    ["url": "/update/", "label": "Edit", "width": "4rem"],
+    ["url": "/delete/", "label": "Delete", "width": "4rem"]
 ])
 
 #define(css):
@@ -23,10 +22,10 @@ td.field {
 
 #define(body):
 <div class="lead">
-    <h1>Table</h1>
+    <h1>#(title)</h1>
     <p>
         #var(nav = nav ?? [])
-        #(nav.append(["url": "new/", "label": "Create new"]))
+        #(nav.append(["url": "create/", "label": "Create new"]))
         
         #for(item in nav):
             #if(!isFirst): &middot; #endif<a href="#(item.url)"#if(item.isBlank ?? false): target="_blank"#endif>#(item.label)</a>
@@ -56,13 +55,13 @@ td.field {
             #for(cell in row.cells):
             <td class="field#if(isLast): last#endif">
                 #var(value = cell.value)
-                #if(cell.type == "image"): #var(value = "<img src='" + cell.value +"'>") #endif
+                #if(cell.type == "image"): #var(value = "<img src='" + cell.value.resolve() +"'>") #endif
                 <a href="#(row.id)/">#(value)</a>
             </td>
             #endfor
             #for(action in tableActions):
             <td class="action">
-                <a href="#(row.id)#(action.url)">#(action.icon)</a>
+                <a href="#(row.id)#(action.url)">#(action.label)</a>
             </td>
             #endfor
         </tr>
