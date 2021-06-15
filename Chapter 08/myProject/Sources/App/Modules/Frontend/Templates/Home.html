@@ -1,0 +1,18 @@
+#define(body):
+<div id="home" class="container">
+
+    <section class="lead">
+        <p>#(icon)</p>
+        <h1>#(header)</h1>
+        <p>#(message)</p>
+    </section>
+    
+    #for(paragraph in paragraphs):
+        <p>#(paragraph)</p>
+    #endfor
+
+    <a href="#(link.url)">#(link.label)</a>
+
+</div>
+#enddefine
+#inline("Frontend/Index")

@@ -1,16 +1,14 @@
 import Vapor
-import Fluent
 
 struct UserModule: Module {
-    
-    var name: String = "user"
 
-    var router: RouteCollection? { UserRouter() }
-    
-    var migrations: [Migration] {
-        [
-            UserMigration_v1_0_0(),
-            UserMigrationSeed(),
-        ]
+    func boot(_ app: Application) throws {
+        app.migrations.add(UserMigration_v1())
+        app.migrations.add(UserMigrationSeed())
+        
+        app.middleware.use(UserModelSessionAuthenticator())
+        app.middleware.use(UserTemplateScopeMiddleware())
+        
+        try UserRouter().boot(routes: app.routes)
     }
 }

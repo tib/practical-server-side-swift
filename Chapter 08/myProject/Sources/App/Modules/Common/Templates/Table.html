@@ -1,0 +1,77 @@
+#let(title = "Table")
+#let(tableActions = [
+    ["url": "/update/", "label": "Edit", "icon": "edit-2", "width": "4rem"],
+    ["url": "/delete/", "label": "Delete", "icon": "trash", "width": "4rem"]
+])
+
+#define(css):
+tr {
+    grid-template-columns: repeat(#(tableActions.count()), 1fr);
+}
+td.field {
+    grid-column: span #(tableActions.count());
+}
+@media (min-width: 600px) {
+    tr {
+        grid-template-columns:#for(f in table.columns ?? []): #(f.width ?? "1fr")#endfor #for(a in tableActions): #(a.width ?? "1fr")#endfor;
+    }
+    td.field {
+        grid-column: span 1;
+    }
+}
+#enddefine
+
+#define(body):
+<div class="lead">
+    <h1>Table</h1>
+    <p>
+        #var(nav = nav ?? [])
+        #(nav.append(["url": "new/", "label": "Create new"]))
+        
+        #for(item in nav):
+            #if(!isFirst): &middot; #endif<a href="#(item.url)"#if(item.isBlank ?? false): target="_blank"#endif>#(item.label)</a>
+        #endfor
+    </p>
+</div>
+
+#if(table.rows.isEmpty()):
+    <p>Empty table</p>
+#else:
+<table>
+    <thead>
+        <tr>
+            #for(column in table.columns):
+            <td class="field#if(isLast): last#endif">
+                #(column.label)
+            </td>
+            #endfor
+            #for(action in tableActions):
+            <td class="action">#(action.label)</td>
+            #endfor
+        </tr>
+    </thead>
+    <tbody>
+        #for(row in table.rows):
+        <tr>
+            #for(cell in row.cells):
+            <td class="field#if(isLast): last#endif">
+                #var(value = cell.value)
+                #if(cell.type == "image"): #var(value = "<img src='" + cell.value +"'>") #endif
+                <a href="#(row.id)/">#(value)</a>
+            </td>
+            #endfor
+            #for(action in tableActions):
+            <td class="action">
+                <a href="#(row.id)#(action.url)">#(action.icon)</a>
+            </td>
+            #endfor
+        </tr>
+        #endfor
+    </tbody>
+</table>
+
+#endif
+
+#enddefine
+
+#inline("Admin/Index")

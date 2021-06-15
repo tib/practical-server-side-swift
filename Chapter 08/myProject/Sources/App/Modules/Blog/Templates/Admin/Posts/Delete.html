@@ -1,0 +1,16 @@
+#let(title = "Confirm post deletion")
+
+#define(body):
+<div class="lead container center">
+    <span class="icon">🗑</span>
+    <h1>Confirm post deletion</h1>
+    <p>You are about to permanently delete the<br> `#(post.title)` post.</p>
+
+    <form id="delete-form" method="post">
+        <input type="submit" value="Delete" class="button destructive" style="display: inline;"> &nbsp;
+        <a href="/admin/blog/posts/" class="button cancel" >Cancel</a>
+    </form>
+</div>
+#enddefine
+
+#inline("Admin/Index")

@@ -1,0 +1,23 @@
+#define(body):
+<div id="blog">
+    <section class="lead">
+        <p>#(icon ?? "🔥")</p>
+        <h1>#(header ?? "Blog")</h1>
+        <p>#(message ?? "Hot news and stories about everything.")</p>
+    </section>
+
+    <div class="grid-221">
+    #for(post in posts):
+        <article>
+            <a href="/#(post.slug)/">
+                <img src="#(post.image)">
+                <h2>#(post.title)</h2>
+                <p>#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category.title ?? "Uncategorized")</p>
+                <p>#(post.excerpt)</p>
+            </a>
+        </article>
+    #endfor
+    </div>
+</div>
+#enddefine
+#inline("Frontend/Index")

@@ -1,6 +1,5 @@
 import Vapor
 import Fluent
-import Leaf
 
 final class BlogCategoryModel: Model {
 
@@ -16,11 +15,8 @@ final class BlogCategoryModel: Model {
     
     init() { }
     
-    init(id: UUID? = nil,
-         title: String)
-    {
+    init(id: UUID? = nil, title: String) {
         self.id = id
         self.title = title
     }
 }
-

@@ -13,9 +13,8 @@ final class BlogPostModel: Model {
         static var date: FieldKey { "date" }
         static var content: FieldKey { "content" }
         static var categoryId: FieldKey { "category_id" }
-        static var imageKey: FieldKey { "image_key" }
     }
-    
+
     @ID() var id: UUID?
     @Field(key: FieldKeys.title) var title: String
     @Field(key: FieldKeys.slug) var slug: String
@@ -23,7 +22,6 @@ final class BlogPostModel: Model {
     @Field(key: FieldKeys.excerpt) var excerpt: String
     @Field(key: FieldKeys.date) var date: Date
     @Field(key: FieldKeys.content) var content: String
-    @Field(key: FieldKeys.imageKey) var imageKey: String?
     @Parent(key: FieldKeys.categoryId) var category: BlogCategoryModel
 
     init() { }
@@ -35,7 +33,6 @@ final class BlogPostModel: Model {
          excerpt: String,
          date: Date,
          content: String,
-         imageKey: String? = nil,
          categoryId: UUID)
     {
         self.id = id
@@ -45,7 +42,6 @@ final class BlogPostModel: Model {
         self.excerpt = excerpt
         self.date = date
         self.content = content
-        self.imageKey = imageKey
         $category.id = categoryId
     }
 }

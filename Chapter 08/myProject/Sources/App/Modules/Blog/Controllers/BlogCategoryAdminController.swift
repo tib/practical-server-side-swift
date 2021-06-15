@@ -1,11 +1,14 @@
 import Vapor
 import Fluent
-import Leaf
+import Tau
 
-struct BlogCategoryAdminController: AdminViewController {
-    typealias EditForm = BlogCategoryEditForm
+struct BlogCategoryAdminController: ListController {
     typealias Model = BlogCategoryModel
     
-    var listView: String = "Blog/Admin/Categories/List"
-    var editView: String = "Blog/Admin/Categories/Edit"
+    
+    func listTable(_ models: [Model]) -> Table {
+        Table(columns: ["title"], rows: models.map { model in
+            TableRow(id: model.id!.uuidString, cells: [TableCell(model.title)])
+        })
+    }
 }

@@ -1,68 +1,110 @@
 import Vapor
 import Fluent
-import Leaf
-import Liquid
+import Tau
 
-struct BlogPostAdminController: AdminViewController {
-    
-    typealias EditForm = BlogPostEditForm
+struct BlogPostAdminController: ListController {
     typealias Model = BlogPostModel
     
-    var listView: String = "Blog/Admin/Posts/List"
-    var editView: String = "Blog/Admin/Posts/Edit"
     
-    func beforeRender(req: Request, form: BlogPostEditForm) -> EventLoopFuture<Void> {
-        BlogCategoryModel.query(on: req.db).all()
-            .mapEach(\.formFieldStringOption)
-            .map { form.category.options = $0 }
+    func listTable(_ models: [Model]) -> Table {
+        Table(columns: ["title"], rows: models.map { model in
+            TableRow(id: model.id!.uuidString, cells: [TableCell(model.title)])
+        })
     }
+    
+    // ...
 
-    func beforeCreate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if let data = form.image.data {
-            let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-            future = req.fs.upload(key: key, data: data).map { url in
-                form.image.value = url
-                model.imageKey = key
-                model.image = url
-                return model
+
+    private func render(_ req: Request, _ form: BlogPostEditForm) -> EventLoopFuture<View> {
+        req.tau.render(template: "Blog/Admin/Posts/Edit", context: [
+            "form": form.encodeToTemplateData(),
+        ])
+    }
+    
+    func createView(req: Request) throws -> EventLoopFuture<View> {
+        let form = BlogPostEditForm()
+        return form.load(req: req).flatMap { render(req, form) }
+    }
+    
+    func create(req: Request) throws -> EventLoopFuture<Response> {
+        let form = BlogPostEditForm()
+                
+        return form.load(req: req)
+            .flatMap { form.process(req: req) }
+            .flatMap { form.validate(req: req) }
+            .flatMap { isValid in
+                guard isValid else {
+                    return render(req, form).encodeResponse(for: req)
+                }
+                let model = BlogPostModel()
+                form.model = model
+                return form.write(req: req)
+                    .flatMap { form.model!.create(on: req.db) }
+                    .flatMap { form.load(req: req) }
+                    .flatMap { form.read(req: req) }
+                    .flatMap { render(req, form) }
+                    .encodeResponse(for: req)
             }
-        }
-        return future
     }
         
-    func beforeUpdate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if
-            (form.image.delete || form.image.data != nil),
-            let imageKey = model.imageKey
-        {
-            future = req.fs.delete(key: imageKey).map {
-                form.image.value = ""
-                model.image = ""
-                model.imageKey = nil
-                return model
-            }
+    func find(_ req: Request) throws -> EventLoopFuture<BlogPostModel> {
+        guard
+            let id = req.parameters.get("id"),
+            let uuid = UUID(uuidString: id)
+        else {
+            throw Abort(.notFound)
         }
-        if let data = form.image.data {
-            return future.flatMap { model in
-                let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-                return req.fs.upload(key: key, data: data).map { url in
-                    form.image.value = url
-                    model.imageKey = key
-                    model.image = url
-                    return model
+        return BlogPostModel.find(uuid, on: req.db).unwrap(or: Abort(.notFound))
+    }
+
+    func updateView(req: Request) throws -> EventLoopFuture<View>  {
+        let form = BlogPostEditForm()
+        return try find(req).flatMap { model in
+            form.model = model
+            return form.load(req: req)
+                .flatMap { form.read(req: req) }
+        }
+        .flatMap { render(req, form) }
+    }
+
+    func update(req: Request) throws -> EventLoopFuture<Response> {
+        let form = BlogPostEditForm()
+        return form.load(req: req)
+            .flatMap { form.process(req: req) }
+            .flatMap { form.validate(req: req) }
+            .flatMap { isValid in
+                guard isValid else {
+                    return render(req, form)
+                        .encodeResponse(for: req)
+                }
+                do {
+                    return try find(req)
+                        .map { model in form.model = model }
+                        .flatMap { form.write(req: req) }
+                        .flatMap { form.model!.update(on: req.db) }
+                        .flatMap { form.save(req: req) }
+                        .flatMap { form.read(req: req) }
+                        .flatMap { render(req, form) }
+                        .encodeResponse(for: req)
+                }
+                catch {
+                    return req.eventLoop.future(error: error)
                 }
             }
+    }
+    
+    // ...
+    func deleteView(req: Request) throws -> EventLoopFuture<View> {
+        try find(req).flatMap { model in
+            req.tau.render(template: "Blog/Admin/Posts/Delete", context: [
+                "post": model.encodeToTemplateData()
+            ])
         }
-        return future
     }
 
-    func beforeDelete(req: Request, model: BlogPostModel) -> EventLoopFuture<BlogPostModel> {
-        if let key = model.imageKey {
-            return req.fs.delete(key: key).map { model }
-        }
-        return req.eventLoop.future(model)
+    func delete(req: Request) throws -> EventLoopFuture<Response> {
+        try self.find(req)
+            .flatMap { $0.delete(on: req.db) }
+            .map { req.redirect(to: "/admin/blog/posts/") }
     }
 }
-

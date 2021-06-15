@@ -6,7 +6,7 @@ struct AdminRouter: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
 
-        routes.grouped(UserModelSessionAuthenticator())
-            .get("admin", use: controller.homeView)
+        routes.grouped(UserModel.redirectMiddleware(path: "/sign-in/"))
+            .get("admin", use: controller.dashboardView)
     }
 }
