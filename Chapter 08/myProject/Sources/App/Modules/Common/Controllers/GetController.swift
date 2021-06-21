@@ -1,8 +1,18 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 06. 15..
-//
+import Vapor
+import Fluent
 
-import Foundation
+protocol GetController: ModelController {
+    
+}
+
+extension GetController {
+    func find(_ req: Request) throws -> EventLoopFuture<BlogPostModel> {
+        guard
+            let id = req.parameters.get("id"),
+            let uuid = UUID(uuidString: id)
+        else {
+            throw Abort(.notFound)
+        }
+        return BlogPostModel.find(uuid, on: req.db).unwrap(or: Abort(.notFound))
+    }
+}

@@ -4,6 +4,7 @@ import Tau
 
 struct BlogCategoryAdminController: ListController {
     typealias Model = BlogCategoryModel
+//    typealias CreateForm = BlogCategoryEditForm
     
     func listContext(req: Request, table: Table) -> ListContext {
         .init(title: "Categories", table: table)
