@@ -1,7 +1,9 @@
-#let(title = "Edit post")
+#let(id = Request(parameter: "id"))
+#let(title = (id != nil) ? "Edit " + name : "Create " + name)
+
 #define(body):
 <div class="lead container">
-    <h1>Edit post</h1>
+    <h1>#if(id != nil):Edit#else:Create#endif #(name)</h1>
 </div>
 
 #inline("Common/Form")

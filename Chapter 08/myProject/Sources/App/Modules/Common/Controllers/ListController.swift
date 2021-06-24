@@ -23,6 +23,10 @@ public struct ListContext: Encodable {
 
 extension ListController {
 
+    func listContext(req: Request, table: Table) -> ListContext {
+        .init(title: Model.name.plural.capitalized, table: table)
+    }
+    
     func listView(req: Request) throws -> EventLoopFuture<View> {
         Model.query(on: req.db)
             .all()

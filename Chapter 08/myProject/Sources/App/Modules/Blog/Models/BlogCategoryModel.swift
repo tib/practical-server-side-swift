@@ -1,10 +1,12 @@
 import Vapor
 import Fluent
 
-final class BlogCategoryModel: Model {
-
-    static let schema = "blog_categories"
+final class BlogCategoryModel: ModelInterface {
     
+    typealias Module = BlogModule
+    static let key = "categories"
+    static let name: Noun = .init(singular: "category", plural: "categories")
+        
     struct FieldKeys {
         static var title: FieldKey { "title" }
     }

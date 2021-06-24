@@ -55,12 +55,13 @@ public func configure(_ app: Application) throws {
     }
     
     TemplateEngine.entities.use(ResolveEntity(), asMethod: "resolve")
+    TemplateEngine.entities.use(RequestParameterEntity(), asFunction: "Request")
 
     app.views.use(.tau)
 
     //...
     
-    let modules: [Module] = [
+    let modules: [ModuleInterface] = [
         FrontendModule(),
         BlogModule(),
         UserModule(),

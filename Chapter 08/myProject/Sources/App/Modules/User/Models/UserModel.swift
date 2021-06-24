@@ -1,10 +1,11 @@
 import Vapor
 import Fluent
 
-final class UserModel: Model {
-        
-    static let schema = "user_users"
+final class UserModel: ModelInterface {
 
+    typealias Module = UserModule
+    static var key = "user"
+    
     struct FieldKeys {
         static var email: FieldKey { "email" }
         static var password: FieldKey { "password" }

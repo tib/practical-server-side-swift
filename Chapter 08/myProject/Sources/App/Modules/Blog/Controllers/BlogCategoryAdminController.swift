@@ -1,14 +1,11 @@
 import Vapor
 import Fluent
-import Tau
 
-struct BlogCategoryAdminController: ListController {
+struct BlogCategoryAdminController: ListController, CreateController, UpdateController, DeleteController {
+
     typealias Model = BlogCategoryModel
-//    typealias CreateForm = BlogCategoryEditForm
-    
-    func listContext(req: Request, table: Table) -> ListContext {
-        .init(title: "Categories", table: table)
-    }
+    typealias CreateForm = BlogCategoryEditForm
+    typealias UpdateForm = BlogCategoryEditForm
 
     func listTable(_ models: [Model]) -> Table {
         Table(columns: ["title"], rows: models.map { model in

@@ -2,7 +2,7 @@ import Vapor
 import Fluent
 
 protocol EditForm: FormComponent {
-    associatedtype Model: Fluent.Model
+    associatedtype Model: ModelInterface
 
     var context: FormContext<Model> { get set }
 

@@ -1,23 +1,29 @@
 import Vapor
 import Fluent
 
-open class FormContext<T: Fluent.Model>: FormComponent {
+open class FormContext<T: ModelInterface>: FormComponent {
     
     fileprivate enum CodingKeys: String, CodingKey {
-        case model
+        case name
         case form
     }
     
+    var name: String
     var form: Form
+    
     var model: T?
+    
 
     init(form: Form = .init(), model: T? = nil) {
         self.form = form
         self.model = model
+        
+        self.name = T.name.singular.capitalized
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
         try container.encode(form, forKey: .form)
     }
 

@@ -1,9 +1,9 @@
 import Vapor
 import Fluent
 
-final class BlogPostModel: Model {
-    
-    static let schema: String = "blog_posts"
+final class BlogPostModel: ModelInterface {    
+    typealias Module = BlogModule
+    static let key = "posts"
 
     struct FieldKeys {
         static var title: FieldKey { "title" }
