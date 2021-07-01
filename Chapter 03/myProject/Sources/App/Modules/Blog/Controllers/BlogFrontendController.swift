@@ -22,7 +22,7 @@ struct BlogFrontendController {
             let posts: [BlogPost]
         }
         let ctx = Context(title: "myPage - Blog", posts: posts)
-        return req.view.render("blog", ctx)
+        return req.view.render("Blog/Posts", ctx)
     }
 
     func postView(req: Request) throws -> EventLoopFuture<Response> {
@@ -35,6 +35,6 @@ struct BlogFrontendController {
             let post: BlogPost
         }
         let ctx = Context(title: "myPage - \(post.title)", post: post)
-        return req.view.render("post", ctx).encodeResponse(for: req)
+        return req.view.render("Blog/Post", ctx).encodeResponse(for: req)
     }
 }
