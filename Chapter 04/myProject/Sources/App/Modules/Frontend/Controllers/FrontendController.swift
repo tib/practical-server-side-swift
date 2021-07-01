@@ -4,7 +4,7 @@ import LoremSwiftum
 
 struct FrontendController {
     func homeView(req: Request) throws -> EventLoopFuture<View> {
-        return req.tau.render(template: "home", context: [
+        return req.tau.render(template: "Frontend/Home", context: [
             "title": "myPage - Home",
             "icon": "👋",
             "header": "Hello,",

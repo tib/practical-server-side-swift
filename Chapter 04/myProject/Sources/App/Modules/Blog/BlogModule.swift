@@ -1,6 +1,7 @@
 import Vapor
 
-struct BlogModule: Module {
+struct BlogModule: ModuleInterface {
+    static let key = "blog"
 
     func boot(_ app: Application) throws {
         app.migrations.add(BlogMigration_v1())

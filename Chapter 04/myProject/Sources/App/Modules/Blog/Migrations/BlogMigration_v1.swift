@@ -12,7 +12,7 @@ struct BlogMigration_v1: Migration {
                 .id()
                 .field(BlogPostModel.FieldKeys.title, .string, .required)
                 .field(BlogPostModel.FieldKeys.slug, .string, .required)
-                .field(BlogPostModel.FieldKeys.image, .string, .required)
+                .field(BlogPostModel.FieldKeys.imageKey, .string, .required)
                 .field(BlogPostModel.FieldKeys.excerpt, .data, .required)
                 .field(BlogPostModel.FieldKeys.date, .datetime, .required)
                 .field(BlogPostModel.FieldKeys.content, .data, .required)

@@ -10,7 +10,7 @@
     #for(post in posts):
         <article>
             <a href="/#(post.slug)/">
-                <img src="#(post.image)">
+                <img src="#(post.imageKey)">
                 <h2>#(post.title)</h2>
                 <p>#Date(timeStamp: post.date, localizedFormat: "MM.dd.yyyy") &middot; #(post.category.title ?? "Uncategorized")</p>
                 <p>#(post.excerpt)</p>
@@ -20,4 +20,4 @@
     </div>
 </div>
 #enddefine
-#inline("index")
+#inline("Frontend/Index")

@@ -7,7 +7,7 @@ extension BlogPostModel: TemplateDataRepresentable {
             "id": .string(id?.uuidString),
             "title": .string(title),
             "slug": .string(slug),
-            "image": .string(image),
+            "imageKey": .string(imageKey),
             "excerpt": .string(excerpt),
             "date": .double(date.timeIntervalSinceReferenceDate),
             "content": .string(content),

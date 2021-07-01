@@ -11,15 +11,13 @@ struct BlogFrontendController {
             .all()
             .mapEach(\.templateData)
             .flatMap {
-                req.tau.render(template: "blog", context: [
+                req.tau.render(template: "Blog/Posts", context: [
                     "title": .string("myPage - Blog"),
                     "posts": .array($0),
                 ])
             }
     }
-    
-    //...
-    
+
     func postView(req: Request) throws -> EventLoopFuture<Response> {
         let slug = req.url.path.trimmingCharacters(in: .init(charactersIn: "/"))
 
@@ -31,7 +29,7 @@ struct BlogFrontendController {
                 guard let post = post else {
                     return req.eventLoop.future(req.redirect(to: "/"))
                 }
-                return req.tau.render(template: "post", context: [
+                return req.tau.render(template: "Blog/Post", context: [
                     "title": .string("myPage - \(post.title)"),
                     "post": post.templateData,
                 ]).encodeResponse(for: req)

@@ -13,7 +13,7 @@ struct BlogMigrationSeed: Migration {
                 let title = Lorem.title
                 return BlogPostModel(title: title,
                                      slug: title.lowercased().replacingOccurrences(of: " ", with: "-"),
-                                     image: "/img/posts/\(String(format: "%02d", index + 1)).jpg",
+                                     imageKey: "/img/posts/\(String(format: "%02d", index + 1)).jpg",
                                      excerpt: Lorem.sentence,
                                      date: Date().addingTimeInterval(-Double.random(in: 0...(86400 * 60))),
                                      content: Lorem.paragraph,
