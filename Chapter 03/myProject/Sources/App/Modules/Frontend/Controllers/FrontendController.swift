@@ -1,22 +1,13 @@
 import Vapor
-import Tau
 import LoremSwiftum
 
 struct FrontendController {
-    func homeView(req: Request) throws -> EventLoopFuture<View> {
-        return req.tau.render(template: "Frontend/Home", context: [
-            "title": "myPage - Home",
-            "icon": "👋",
-            "header": "Hello,",
-            "message": "welcome to my Vapor powered website.",
-            "paragraphs": .array([
-                Lorem.sentences(6),
-                Lorem.sentences(8),
-            ]),
-            "link": .dictionary([
-                "label": "Read my blog →",
-                "url": "/blog/",
-            ])
+    
+    func homeView(req: Request) throws -> Response {
+        let ctx = WebHomeContext(title: "myPage - Home", paragraphs: [
+            Lorem.sentences(6),
+            Lorem.sentences(8),
         ])
+        return req.html.render(WebHomeTemplate(req, context: ctx))
     }
 }
