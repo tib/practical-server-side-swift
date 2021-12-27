@@ -9,17 +9,15 @@ import Vapor
 import SwiftHtml
 
 struct BlogPostsTemplate: TemplateRepresentable {
-
-    unowned var req: Request
     var context: BlogPostsContext
     
-    init(_ req: Request, context: BlogPostsContext) {
-        self.req = req
+    init(_ context: BlogPostsContext) {
         self.context = context
     }
 
-    var tag: Tag {
-        WebIndexTemplate(req, context: context.title) {
+    @TagBuilder
+    func render(_ req: Request) -> Tag {
+        WebIndexTemplate(context.title) {
             Div {
                 Section {
                     P("🔥")
@@ -44,6 +42,7 @@ struct BlogPostsTemplate: TemplateRepresentable {
                 
             }
             .id("blog")
-        }.tag
+        }
+        .render(req)
     }
 }

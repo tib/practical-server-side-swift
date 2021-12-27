@@ -5,8 +5,11 @@
 //  Created by Tibor Bodecs on 2021. 12. 25..
 //
 
-import SwiftHtml
+import Vapor
+import SwiftSgml
 
 public protocol TemplateRepresentable {
-    var tag: Tag { get }
+    
+    @TagBuilder
+    func render(_ req: Request) -> Tag
 }

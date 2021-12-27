@@ -8,10 +8,16 @@
 import Vapor
 import SwiftHtml
 
-public struct HtmlRenderer {
+public struct TemplateRenderer {
     
-    public func render(_ template: TemplateRepresentable, minify: Bool = false, indent: Int = 4) -> Response {
-        let doc = Document(.html) { template.tag }
+    var req: Request
+    
+    init(_ req: Request) {
+        self.req = req
+    }
+
+    public func renderHtml(_ template: TemplateRepresentable, minify: Bool = false, indent: Int = 4) -> Response {
+        let doc = Document(.html) { template.render(req) }
         let body = DocumentRenderer(minify: minify, indent: indent).render(doc)
         return Response(status: .ok, headers: ["content-type": "text/html"], body: .init(string: body))
     }

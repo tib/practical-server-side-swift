@@ -29,17 +29,16 @@ extension Svg {
 
 public struct WebIndexTemplate: TemplateRepresentable {
 
-    unowned var req: Request
     public var context: String
     var body: Tag
 
-    public init(_ req: Request, context: String, @TagBuilder _ builder: () -> Tag) {
-        self.req = req
+    public init(_ context: String, @TagBuilder _ builder: () -> Tag) {
         self.context = context
         self.body = builder()
     }
 
-    public var tag: Tag {
+    @TagBuilder
+    public func render(_ req: Request) -> Tag {
         Html {
             Head {
                 Title(context)

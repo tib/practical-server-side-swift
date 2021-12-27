@@ -10,16 +10,15 @@ import SwiftHtml
 
 struct BlogPostTemplate: TemplateRepresentable {
 
-    unowned var req: Request
     var context: BlogPostContext
     
-    init(_ req: Request, context: BlogPostContext) {
-        self.req = req
+    init(_ context: BlogPostContext) {
         self.context = context
     }
 
-    var tag: Tag {
-        WebIndexTemplate(req, context: context.title) {
+    @TagBuilder
+    func render(_ req: Request) -> Tag {
+        WebIndexTemplate(context.title) {
             Div {
                 Section {
                     P(context.post.date.description)
@@ -36,6 +35,7 @@ struct BlogPostTemplate: TemplateRepresentable {
                 .class("container")
             }
             .id("post")
-        }.tag
+        }
+        .render(req)
     }
 }

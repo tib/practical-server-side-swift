@@ -10,16 +10,15 @@ import SwiftHtml
 
 struct WebHomeTemplate: TemplateRepresentable {
 
-    unowned var req: Request
     var context: WebHomeContext
     
-    init(_ req: Request, context: WebHomeContext) {
-        self.req = req
+    init(_ context: WebHomeContext) {
         self.context = context
     }
 
-    var tag: Tag {
-        WebIndexTemplate(req, context: context.title) {
+    @TagBuilder
+    func render(_ req: Request) -> Tag {
+        WebIndexTemplate(context.title) {
             Div {
                 Section {
                     P("👋")
@@ -37,6 +36,7 @@ struct WebHomeTemplate: TemplateRepresentable {
             }
             .id("home")
             .class("container")
-        }.tag
+        }
+        .render(req)
     }
 }

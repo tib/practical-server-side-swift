@@ -8,5 +8,5 @@
 import Vapor
 
 public extension Request {
-    var html: HtmlRenderer { .init() }
+    var templates: TemplateRenderer { .init(self) }
 }

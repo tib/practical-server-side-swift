@@ -18,7 +18,7 @@ struct BlogFrontendController {
 
     func blogView(req: Request) throws -> Response {
         let ctx = BlogPostsContext(title: "myPage - Blog", posts: posts)
-        return req.html.render(BlogPostsTemplate(req, context: ctx))
+        return req.templates.renderHtml(BlogPostsTemplate(ctx))
     }
 
     func postView(req: Request) throws -> Response {
@@ -27,6 +27,6 @@ struct BlogFrontendController {
             return req.redirect(to: "/")
         }
         let ctx = BlogPostContext(title: "myPage - \(post.title)", post: post)
-        return req.html.render(BlogPostTemplate(req, context: ctx))
+        return req.templates.renderHtml(BlogPostTemplate(ctx))
     }
 }
