@@ -1,7 +1,7 @@
 import Vapor
 import LoremSwiftum
 
-struct FrontendController {
+struct WebFrontendController {
     
     func homeView(req: Request) throws -> Response {
         let context = WebHomeContext(title: "myPage - Home", paragraphs: [

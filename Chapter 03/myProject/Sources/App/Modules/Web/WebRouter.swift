@@ -1,8 +1,8 @@
 import Vapor
 
-struct FrontendRouter: RouteCollection {
+struct WebRouter: RouteCollection {
     
-    let controller = FrontendController()
+    let controller = WebFrontendController()
 
     func boot(routes: RoutesBuilder) throws {
         routes.get(use: controller.homeView)

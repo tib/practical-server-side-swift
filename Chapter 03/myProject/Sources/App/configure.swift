@@ -1,4 +1,6 @@
 import Vapor
+import SwiftHtml
+import SwiftSgml
 
 public func configure(_ app: Application) throws {
 
@@ -10,11 +12,32 @@ public func configure(_ app: Application) throws {
 
     /// setup module routes
     let routers: [RouteCollection] = [
-        FrontendRouter(),
+        WebRouter(),
         BlogRouter(),
     ]
     for router in routers {
         try router.boot(routes: app.routes)
     }
+    
+    struct MyTemplate: TemplateRepresentable {
+        let title: String
+                
+        func render(_ req: Request) -> Tag {
+            Html {
+                Head {
+                    Title(title)
+                }
+                Body {
+                    H1(title)
+                }
+            }
+        }
+    }
+
+    app.routes.get("hello") { req -> Response in
+        req.templates.renderHtml(MyTemplate(title: "Hello, World!"))
+    }
+    
+    
 }
 

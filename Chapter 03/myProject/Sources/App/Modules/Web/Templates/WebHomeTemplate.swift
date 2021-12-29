@@ -18,7 +18,7 @@ struct WebHomeTemplate: TemplateRepresentable {
 
     @TagBuilder
     func render(_ req: Request) -> Tag {
-        WebIndexTemplate(context.title) {
+        WebIndexTemplate(.init(title: context.title)) {
             Div {
                 Section {
                     P("👋")
