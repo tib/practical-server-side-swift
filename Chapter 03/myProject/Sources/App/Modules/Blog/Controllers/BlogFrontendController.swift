@@ -15,7 +15,10 @@ struct BlogFrontendController {
     }()
 
     func blogView(req: Request) throws -> Response {
-        let ctx = BlogPostsContext(title: "myPage - Blog", posts: posts)
+        let ctx = BlogPostsContext(icon: "🔥",
+                                   title: "Blog",
+                                   message: "Hot news and stories about everything."
+                                   posts: posts)
         return req.templates.renderHtml(BlogPostsTemplate(ctx))
     }
 

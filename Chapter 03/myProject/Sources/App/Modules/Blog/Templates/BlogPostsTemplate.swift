@@ -20,9 +20,9 @@ struct BlogPostsTemplate: TemplateRepresentable {
         WebIndexTemplate(.init(title: context.title)) {
             Div {
                 Section {
-                    P("🔥")
-                    H1("Blog")
-                    P("Hot news and stories about everything.")
+                    P(context.icon)
+                    H1(context.title)
+                    P(context.message)
                 }
                 .class("lead")
 

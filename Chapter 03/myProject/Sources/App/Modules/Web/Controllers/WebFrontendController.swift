@@ -11,7 +11,7 @@ struct WebFrontendController {
     
     func homeView(req: Request) throws -> Response {
         let ctx = WebHomeContext(icon: "👋",
-                                 title: "myPage - Home",
+                                 title: "Home",
                                  message: "Hi there, welcome to my page.",
                                  paragraphs: [
                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
