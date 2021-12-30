@@ -15,13 +15,20 @@ struct BlogPostTemplate: TemplateRepresentable {
     init(_ context: BlogPostContext) {
         self.context = context
     }
+    
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter
+    }()
 
     @TagBuilder
     func render(_ req: Request) -> Tag {
         WebIndexTemplate(.init(title: context.post.title)) {
             Div {
                 Section {
-                    P(context.post.date.description)
+                    P(dateFormatter.string(from: context.post.date))
                     H1(context.post.title)
                     P(context.post.excerpt)
                 }

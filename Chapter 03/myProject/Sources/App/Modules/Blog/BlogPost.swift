@@ -1,6 +1,13 @@
+//
+//  File.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Foundation
 
-struct BlogPost: Codable {
+struct BlogPost {
     let title: String
     let slug: String
     let image: String
