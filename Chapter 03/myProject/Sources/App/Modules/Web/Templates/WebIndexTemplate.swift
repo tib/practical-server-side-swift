@@ -41,23 +41,21 @@ public struct WebIndexTemplate: TemplateRepresentable {
     public func render(_ req: Request) -> Tag {
         Html {
             Head {
-                Title(context.title)
-
                 Meta()
                     .charset("utf-8")
-                
                 Meta()
                     .name(.viewport)
                     .content("width=device-width, initial-scale=1")
-                
-                //TODO: shortcut icon
-                Link(rel: .icon)
+
+                Link(rel: .shortcutIcon)
                     .href("/images/favicon.ico")
                     .type("image/x-icon")
                 Link(rel: .stylesheet)
                     .href("https://cdn.jsdelivr.net/gh/feathercms/feather-core@1.0.0-beta.44/feather.min.css")
                 Link(rel: .stylesheet)
-                    .href("/css/frontend.css")
+                    .href("/css/web.css")
+                
+                Title(context.title)
             }
             Body {
                 Header {
@@ -119,7 +117,7 @@ public struct WebIndexTemplate: TemplateRepresentable {
                 
                 Script()
                     .type(.javascript)
-                    .src("/js/frontend.js")
+                    .src("/js/web.js")
                 
             }
         }
