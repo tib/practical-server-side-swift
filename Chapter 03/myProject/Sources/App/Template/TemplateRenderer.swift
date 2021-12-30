@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TemplateRenderer.swift
 //  
 //
 //  Created by Tibor Bodecs on 2021. 12. 25..

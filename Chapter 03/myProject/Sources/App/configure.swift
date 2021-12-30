@@ -1,13 +1,11 @@
 //
-//  File.swift
+//  configure.swift
 //
 //
 //  Created by Tibor Bodecs on 2021. 12. 25..
 //
 
 import Vapor
-import SwiftHtml
-import SwiftSgml
 
 public func configure(_ app: Application) throws {
     
