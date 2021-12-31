@@ -1,12 +1,18 @@
+//
+//  File.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Vapor
 
-struct ExtendPathMiddleware: Middleware {
+struct ExtendPathMiddleware: AsyncMiddleware {
 
-    func respond(to request: Request, chainingTo next: Responder) -> EventLoopFuture<Response> {
-        if !request.url.path.hasSuffix("/") && !request.url.path.contains(".") {
-            let response = request.redirect(to: request.url.path + "/", type: .permanent)
-            return request.eventLoop.makeSucceededFuture(response)
+    func respond(to req: Request, chainingTo next: AsyncResponder) async throws -> Response {
+        if !req.url.path.hasSuffix("/") && !req.url.path.contains(".") {
+            return req.redirect(to: req.url.path + "/", type: .permanent)
         }
-        return next.respond(to: request)
+        return try await next.respond(to: req)
     }
 }

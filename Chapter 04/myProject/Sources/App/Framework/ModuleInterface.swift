@@ -1,10 +1,15 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
 
 public protocol ModuleInterface {
     
-    static var key: String { get }
-    static var pathComponent: PathComponent { get }
-    static var name: String { get }
+    static var identifier: String { get }
 
     func boot(_ app: Application) throws
 }
@@ -12,6 +17,6 @@ public protocol ModuleInterface {
 public extension ModuleInterface {
     func boot(_ app: Application) throws {}
 
-    static var pathComponent: PathComponent { .init(stringLiteral: key) }
-    static var name: String { key.capitalized }
+    static var identifier: String { String(describing: type(of: self)).dropLast(6).lowercased() }
+    
 }
