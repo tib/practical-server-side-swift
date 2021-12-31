@@ -1,7 +1,0 @@
-<section>
-    <label for="#(field.key)" class="block">#(field.label ?? field.key.capitalized())#if(field.more ?? false): <span class="more">(#(field.more))</span>#endif#if(field.required ?? false):<span class="required">*</span>#endif</label>
-    <input type="#(field.format ?? "text")" id="#(field.key)" name="#(field.key)" value="#(field.value ?? "")" placeholder="#(field.placeholder ?? "")" class="field"#if(field.required ?? false): aria-required="true"#endif>
-    #if(field.error ?? false):
-    <span class="error">#(field.error)</span>
-    #endif
-</section>
