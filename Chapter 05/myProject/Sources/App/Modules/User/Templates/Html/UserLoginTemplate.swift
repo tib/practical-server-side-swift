@@ -28,6 +28,13 @@ struct UserLoginTemplate: TemplateRepresentable {
                 .class("lead")
 
                 Form {
+                    if let error = context.error {
+                        Section {
+                            Span(error)
+                                .class("error")
+                        }
+                    }
+
                     Section {
                         Label("Email:")
                             .for("email")
