@@ -21,9 +21,16 @@ public func configure(_ app: Application) throws {
     /// extend paths to always contain a trailing slash
     app.middleware.use(ExtendPathMiddleware())
     
+    /// setup sessions
+    app.sessions.use(.fluent)
+    app.migrations.add(SessionRecord.migration)
+    app.middleware.use(app.sessions.middleware)
+
+    
     /// setup modules
     let modules: [ModuleInterface] = [
         WebModule(),
+        UserModule(),
         BlogModule(),
     ]
     for module in modules {
