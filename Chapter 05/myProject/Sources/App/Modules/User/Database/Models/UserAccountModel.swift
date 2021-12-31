@@ -6,6 +6,7 @@
 //
 
 import Vapor
+import Fluent
 
 final class UserAccountModel: DatabaseModelInterface {
     typealias Module = UserModule
