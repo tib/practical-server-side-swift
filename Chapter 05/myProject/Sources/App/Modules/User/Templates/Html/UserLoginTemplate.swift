@@ -27,7 +27,34 @@ struct UserLoginTemplate: TemplateRepresentable {
                 }
                 .class("lead")
 
-
+                Form {
+                    Section {
+                        Label("Email:")
+                            .for("email")
+                        Input()
+                            .key("email")
+                            .type(.email)
+                            .value(context.email)
+                            .class("field")
+                    }
+                    Section {
+                        Label("Password:")
+                            .for("password")
+                        Input()
+                            .key("password")
+                            .type(.password)
+                            .value(context.password)
+                            .class("field")
+                    }
+                    Section {
+                        Input()
+                            .type(.submit)
+                            .value("Sign in")
+                            .class("submit")
+                    }
+                }
+                .action("/sign-in/")
+                .method(.post)
             }
             .id("user-login")
             .class("container")
