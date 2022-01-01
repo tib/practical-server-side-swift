@@ -30,6 +30,12 @@ public struct FormTemplate: TemplateRepresentable {
                     field.render(req)
                 }
             }
+            
+            Section {
+                Input()
+                    .type(.submit)
+                    .value(context.submit ?? "Save")
+            }
         }
         .method(context.action.method)
         .action(context.action.url)

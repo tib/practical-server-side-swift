@@ -10,15 +10,18 @@ import Vapor
 open class AbstractForm {
 
     open var action: FormAction
-    open var error: String?
     open var fields: [FormComponent]
+    open var error: String?
+    open var submit: String?
     
     public init(action: FormAction = .init(),
+                fields: [FormComponent] = [],
                 error: String? = nil,
-                fields: [FormComponent] = []) {
+                submit: String? = nil) {
         self.action = action
-        self.error = error
         self.fields = fields
+        self.error = error
+        self.submit = submit
     }
 }
 
@@ -63,6 +66,9 @@ extension AbstractForm: FormComponent {
     }
     
     public func render(req: Request) -> TemplateRepresentable {
-        FormTemplate(.init(action: action, error: error, fields: fields.map { $0.render(req: req)} ))
+        FormTemplate(.init(action: action,
+                           fields: fields.map { $0.render(req: req)},
+                           error: error,
+                           submit: submit))
     }
 }
