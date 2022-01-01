@@ -15,18 +15,17 @@ final class UserLoginForm: AbstractForm {
         self.fields = createFields()
     }
 
+    @FormComponentBuilder
     func createFields() -> [FormComponent] {
-        [
-            InputField("email")
-                .config {
-                    $0.output.context.label.required = true
-                    $0.output.context.type = .email
-                },
-            InputField("password")
-                .config {
-                    $0.output.context.label.required = true
-                    $0.output.context.type = .password
-                }
-        ]
+        InputField("email")
+            .config {
+                $0.output.context.label.required = true
+                $0.output.context.type = .email
+            }
+        InputField("password")
+            .config {
+                $0.output.context.label.required = true
+                $0.output.context.type = .password
+            }
     }
 }

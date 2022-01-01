@@ -28,6 +28,7 @@ struct UserFrontendController {
             return req.redirect(to: "/")
         }
         let form = UserLoginForm()
+        try await form.process(req: req)
         form.error = "Invalid email or password."
         return renderSignInView(req, form)
     }
