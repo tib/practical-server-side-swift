@@ -26,3 +26,36 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable> {
         return self
     }
 }
+
+extension AbstractFormField: FormComponent {
+    
+    public func load(req: Request) async throws {
+        
+    }
+    
+    public func process(req: Request) async throws {
+        if let value = try? req.content.get(Input.self, at: key) {
+            input = value
+        }
+    }
+    
+    public func validate(req: Request) async throws -> Bool {
+        true
+    }
+    
+    public func write(req: Request) async throws {
+        
+    }
+    
+    public func save(req: Request) async throws {
+        
+    }
+    
+    public func read(req: Request) async throws {
+        
+    }
+    
+    public func render(req: Request) -> TemplateRepresentable {
+        output
+    }
+}

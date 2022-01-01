@@ -5,19 +5,64 @@
 //  Created by Tibor Bodecs on 2022. 01. 01..
 //
 
-import Foundation
+import Vapor
 
 open class AbstractForm {
 
     open var action: FormAction
     open var error: String?
-    open var fields: [Any]
+    open var fields: [FormComponent]
     
     public init(action: FormAction = .init(),
                 error: String? = nil,
-                fields: [Any] = []) {
+                fields: [FormComponent] = []) {
         self.action = action
         self.error = error
         self.fields = fields
+    }
+}
+
+extension AbstractForm: FormComponent {
+    
+    public func load(req: Request) async throws {
+        for field in fields {
+            try await field.load(req: req)
+        }
+    }
+    
+    public func process(req: Request) async throws {
+        for field in fields {
+            try await field.process(req: req)
+        }
+    }
+    
+    public func validate(req: Request) async throws -> Bool {
+        var result: [Bool] = []
+        for field in fields {
+            result.append(try await field.validate(req: req))
+        }
+        return result.filter { $0 == false }.isEmpty
+    }
+    
+    public func write(req: Request) async throws {
+        for field in fields {
+            try await field.write(req: req)
+        }
+    }
+    
+    public func save(req: Request) async throws {
+        for field in fields {
+            try await field.save(req: req)
+        }
+    }
+    
+    public func read(req: Request) async throws {
+        for field in fields {
+            try await field.read(req: req)
+        }
+    }
+    
+    public func render(req: Request) -> TemplateRepresentable {
+        FormTemplate(.init(action: action, error: error, fields: fields.map { $0.render(req: req)} ))
     }
 }
