@@ -13,6 +13,17 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
     public var input: Input
     public var output: Output
     public var error: String?
+    
+    // MARK: - event blocks
+    
+    public typealias FormFieldBlock = (Request, AbstractFormField<Input, Output>) async throws -> Void
+    
+    private var readBlock: FormFieldBlock?
+    private var writeBlock: FormFieldBlock?
+    private var loadBlock: FormFieldBlock?
+    private var saveBlock: FormFieldBlock?
+    
+    // MARK: - init & config
 
     public init(key: String, input: Input, output: Output, error: String? = nil) {
         self.key = key
@@ -26,12 +37,31 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
         return self
     }
     
-    // MARK: - FormComponent
+    // MARK: - Block setters
     
-    open func load(req: Request) async throws {
-        
+    open func read(_ block: @escaping FormFieldBlock) -> Self {
+        readBlock = block
+        return self
     }
     
+    open func write(_ block: @escaping FormFieldBlock) -> Self {
+        writeBlock = block
+        return self
+    }
+    
+    open func load(_ block: @escaping FormFieldBlock) -> Self {
+        loadBlock = block
+        return self
+    }
+    
+    open func save(_ block: @escaping FormFieldBlock) -> Self {
+        saveBlock = block
+        return self
+    }
+    
+    // MARK: - FormComponent
+    
+
     open func process(req: Request) async throws {
         if let value = try? req.content.get(Input.self, at: key) {
             input = value
@@ -42,18 +72,22 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
         true
     }
     
+    open func read(req: Request) async throws {
+        try await readBlock?(req, self)
+    }
+    
     open func write(req: Request) async throws {
-        
+        try await writeBlock?(req, self)
+    }
+    
+    open func load(req: Request) async throws {
+        try await loadBlock?(req, self)
     }
     
     open func save(req: Request) async throws {
-        
+        try await saveBlock?(req, self)
     }
-    
-    open func read(req: Request) async throws {
-        
-    }
-    
+
     open func render(req: Request) -> TemplateRepresentable {
         output
     }
