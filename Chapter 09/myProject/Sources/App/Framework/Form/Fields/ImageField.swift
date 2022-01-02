@@ -7,7 +7,7 @@
 
 import Vapor
 
-public final class ImageField: AbstractFormField<ImageInput, ImageFieldTemplate> {
+public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTemplate> {
 
     public var imageKey: String? {
         didSet {

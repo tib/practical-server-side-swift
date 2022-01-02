@@ -7,7 +7,7 @@
 
 import Vapor
 
-public struct ImageInput: Codable {
+public struct FormImageInput: Codable {
     
     public var key: String
     public var file: File?
