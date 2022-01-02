@@ -22,10 +22,17 @@ final class UserLoginForm: AbstractForm {
                 $0.output.context.label.required = true
                 $0.output.context.type = .email
             }
+            .validators {
+                FormFieldValidator.required($1)
+                FormFieldValidator.email($1)
+            }
         InputField("password")
             .config {
                 $0.output.context.label.required = true
                 $0.output.context.type = .password
+            }
+            .validators {
+                FormFieldValidator.required($1)
             }
     }
 }
