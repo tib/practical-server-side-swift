@@ -1,17 +1,20 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
-import Fluent
 
-struct BlogModule: Module {
-    
-    var name: String = "blog"
+struct BlogModule: ModuleInterface {
 
-    var router: RouteCollection? { BlogRouter() }
+    let router = BlogRouter()
 
-    var migrations: [Migration] {
-        [
-            BlogMigration_v1_0_0(),
-            BlogMigration_v1_1_0(),
-            BlogMigrationSeed(),
-        ]
+    func boot(_ app: Application) throws {
+        app.migrations.add(BlogMigrations.v1())
+        app.migrations.add(BlogMigrations.seed())
+        
+        try router.boot(routes: app.routes)
     }
 }
