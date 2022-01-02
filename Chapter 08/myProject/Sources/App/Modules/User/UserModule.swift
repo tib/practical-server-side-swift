@@ -1,16 +1,22 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
 
 struct UserModule: ModuleInterface {
 
-    static let key = "user"
+    let router = UserRouter()
 
     func boot(_ app: Application) throws {
-        app.migrations.add(UserMigration_v1())
-        app.migrations.add(UserMigrationSeed())
+        app.migrations.add(UserMigrations.v1())
+        app.migrations.add(UserMigrations.seed())
         
-        app.middleware.use(UserModelSessionAuthenticator())
-        app.middleware.use(UserTemplateScopeMiddleware())
+        app.middleware.use(UserSessionAuthenticator())
         
-        try UserRouter().boot(routes: app.routes)
+        try router.boot(routes: app.routes)
     }
 }

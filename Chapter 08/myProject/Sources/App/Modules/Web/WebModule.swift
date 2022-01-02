@@ -7,14 +7,11 @@
 
 import Vapor
 
-struct BlogModule: ModuleInterface {
+struct WebModule: ModuleInterface {
 
-    let router = BlogRouter()
+    let router = WebRouter()
 
     func boot(_ app: Application) throws {
-        app.migrations.add(BlogMigrations.v1())
-        app.migrations.add(BlogMigrations.seed())
-        
         try router.boot(routes: app.routes)
     }
 }
