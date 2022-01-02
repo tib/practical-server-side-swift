@@ -1,25 +1,31 @@
-import Foundation
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2022. 01. 01..
+//
+
 import Vapor
 
-final class UserLoginForm: Form {
+final class UserLoginForm: AbstractForm {
+    
+    public convenience init() {
+        self.init(action: .init(method: .post, url: "/sign-in/"),
+                  submit: "Sign in")
+        self.fields = createFields()
+    }
 
-    init() {
-        super.init()
-        
-        action.url = "/sign-in/"
-        submit = "Sign in"
-
-        let emailField = TextField(key: "email")
-        emailField.output.required = true
-        emailField.output.format = .email
-        
-        let passwordField = TextField(key: "password")
-        passwordField.output.required = true
-        passwordField.output.format = .password
-        
-        self.fields = [
-            emailField,
-            passwordField,
-        ]
+    @FormComponentBuilder
+    func createFields() -> [FormComponent] {
+        InputField("email")
+            .config {
+                $0.output.context.label.required = true
+                $0.output.context.type = .email
+            }
+        InputField("password")
+            .config {
+                $0.output.context.label.required = true
+                $0.output.context.type = .password
+            }
     }
 }

@@ -1,75 +1,43 @@
+//
+//  configure.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Vapor
-import Tau
 import Fluent
 import FluentSQLiteDriver
-import Liquid
-import LiquidLocalDriver
 
 public func configure(_ app: Application) throws {
-
+    
+    /// setup Fluent with a SQLite database under the Resources directory
     let dbPath = app.directory.resourcesDirectory + "db.sqlite"
     app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
-
-    app.routes.defaultMaxBodySize = "10mb"
-    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
-                                publicPath: app.directory.publicDirectory,
-                                workDirectory: "assets"), as: .local)
-
-
+    
+    /// use the Public directory to serve public files
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
+    /// extend paths to always contain a trailing slash
+    app.middleware.use(ExtendPathMiddleware())
+    
+    /// setup sessions
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
 
-    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-    app.middleware.use(ExtendPathMiddleware())
-
-    //...
     
-    /// replace views with templates
-    let templatesFolderName = "Templates"
-    app.directory.viewsDirectory = app.directory.resourcesDirectory + templatesFolderName + "/"
-
-    let detected = TemplateEngine.rootDirectory ?? app.directory.viewsDirectory
-    TemplateEngine.rootDirectory = detected
-    
-    let defaultSource = FileSource(fileio: app.fileio,
-                                   limits: .default,
-                                   sandboxDirectory: detected,
-                                   viewDirectory: detected,
-                                   defaultExtension: "html")
-    
-    let modulesSource = ModuleTemplateSource(rootDirectory: app.directory.workingDirectory,
-                                             modulesLocation: "Sources/App/Modules",
-                                             folderName: templatesFolderName,
-                                             fileExtension: "html",
-                                             fileio: app.fileio)
-    
-    let multipleSources = TemplateSources()
-    try multipleSources.register(using: defaultSource)
-    try multipleSources.register(source: "modules", using: modulesSource)
-    TemplateEngine.sources = multipleSources
-    
-    
-    if !app.environment.isRelease {
-        TemplateRenderer.Option.caching = .bypass
-    }
-    
-    TemplateEngine.entities.use(ResolveEntity(), asMethod: "resolve")
-
-    app.views.use(.tau)
-
-    //...
-    
-    let modules: [Module] = [
-        FrontendModule(),
-        BlogModule(),
+    /// setup modules
+    let modules: [ModuleInterface] = [
+        WebModule(),
         UserModule(),
-        AdminModule(),
+        BlogModule(),
     ]
-    
     for module in modules {
         try module.boot(app)
     }
     
+    /// use automatic database migration
     try app.autoMigrate().wait()
 }
+
