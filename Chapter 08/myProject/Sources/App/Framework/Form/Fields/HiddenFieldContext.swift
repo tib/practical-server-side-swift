@@ -5,8 +5,6 @@
 //  Created by Tibor Bodecs on 2022. 01. 02..
 //
 
-import Foundation
-
 public struct HiddenFieldContext {
 
     public let key: String

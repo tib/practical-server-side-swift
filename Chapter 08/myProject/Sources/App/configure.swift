@@ -8,6 +8,8 @@
 import Vapor
 import Fluent
 import FluentSQLiteDriver
+import Liquid
+import LiquidLocalDriver
 
 public func configure(_ app: Application) throws {
     
@@ -15,9 +17,14 @@ public func configure(_ app: Application) throws {
     let dbPath = app.directory.resourcesDirectory + "db.sqlite"
     app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
     
+    app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
+                                publicPath: app.directory.publicDirectory,
+                                workDirectory: "assets"), as: .local)
+    
     /// use the Public directory to serve public files
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
     
+    // ..
     /// extend paths to always contain a trailing slash
     app.middleware.use(ExtendPathMiddleware())
     

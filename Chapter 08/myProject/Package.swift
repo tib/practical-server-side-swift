@@ -10,6 +10,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor", from: "4.54.0"),
         .package(url: "https://github.com/vapor/fluent", from: "4.4.0"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.1.0"),
+        .package(url: "https://github.com/binarybirds/liquid", from: "1.3.0"),
+        .package(url: "https://github.com/binarybirds/liquid-local-driver", from: "1.3.0"),
         .package(url: "https://github.com/binarybirds/swift-html", from: "1.2.0"),
     ],
     targets: [
@@ -17,6 +19,8 @@ let package = Package(
             .product(name: "Vapor", package: "vapor"),
             .product(name: "Fluent", package: "fluent"),
             .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver"),
+            .product(name: "Liquid", package: "liquid"),
+            .product(name: "LiquidLocalDriver", package: "liquid-local-driver"),
             .product(name: "SwiftHtml", package: "swift-html"),
             .product(name: "SwiftSvg", package: "swift-html"),
         ]),
