@@ -38,15 +38,8 @@ struct BlogFrontendController {
         else {
             return req.redirect(to: "/")
         }
-        let ctx = BlogPostContext(post: Blog.Post.Detail(id: post.id!,
-                                                         title: post.title,
-                                                         slug: post.slug,
-                                                         image: post.imageKey,
-                                                         excerpt: post.excerpt,
-                                                         date: post.date,
-                                                         category: .init(id: post.category.id!,
-                                                                         title: post.category.title),
-                                                         content: post.content))
+        let api = BlogPostApiController()
+        let ctx = BlogPostContext(post: api.mapDetail(post))
         return req.templates.renderHtml(BlogPostTemplate(ctx))
     }
 }

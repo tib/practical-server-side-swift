@@ -16,9 +16,11 @@ struct BlogRouter: RouteCollection {
         routes.get("blog", use: controller.blogView)
         routes.get(.anything, use: controller.postView)
         
-        routes
-            .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
-            .grouped("admin", "blog")
-            .get("posts", use: postAdminController.listView)
+        let posts = routes
+                    .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
+                    .grouped("admin", "blog", "posts")
+                    
+        posts.get(use: postAdminController.listView)
+        posts.get(":postId", use: postAdminController.detailView)
     }
 }

@@ -17,4 +17,16 @@ struct BlogPostApiController {
               excerpt: model.excerpt,
               date: model.date)
     }
+    
+    func mapDetail(_ model: BlogPostModel) -> Blog.Post.Detail {
+        .init(id: model.id!,
+              title: model.title,
+              slug: model.slug,
+              image: model.imageKey,
+              excerpt: model.excerpt,
+              date: model.date,
+              category: .init(id: model.category.id!,
+                              title: model.category.title),
+              content: model.content)
+    }
 }

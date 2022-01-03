@@ -39,7 +39,10 @@ struct BlogPostAdminListTemplate: TemplateRepresentable {
                                 Td {
                                     Img(src: item.image, alt: item.title)
                                 }
-                                Td(item.title)
+                                Td {
+                                    A(item.title)
+                                        .href("/admin/blog/posts/" + item.id.uuidString + "/")
+                                }
                                 Td {
                                     A("Preview")
                                         .href("/" + item.slug + "/")
