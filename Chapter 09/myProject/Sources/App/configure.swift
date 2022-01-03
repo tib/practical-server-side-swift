@@ -41,6 +41,7 @@ public func configure(_ app: Application) throws {
     let modules: [ModuleInterface] = [
         WebModule(),
         UserModule(),
+        AdminModule(),
         BlogModule(),
     ]
     for module in modules {
