@@ -25,6 +25,16 @@ struct AdminDashboardTemplate: TemplateRepresentable {
                     H1(context.title)
                     P(context.message)
                 }
+                
+                Nav {
+                    H2("Blog")
+                    Ul {
+                        Li {
+                            A("Posts")
+                                .href("/admin/blog/posts/")
+                        }
+                    }
+                }
             }
             .id("dashboard")
             .class("container")
