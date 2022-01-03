@@ -1,68 +1,112 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2022. 01. 03..
+//
+
 import Vapor
 import Fluent
-import Leaf
-import Liquid
 
-struct BlogPostAdminController: AdminViewController {
+struct BlogPostAdminController {
     
-    typealias EditForm = BlogPostEditForm
-    typealias Model = BlogPostModel
-    
-    var listView: String = "Blog/Admin/Posts/List"
-    var editView: String = "Blog/Admin/Posts/Edit"
-    
-    func beforeRender(req: Request, form: BlogPostEditForm) -> EventLoopFuture<Void> {
-        BlogCategoryModel.query(on: req.db).all()
-            .mapEach(\.formFieldStringOption)
-            .map { form.category.options = $0 }
-    }
-
-    func beforeCreate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if let data = form.image.data {
-            let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-            future = req.fs.upload(key: key, data: data).map { url in
-                form.image.value = url
-                model.imageKey = key
-                model.image = url
-                return model
-            }
+    func find(_ req: Request) async throws -> BlogPostModel {
+        guard
+            let id = req.parameters.get("postId"),
+            let uuid = UUID(uuidString: id),
+            let post = try await BlogPostModel
+                .query(on: req.db)
+                .filter(\.$id == uuid)
+                .with(\.$category)
+                .first()
+        else {
+            throw Abort(.notFound)
         }
-        return future
+        return post
     }
+    
+    func listView(_ req: Request) async throws -> Response {
+        let posts = try await BlogPostModel.query(on: req.db).all()
+        let api = BlogPostApiController()
+        let list = posts.map { api.mapList($0) }
+        let template = BlogPostAdminListTemplate(.init(title: "Posts", list: list))
+        return req.templates.renderHtml(template)
+    }
+
+    func detailView(_ req: Request) async throws -> Response {
+        let post = try await find(req)
+        let detail = BlogPostApiController().mapDetail(post)
+        let template = BlogPostAdminDetailTemplate(.init(title: "Post details", detail: detail))
+        return req.templates.renderHtml(template)
+    }
+    
+    private func renderEditForm(_ req: Request,
+                                _ title: String,
+                                _ form: BlogPostEditForm) -> Response {
+        let template = BlogPostAdminEditTemplate(.init(title: title, form: form.render(req: req)))
+        return req.templates.renderHtml(template)
+    }
+    
+    func createView(_ req: Request) async throws -> Response {
+        let model = BlogPostModel()
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        return renderEditForm(req, "Create post", form)
+    }
+
+    func createAction(_ req: Request) async throws -> Response {
+        let model = BlogPostModel()
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        try await form.process(req: req)
+        let isValid = try await form.validate(req: req)
+        guard isValid else {
+            return renderEditForm(req, "Create post", form)
+        }
+        try await form.write(req: req)
+        try await model.create(on: req.db)
+        try await form.save(req: req)
+        return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/")
+    }
+    
+    func updateView(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        try await form.read(req: req)
+        return renderEditForm(req, "Update post", form)
+    }
+
+    func updateAction(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        try await form.process(req: req)
+        let isValid = try await form.validate(req: req)
+        guard isValid else {
+            return renderEditForm(req, "Update post", form)
+        }
+        try await form.write(req: req)
+        try await model.update(on: req.db)
+        try await form.save(req: req)
+        return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/update/")
+    }
+    
+    func deleteView(_ req: Request) async throws -> Response {
+        let model = try await find(req)
         
-    func beforeUpdate(req: Request, model: BlogPostModel, form: BlogPostEditForm) -> EventLoopFuture<BlogPostModel> {
-        var future: EventLoopFuture<BlogPostModel> = req.eventLoop.future(model)
-        if
-            (form.image.delete || form.image.data != nil),
-            let imageKey = model.imageKey
-        {
-            future = req.fs.delete(key: imageKey).map {
-                form.image.value = ""
-                model.image = ""
-                model.imageKey = nil
-                return model
-            }
-        }
-        if let data = form.image.data {
-            return future.flatMap { model in
-                let key = "/blog/posts/" + UUID().uuidString + ".jpg"
-                return req.fs.upload(key: key, data: data).map { url in
-                    form.image.value = url
-                    model.imageKey = key
-                    model.image = url
-                    return model
-                }
-            }
-        }
-        return future
+        let template = BlogPostAdminDeleteTemplate(.init(title: "Delete post",
+                                                         name: model.title,
+                                                         type: "post"))
+        
+        return req.templates.renderHtml(template)
     }
 
-    func beforeDelete(req: Request, model: BlogPostModel) -> EventLoopFuture<BlogPostModel> {
-        if let key = model.imageKey {
-            return req.fs.delete(key: key).map { model }
-        }
-        return req.eventLoop.future(model)
+    func deleteAction(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        try await req.fs.delete(key: model.imageKey)
+        try await model.delete(on: req.db)
+        return req.redirect(to: "/admin/blog/posts/")
     }
 }
 

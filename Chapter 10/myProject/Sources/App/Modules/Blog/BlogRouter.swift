@@ -1,51 +1,38 @@
+//
+//  BlogRouter.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Vapor
 
 struct BlogRouter: RouteCollection {
     
-    let frontendController = BlogFrontendController()
+    let controller = BlogFrontendController()
     let postAdminController = BlogPostAdminController()
-    let categoryAdminController = BlogCategoryAdminController()
     
     func boot(routes: RoutesBuilder) throws {
+        routes.get("blog", use: controller.blogView)
+        routes.get(.anything, use: controller.postView)
+        
+        let posts = routes
+                    .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
+                    .grouped("admin", "blog", "posts")
+                    
+        posts.get(use: postAdminController.listView)
+        
+        let postId = posts.grouped(":postId")
+        
+        postId.get(use: postAdminController.detailView)
+        
+        posts.get("create", use: postAdminController.createView)
+        posts.post("create", use: postAdminController.createAction)
 
-        routes.get("blog", use: frontendController.blogView)
-        routes.get(.anything, use: frontendController.postView)
-
-        let protected = routes.grouped([
-            UserModelSessionAuthenticator(),
-            UserModel.redirectMiddleware(path: "/")
-        ])
-        let blog = protected.grouped("admin", "blog")
+        postId.get("update", use: postAdminController.updateView)
+        postId.post("update", use: postAdminController.updateAction)
         
-        postAdminController.setupRoutes(on: blog, as: "posts")
-        categoryAdminController.setupRoutes(on: blog, as: "categories")
-        
-        let publicApi = routes.grouped("api", "blog")
-        let privateApi = publicApi.grouped([
-            UserTokenModel.authenticator(),
-            UserModel.guardMiddleware(),
-        ])
-        
-        let publicCategories = publicApi.grouped("categories")
-        let privateCategories = privateApi.grouped("categories")
-        let categoryApiController = BlogCategoryApiController()
-        categoryApiController.setupListRoute(routes: publicCategories)
-        categoryApiController.setupGetRoute(routes: publicCategories)
-        
-        categoryApiController.setupCreateRoute(routes: privateCategories)
-        categoryApiController.setupUpdateRoute(routes: privateCategories)
-        categoryApiController.setupPatchRoute(routes: privateCategories)
-        categoryApiController.setupDeleteRoute(routes: privateCategories)
-        
-        let publicPosts = publicApi.grouped("posts")
-        let privatePosts = privateApi.grouped("posts")
-        let postsApiController = BlogPostApiController()
-        postsApiController.setupListRoute(routes: publicPosts)
-        postsApiController.setupGetRoute(routes: publicPosts)
-        
-        postsApiController.setupCreateRoute(routes: privatePosts)
-        postsApiController.setupUpdateRoute(routes: privatePosts)
-        postsApiController.setupPatchRoute(routes: privatePosts)
-        postsApiController.setupDeleteRoute(routes: privatePosts)
+        postId.get("delete", use: postAdminController.deleteView)
+        postId.post("delete", use: postAdminController.deleteAction)
     }
 }
