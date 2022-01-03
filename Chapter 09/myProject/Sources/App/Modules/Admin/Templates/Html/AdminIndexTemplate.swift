@@ -74,6 +74,23 @@ public struct AdminIndexTemplate: TemplateRepresentable {
                 Main {
                     body
                 }
+                
+                Footer {
+                    Section {
+                        P {
+                            Text("This site is powered by ")
+                            A("Swift")
+                                .href("https://swift.org")
+                                .target(.blank)
+                            Text(" & ")
+                            A("Vapor")
+                                .href("https://vapor.codes")
+                                .target(.blank)
+                            Text(".")
+                        }
+                        P("myPage &copy; 2020-2022")
+                    }
+                }
 
                 Script()
                     .type(.javascript)
