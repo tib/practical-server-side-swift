@@ -16,6 +16,13 @@ struct BlogPostAdminDetailTemplate: TemplateRepresentable {
         self.context = context
     }
 
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     @TagBuilder
     func render(_ req: Request) -> Tag {
         AdminIndexTemplate(.init(title: context.title)) {
@@ -38,7 +45,7 @@ struct BlogPostAdminDetailTemplate: TemplateRepresentable {
                     Dd(context.detail.excerpt)
                     
                     Dt("Date")
-                    Dd(context.detail.date.description)
+                    Dd(dateFormatter.string(from: context.detail.date))
                     
                     Dt("Content")
                     Dd(context.detail.content)
