@@ -22,5 +22,8 @@ struct BlogRouter: RouteCollection {
                     
         posts.get(use: postAdminController.listView)
         posts.get(":postId", use: postAdminController.detailView)
+        
+        posts.get("create", use: postAdminController.createView)
+        posts.post("create", use: postAdminController.createAction)
     }
 }
