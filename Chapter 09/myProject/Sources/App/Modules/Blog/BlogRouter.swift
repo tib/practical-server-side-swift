@@ -31,5 +31,8 @@ struct BlogRouter: RouteCollection {
 
         postId.get("update", use: postAdminController.updateView)
         postId.post("update", use: postAdminController.updateAction)
+        
+        postId.get("delete", use: postAdminController.deleteView)
+        postId.post("delete", use: postAdminController.deleteAction)
     }
 }

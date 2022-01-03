@@ -91,5 +91,22 @@ struct BlogPostAdminController {
         try await form.save(req: req)
         return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/update/")
     }
+    
+    func deleteView(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        
+        let template = BlogPostAdminDeleteTemplate(.init(title: "Delete post",
+                                                         name: model.title,
+                                                         type: "post"))
+        
+        return req.templates.renderHtml(template)
+    }
+
+    func deleteAction(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        try await req.fs.delete(key: model.imageKey)
+        try await model.delete(on: req.db)
+        return req.redirect(to: "/admin/blog/posts/")
+    }
 }
 
