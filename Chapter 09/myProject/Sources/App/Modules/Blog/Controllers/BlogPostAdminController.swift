@@ -68,5 +68,28 @@ struct BlogPostAdminController {
         try await form.save(req: req)
         return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/")
     }
+    
+    func updateView(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        try await form.read(req: req)
+        return renderEditForm(req, "Update post", form)
+    }
+
+    func updateAction(_ req: Request) async throws -> Response {
+        let model = try await find(req)
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        try await form.process(req: req)
+        let isValid = try await form.validate(req: req)
+        guard isValid else {
+            return renderEditForm(req, "Update post", form)
+        }
+        try await form.write(req: req)
+        try await model.update(on: req.db)
+        try await form.save(req: req)
+        return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/update/")
+    }
 }
 

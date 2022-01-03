@@ -21,9 +21,15 @@ struct BlogRouter: RouteCollection {
                     .grouped("admin", "blog", "posts")
                     
         posts.get(use: postAdminController.listView)
-        posts.get(":postId", use: postAdminController.detailView)
+        
+        let postId = posts.grouped(":postId")
+        
+        postId.get(use: postAdminController.detailView)
         
         posts.get("create", use: postAdminController.createView)
         posts.post("create", use: postAdminController.createAction)
+
+        postId.get("update", use: postAdminController.updateView)
+        postId.post("update", use: postAdminController.updateAction)
     }
 }
