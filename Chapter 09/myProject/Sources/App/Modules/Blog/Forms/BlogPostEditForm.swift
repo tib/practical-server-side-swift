@@ -69,7 +69,7 @@ final class BlogPostEditForm: AbstractForm {
                 FormFieldValidator.required($1)
             }
             .read { [unowned self] in $1.output.context.value = dateFormatter.string(from: model.date) }
-            .write { [unowned self] in  model.date = dateFormatter.date(from: $1.input) ?? Date() }
+            .write { [unowned self] in model.date = dateFormatter.date(from: $1.input) ?? Date() }
         
         TextareaField("excerpt")
             .read { [unowned self] in $1.output.context.value = model.excerpt }
@@ -85,14 +85,14 @@ final class BlogPostEditForm: AbstractForm {
                 field.output.context.options = categories.map { OptionContext(key: $0.id!.uuidString, label: $0.title) }
             }
             .read { [unowned self] req, field in
-                field.output.context.value = model.category.id?.uuidString
+                field.output.context.value = model.$category.id.uuidString
             }
-            .save { [unowned self] req, field in
+            .write { [unowned self] req, field in
                 if
                     let uuid = UUID(uuidString: field.input),
                     let category = try await BlogCategoryModel.find(uuid, on: req.db)
                 {
-                    model.category = category
+                    model.$category.id = category.id!
                 }
             }
     }

@@ -57,11 +57,16 @@ struct BlogPostAdminController {
     func createAction(_ req: Request) async throws -> Response {
         let model = BlogPostModel()
         let form = BlogPostEditForm(model)
-//        try await form.process(req: req)
-//        if try await form.validate(req: req) {
-//
-//        }
-        return renderEditForm(req, "Create post", form)
+        try await form.load(req: req)
+        try await form.process(req: req)
+        let isValid = try await form.validate(req: req)
+        guard isValid else {
+            return renderEditForm(req, "Create post", form)
+        }
+        try await form.write(req: req)
+        try await model.create(on: req.db)
+        try await form.save(req: req)
+        return req.redirect(to: "/admin/blog/posts/\(model.id!.uuidString)/")
     }
 }
 
