@@ -11,6 +11,13 @@ final class BlogPostEditForm: AbstractForm {
     
     unowned var model: BlogPostModel
     
+    var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     public init(_ model: BlogPostModel) {
         var url = "/admin/blog/posts/"
         if let id = model.$id.value {
@@ -33,6 +40,16 @@ final class BlogPostEditForm: AbstractForm {
             }
             .write { [unowned self] in model.imageKey = ($1 as! ImageField).imageKey ?? "" }
         
+        InputField("slug")
+            .config {
+                $0.output.context.label.required = true
+            }
+            .validators {
+                FormFieldValidator.required($1)
+            }
+            .read { [unowned self] in $1.output.context.value = model.slug }
+            .write { [unowned self] in  model.slug = $1.input }
+        
         InputField("title")
             .config {
                 $0.output.context.label.required = true
@@ -42,6 +59,17 @@ final class BlogPostEditForm: AbstractForm {
             }
             .read { [unowned self] in $1.output.context.value = model.title }
             .write { [unowned self] in  model.title = $1.input }
+        
+        InputField("date")
+            .config {
+                $0.output.context.label.required = true
+                $0.output.context.value = dateFormatter.string(from: Date())
+            }
+            .validators {
+                FormFieldValidator.required($1)
+            }
+            .read { [unowned self] in $1.output.context.value = dateFormatter.string(from: model.date) }
+            .write { [unowned self] in  model.date = dateFormatter.date(from: $1.input) ?? Date() }
         
         TextareaField("excerpt")
             .read { [unowned self] in $1.output.context.value = model.excerpt }

@@ -40,22 +40,28 @@ struct BlogPostAdminController {
         return req.templates.renderHtml(template)
     }
     
-    private func renderEditForm(_ req: Request, _ form: BlogPostEditForm) -> Response {
-        let template = BlogPostAdminEditTemplate(.init(title: "Edit post", form: form.render(req: req)))
+    private func renderEditForm(_ req: Request,
+                                _ title: String,
+                                _ form: BlogPostEditForm) -> Response {
+        let template = BlogPostAdminEditTemplate(.init(title: title, form: form.render(req: req)))
         return req.templates.renderHtml(template)
     }
     
     func createView(_ req: Request) async throws -> Response {
-        renderEditForm(req, .init(.init()))
+        let model = BlogPostModel()
+        let form = BlogPostEditForm(model)
+        try await form.load(req: req)
+        return renderEditForm(req, "Create post", form)
     }
 
     func createAction(_ req: Request) async throws -> Response {
-        let form = BlogPostEditForm(.init())
+        let model = BlogPostModel()
+        let form = BlogPostEditForm(model)
 //        try await form.process(req: req)
 //        if try await form.validate(req: req) {
 //
 //        }
-        return renderEditForm(req, form)
+        return renderEditForm(req, "Create post", form)
     }
 }
 
