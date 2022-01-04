@@ -33,6 +33,10 @@ struct AdminDashboardTemplate: TemplateRepresentable {
                             A("Posts")
                                 .href("/admin/blog/posts/")
                         }
+                        Li {
+                            A("Categories")
+                                .href("/admin/blog/categories/")
+                        }
                     }
                 }
             }

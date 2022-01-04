@@ -21,7 +21,11 @@ public struct TableTemplate: TemplateRepresentable {
         Table {
             Thead {
                 Tr {
-                    context.columns.map { ColumnTemplate($0).render(req) }
+                    context.columns.map { column in
+                        Th(column.label)
+                            .id(column.key)
+                            .class("field")
+                    }
                     context.actions.map { action in
                         Th(action.label)
                             .class("action")

@@ -9,7 +9,8 @@ import Vapor
 import Fluent
 
 struct BlogPostAdminController: AdminListController {
-    
+    typealias DatabaseModel = BlogPostModel
+
     func listColumns() -> [ColumnContext] {
         [
             .init("image"),
@@ -17,18 +18,13 @@ struct BlogPostAdminController: AdminListController {
         ]
     }
     
-    func listCells(for model: BlogPostModel) -> [CellContext] {
+    func listCells(for model: DatabaseModel) -> [CellContext] {
         [
             .init(model.imageKey, type: .image),
             .init(model.title, link: .init(label: model.title)),
         ]
     }
-    
-    
-    
-    typealias DatabaseModel = BlogPostModel
-    
-    
+
     func find(_ req: Request) async throws -> BlogPostModel {
         guard
             let id = req.parameters.get("postId"),
@@ -43,9 +39,6 @@ struct BlogPostAdminController: AdminListController {
         }
         return post
     }
-    
-    
-    
 
     func detailView(_ req: Request) async throws -> Response {
         let post = try await find(req)
