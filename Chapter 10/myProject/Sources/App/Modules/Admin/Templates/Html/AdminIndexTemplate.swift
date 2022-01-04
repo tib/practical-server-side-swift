@@ -71,6 +71,16 @@ public struct AdminIndexTemplate: TemplateRepresentable {
                 }
                 .id("navigation")
                 
+                Div {
+                    Nav {
+                        A("Admin")
+                            .href("/admin/")
+
+                        context.breadcrumbs.map { LinkTemplate($0).render(req) }
+                    }
+                }
+                .class("breadcrumb")
+
                 Main {
                     body
                 }
