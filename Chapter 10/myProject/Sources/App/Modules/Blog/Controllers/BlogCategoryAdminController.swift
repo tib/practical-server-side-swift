@@ -8,9 +8,14 @@
 import Vapor
 import Fluent
 
-struct BlogCategoryAdminController: AdminListController {
-
+struct BlogCategoryAdminController: AdminListController, AdminCreateController, AdminUpdateController, AdminDeleteController {
+    
+    
     typealias DatabaseModel = BlogCategoryModel
+    typealias CreateModelEditor = BlogCategoryEditor
+    typealias UpdateModelEditor = BlogCategoryEditor
+    
+    let parameterId: String = "categoryId"
 
     func listColumns() -> [ColumnContext] {
         [
@@ -22,6 +27,10 @@ struct BlogCategoryAdminController: AdminListController {
         [
             .init(model.title, link: .init(label: model.title)),
         ]
+    }
+    
+    func deleteInfo(_ model: DatabaseModel) -> String {
+        model.title
     }
 }
 

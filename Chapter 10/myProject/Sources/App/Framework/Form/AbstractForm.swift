@@ -65,9 +65,13 @@ open class AbstractForm: FormComponent {
     }
     
     open func render(req: Request) -> TemplateRepresentable {
-        FormTemplate(.init(action: action,
-                           fields: fields.map { $0.render(req: req)},
-                           error: error,
-                           submit: submit))
+        FormTemplate(getContext(req))
+    }
+
+    func getContext(_ req: Request) -> FormContext {
+        .init(action: action,
+              fields: fields.map { $0.render(req: req)},
+              error: error,
+              submit: submit)
     }
 }

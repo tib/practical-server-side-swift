@@ -7,7 +7,9 @@
 
 import Vapor
 
-protocol AdminListController: ListController {
+protocol AdminListController: ModelController {
+
+    func list(_ req: Request) async throws -> [DatabaseModel]
     func listView(_ req: Request) async throws -> Response
     
     func listColumns() -> [ColumnContext]
@@ -20,6 +22,10 @@ protocol AdminListController: ListController {
 
 extension AdminListController {
     
+    func list(_ req: Request) async throws -> [DatabaseModel] {
+        try await DatabaseModel.query(on: req.db).all()
+    }
+
     func listView(_ req: Request) async throws -> Response {
         let list = try await list(req)
         let template = listTemplate(req, list)
