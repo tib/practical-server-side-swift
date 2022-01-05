@@ -20,14 +20,17 @@ struct BlogRouter: RouteCollection {
         let blog = routes
                     .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
                     .grouped("admin", "blog")
-        
+
         let categories = blog.grouped("categories")
         categories.get(use: categoryAdminController.listView)
         categories.get("create", use: categoryAdminController.createView)
         categories.post("create", use: categoryAdminController.createAction)
         let categoryId = categories.grouped(":categoryId")
+        categoryId.get(use: categoryAdminController.detailView)
         categoryId.get("update", use: categoryAdminController.updateView)
         categoryId.post("update", use: categoryAdminController.updateAction)
+        categoryId.get("delete", use: categoryAdminController.deleteView)
+        categoryId.post("delete", use: categoryAdminController.deleteAction)
         
         let posts = blog.grouped("posts")
         posts.get(use: postAdminController.listView)

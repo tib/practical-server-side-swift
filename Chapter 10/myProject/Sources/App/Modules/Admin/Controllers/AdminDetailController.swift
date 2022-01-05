@@ -5,4 +5,50 @@
 //  Created by Tibor Bodecs on 2022. 01. 05..
 //
 
-import Foundation
+import Vapor
+
+public protocol AdminDetailController: ModelController {
+    func detailView(_ req: Request) async throws -> Response
+    func detailTemplate(_ req: Request, _ model: DatabaseModel) -> TemplateRepresentable
+    
+    func detailFields(for model: DatabaseModel) -> [DetailContext]
+    func detailContext(_ req: Request, _ model: DatabaseModel) -> AdminDetailPageContext
+    func detailBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
+    func detailLinks(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
+}
+
+public extension AdminDetailController {
+    
+    func detailView(_ req: Request) async throws -> Response {
+        let model = try await findBy(identifier(req), on: req.db)
+        return req.templates.renderHtml(detailTemplate(req, model))
+    }
+
+    func detailTemplate(_ req: Request, _ model: DatabaseModel) -> TemplateRepresentable {
+        AdminDetailPageTemplate(detailContext(req, model))
+    }
+
+    func detailContext(_ req: Request, _ model: DatabaseModel) -> AdminDetailPageContext {
+        .init(title: "Details",
+              fields: detailFields(for: model),
+              breadcrumbs: detailBreadcrumbs(req, model),
+              links: detailLinks(req, model),
+              actions: [
+                LinkContext(label: "Delete",
+                            path: "/delete/?redirect=" + req.url.path.pathComponents.dropLast().string + "&cancel=" + req.url.path),
+              ])
+    }
+
+    func detailBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
+        [
+            LinkContext(label: DatabaseModel.Module.identifier.capitalized, dropLast: 2),
+            LinkContext(label: "Model", dropLast: 1),
+        ]
+    }
+
+    func detailLinks(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
+        [
+            LinkContext(label: "Update", path: "update"),
+        ]
+    }
+}

@@ -8,7 +8,11 @@
 import Vapor
 import Fluent
 
-struct BlogCategoryAdminController: AdminListController, AdminCreateController, AdminUpdateController, AdminDeleteController {
+struct BlogCategoryAdminController: AdminListController,
+                                    AdminDetailController,
+                                    AdminCreateController,
+                                    AdminUpdateController,
+                                    AdminDeleteController {
     
     
     typealias DatabaseModel = BlogCategoryModel
@@ -26,6 +30,12 @@ struct BlogCategoryAdminController: AdminListController, AdminCreateController, 
     func listCells(for model: DatabaseModel) -> [CellContext] {
         [
             .init(model.title, link: .init(label: model.title)),
+        ]
+    }
+    
+    func detailFields(for model: DatabaseModel) -> [DetailContext] {
+        [
+            .init("title", model.title),
         ]
     }
     

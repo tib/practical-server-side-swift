@@ -8,7 +8,11 @@
 import Vapor
 import Fluent
 
-struct BlogPostAdminController: AdminListController, AdminCreateController, AdminUpdateController, AdminDeleteController {
+struct BlogPostAdminController: AdminListController,
+                                AdminDetailController,
+                                AdminCreateController,
+                                AdminUpdateController,
+                                AdminDeleteController {
     typealias DatabaseModel = BlogPostModel
 
     typealias CreateModelEditor = BlogPostEditor
@@ -43,11 +47,11 @@ struct BlogPostAdminController: AdminListController, AdminCreateController, Admi
         ]
     }
 
-    func detailView(_ req: Request) async throws -> Response {
-        let post = try await find(req)
-        let detail = BlogPostApiController().mapDetail(post)
-        let template = BlogPostAdminDetailTemplate(.init(title: "Post details", detail: detail))
-        return req.templates.renderHtml(template)
+    func detailFields(for model: DatabaseModel) -> [DetailContext] {
+        [
+            .init("image", model.imageKey),
+            .init("title", model.title),
+        ]
     }
     
     func deleteInfo(_ model: DatabaseModel) -> String {
