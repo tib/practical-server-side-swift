@@ -49,7 +49,7 @@ struct BlogPostAdminController: AdminListController,
 
     func detailFields(for model: DatabaseModel) -> [DetailContext] {
         [
-            .init("image", model.imageKey),
+            .init("image", model.imageKey, type: .image),
             .init("title", model.title),
         ]
     }

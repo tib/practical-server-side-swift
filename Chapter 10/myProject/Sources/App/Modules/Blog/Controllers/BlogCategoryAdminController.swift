@@ -14,7 +14,6 @@ struct BlogCategoryAdminController: AdminListController,
                                     AdminUpdateController,
                                     AdminDeleteController {
     
-    
     typealias DatabaseModel = BlogCategoryModel
     typealias CreateModelEditor = BlogCategoryEditor
     typealias UpdateModelEditor = BlogCategoryEditor
