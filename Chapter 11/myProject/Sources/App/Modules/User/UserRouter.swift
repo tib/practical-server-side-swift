@@ -1,22 +1,22 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
 
 struct UserRouter: RouteCollection {
     
-    let controller = UserFrontendController()
-    let apiController = UserApiController()
+    let frontendController = UserFrontendController()
     
     func boot(routes: RoutesBuilder) throws {
-        routes.get("sign-in", use: controller.loginView)
-        
-        routes.grouped(UserModelCredentialsAuthenticator())
-            .post("sign-in", use: controller.login)
-        
-        routes.grouped(UserModelSessionAuthenticator())
-            .get("logout", use: controller.logout)
-        
-        let api = routes.grouped("api", "user")
+        routes.get("sign-in", use: frontendController.signInView)
+        routes
+            .grouped(UserCredentialsAuthenticator())
+            .post("sign-in", use: frontendController.signInAction)
 
-        api.grouped(UserModelCredentialsAuthenticator())
-            .post("login", use: apiController.login)
+        routes.get("sign-out", use: frontendController.signOut)
     }
 }
