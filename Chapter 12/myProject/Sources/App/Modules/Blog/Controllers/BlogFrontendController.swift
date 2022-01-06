@@ -16,8 +16,7 @@ struct BlogFrontendController {
             .sort(\.$date, .descending)
             .all()
 
-        let api = BlogPostApiController()
-        let list = posts.map { api.mapList($0) }
+        let list = try await BlogPostApiController().listOutput(req, posts)
         
         let ctx = BlogPostsContext(icon: "🔥",
                                    title: "Blog",
@@ -38,8 +37,8 @@ struct BlogFrontendController {
         else {
             return req.redirect(to: "/")
         }
-        let api = BlogPostApiController()
-        let ctx = BlogPostContext(post: api.mapDetail(post))
-        return req.templates.renderHtml(BlogPostTemplate(ctx))
+        let model = try await BlogPostApiController().detailOutput(req, post)
+        let context = BlogPostContext(post: model)
+        return req.templates.renderHtml(BlogPostTemplate(context))
     }
 }

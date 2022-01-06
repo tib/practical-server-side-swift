@@ -35,4 +35,31 @@ extension Blog.Post {
         let category: Blog.Category.List
         let content: String
     }
+    
+    struct Create: Codable {
+        let title: String
+        let slug: String
+        let image: String
+        let excerpt: String
+        let date: Date
+        let content: String
+    }
+    
+    struct Update: Codable {
+        let title: String
+        let slug: String
+        let image: String
+        let excerpt: String
+        let date: Date
+        let content: String
+    }
+
+    struct Patch: Codable {
+        let title: String?
+        let slug: String?
+        let image: String?
+        let excerpt: String?
+        let date: Date?
+        let content: String?
+    }
 }
