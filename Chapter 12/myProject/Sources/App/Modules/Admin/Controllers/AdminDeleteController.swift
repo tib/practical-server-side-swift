@@ -17,7 +17,7 @@ final class DeleteForm: AbstractForm {
     }
 }
 
-protocol AdminDeleteController: ModelController {
+protocol AdminDeleteController: DeleteController {
         
     func deleteView(_ req: Request) async throws -> Response
     func deleteAction(_ req: Request) async throws -> Response

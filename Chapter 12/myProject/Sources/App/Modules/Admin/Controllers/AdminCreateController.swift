@@ -7,7 +7,7 @@
 
 import Vapor
 
-protocol AdminCreateController: ModelController {
+protocol AdminCreateController: CreateController {
     associatedtype CreateModelEditor: ModelEditorInterface
     
     func createTemplate(_ req: Request, _ editor: CreateModelEditor) -> TemplateRepresentable

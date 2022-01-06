@@ -7,9 +7,8 @@
 
 import Vapor
 
-protocol AdminListController: ModelController {
+protocol AdminListController: ListController {
 
-    func list(_ req: Request) async throws -> [DatabaseModel]
     func listView(_ req: Request) async throws -> Response
     
     func listColumns() -> [ColumnContext]
@@ -21,10 +20,7 @@ protocol AdminListController: ModelController {
 }
 
 extension AdminListController {
-    
-    func list(_ req: Request) async throws -> [DatabaseModel] {
-        try await DatabaseModel.query(on: req.db).all()
-    }
+
 
     func listView(_ req: Request) async throws -> Response {
         let list = try await list(req)

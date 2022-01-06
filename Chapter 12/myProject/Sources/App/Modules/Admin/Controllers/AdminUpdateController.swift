@@ -7,7 +7,7 @@
 
 import Vapor
 
-protocol AdminUpdateController: ModelController {
+protocol AdminUpdateController: UpdateController {
     associatedtype UpdateModelEditor: ModelEditorInterface
         
     func updateView(_ req: Request) async throws -> Response

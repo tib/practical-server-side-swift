@@ -7,7 +7,7 @@
 
 import Vapor
 
-public protocol AdminDetailController: ModelController {
+protocol AdminDetailController: DetailController {
     func detailView(_ req: Request) async throws -> Response
     func detailTemplate(_ req: Request, _ model: DatabaseModel) -> TemplateRepresentable
     
@@ -17,7 +17,7 @@ public protocol AdminDetailController: ModelController {
     func detailNavigation(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
 }
 
-public extension AdminDetailController {
+extension AdminDetailController {
     
     func detailView(_ req: Request) async throws -> Response {
         let model = try await findBy(identifier(req), on: req.db)

@@ -8,11 +8,7 @@
 import Vapor
 import Fluent
 
-struct BlogPostAdminController: AdminListController,
-                                AdminDetailController,
-                                AdminCreateController,
-                                AdminUpdateController,
-                                AdminDeleteController {
+struct BlogPostAdminController: AdminController {
     typealias DatabaseModel = BlogPostModel
 
     typealias CreateModelEditor = BlogPostEditor
