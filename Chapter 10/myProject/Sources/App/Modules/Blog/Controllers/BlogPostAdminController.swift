@@ -21,19 +21,6 @@ struct BlogPostAdminController: AdminListController,
     let modelName: Name = .init(singular: "post")
     let parameterId: String = "postId"
 
-    func find(_ req: Request) async throws -> DatabaseModel {
-        guard
-            let post = try await DatabaseModel
-                .query(on: req.db)
-                .filter(\.$id == identifier(req))
-                .with(\.$category)
-                .first()
-        else {
-            throw Abort(.notFound)
-        }
-        return post
-    }
-
     func listColumns() -> [ColumnContext] {
         [
             .init("image"),
