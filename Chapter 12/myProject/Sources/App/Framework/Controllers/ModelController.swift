@@ -17,6 +17,8 @@ protocol ModelController {
     
     func identifier(_ req: Request) throws -> UUID
     func findBy(_ id: UUID, on: Database) async throws -> DatabaseModel
+    
+    func getBaseRoutes(_ routes: RoutesBuilder) -> RoutesBuilder
 }
 
 extension ModelController {
@@ -39,6 +41,11 @@ extension ModelController {
             throw Abort(.notFound)
         }
         return model
+    }
+    
+    func getBaseRoutes(_ routes: RoutesBuilder) -> RoutesBuilder {
+        routes.grouped(ApiModel.Module.pathKey.pathComponents)
+            .grouped(ApiModel.pathKey.pathComponents)
     }
 }
 

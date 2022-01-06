@@ -10,7 +10,7 @@ import Foundation
 extension Blog {
 
     enum Category: ApiModelInterface {
-
+        typealias Module = Blog
     }
 }
 
