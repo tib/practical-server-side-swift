@@ -7,10 +7,10 @@
 
 import Vapor
 
-public protocol DeleteController: ModelController {
+protocol DeleteController: ModelController {
     
 }
 
-public extension DeleteController {
+extension DeleteController {
     
 }

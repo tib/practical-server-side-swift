@@ -68,8 +68,8 @@ extension AdminUpdateController {
     
     func updateBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
         [
-            LinkContext(label: DatabaseModel.Module.identifier.capitalized, dropLast: 3),
-            LinkContext(label: modelName.plural.capitalized, dropLast: 2),
+            LinkContext(label: Self.moduleName.capitalized, dropLast: 3),
+            LinkContext(label: Self.modelName.plural.capitalized, dropLast: 2),
         ]
     }
     

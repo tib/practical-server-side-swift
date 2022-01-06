@@ -9,13 +9,10 @@ import Vapor
 import Fluent
 
 struct BlogPostAdminController: AdminController {
+    typealias ApiModel = Blog.Post
     typealias DatabaseModel = BlogPostModel
-
     typealias CreateModelEditor = BlogPostEditor
     typealias UpdateModelEditor = BlogPostEditor
-
-    let modelName: Name = .init(singular: "post")
-    let parameterId: String = "postId"
 
     func listColumns() -> [ColumnContext] {
         [

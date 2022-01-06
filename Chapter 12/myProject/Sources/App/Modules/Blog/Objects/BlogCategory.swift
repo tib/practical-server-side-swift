@@ -9,8 +9,8 @@ import Foundation
 
 extension Blog {
 
-    enum Category {
-        
+    enum Category: ApiModelInterface {
+
     }
 }
 

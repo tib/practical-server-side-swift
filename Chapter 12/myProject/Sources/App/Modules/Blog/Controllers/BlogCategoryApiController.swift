@@ -11,11 +11,9 @@ extension Blog.Category.List: Content {}
 extension Blog.Category.Detail: Content {}
 
 struct BlogCategoryApiController: ApiController {
+    typealias ApiModel = Blog.Category
     typealias DatabaseModel = BlogCategoryModel
     
-    var modelName: Name = .init(singular: "category", plural: "categories")
-    var parameterId: String = "categoryId"
-
     func listOutput(_ req: Request, _ models: [BlogCategoryModel]) async throws -> [Blog.Category.List] {
         models.map { .init(id: $0.id!, title: $0.title) }
     }

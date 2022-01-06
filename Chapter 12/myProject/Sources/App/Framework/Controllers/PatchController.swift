@@ -7,10 +7,10 @@
 
 import Vapor
 
-public protocol PatchController: ModelController {
+protocol PatchController: ModelController {
     
 }
 
-public extension PatchController {
+extension PatchController {
         
 }

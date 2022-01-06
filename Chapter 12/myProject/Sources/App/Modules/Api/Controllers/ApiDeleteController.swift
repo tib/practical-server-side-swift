@@ -7,12 +7,12 @@
 
 import Vapor
 
-public protocol ApiDeleteController: DeleteController {
+protocol ApiDeleteController: DeleteController {
     
     func deleteApi(_ req: Request) async throws -> HTTPStatus
 }
 
-public extension ApiDeleteController {
+extension ApiDeleteController {
 
     func deleteApi(_ req: Request) async throws -> HTTPStatus {
         let model = try await findBy(identifier(req), on: req.db)

@@ -9,7 +9,7 @@ import Foundation
 
 extension Blog {
 
-    enum Post {
+    enum Post: ApiModelInterface {
         
     }
 }

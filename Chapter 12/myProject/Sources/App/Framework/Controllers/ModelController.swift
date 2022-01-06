@@ -8,32 +8,25 @@
 import Vapor
 import Fluent
 
-public struct Name {
-   
-    let singular: String
-    let plural: String
-    
-    internal init(singular: String, plural: String? = nil) {
-        self.singular = singular
-        self.plural = plural ?? singular + "s"
-    }
-}
-
-public protocol ModelController {
+protocol ModelController {
+    associatedtype ApiModel: ApiModelInterface
     associatedtype DatabaseModel: DatabaseModelInterface
     
-    var modelName: Name { get }
-    var parameterId: String { get }
+    static var moduleName: String { get }
+    static var modelName: Name { get }
+    
     func identifier(_ req: Request) throws -> UUID
     func findBy(_ id: UUID, on: Database) async throws -> DatabaseModel
 }
 
 extension ModelController {
     
+    static var moduleName: String { DatabaseModel.Module.identifier.capitalized }
+    static var modelName: Name { .init(singular: String(DatabaseModel.identifier.dropLast(1))) }
 
     func identifier(_ req: Request) throws -> UUID {
         guard
-            let id = req.parameters.get(parameterId),
+            let id = req.parameters.get(ApiModel.pathIdKey),
             let uuid = UUID(uuidString: id)
         else {
             throw Abort(.badRequest)

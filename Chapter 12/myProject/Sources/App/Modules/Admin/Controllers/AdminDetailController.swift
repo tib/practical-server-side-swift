@@ -41,8 +41,8 @@ extension AdminDetailController {
 
     func detailBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
         [
-            LinkContext(label: DatabaseModel.Module.identifier.capitalized, dropLast: 2),
-            LinkContext(label: modelName.plural.capitalized, dropLast: 1),
+            LinkContext(label: Self.moduleName.capitalized, dropLast: 2),
+            LinkContext(label: Self.modelName.plural.capitalized, dropLast: 1),
         ]
     }
 

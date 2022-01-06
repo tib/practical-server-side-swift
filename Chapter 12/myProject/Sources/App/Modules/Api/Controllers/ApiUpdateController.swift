@@ -7,7 +7,7 @@
 
 import Vapor
 
-public protocol ApiUpdateController: UpdateController {
+protocol ApiUpdateController: UpdateController {
     associatedtype UpdateObject: Decodable
     
     func updateInput(_ req: Request, _ model: DatabaseModel, _ input: UpdateObject) async throws
@@ -15,7 +15,7 @@ public protocol ApiUpdateController: UpdateController {
     func updateResponse(_ req: Request, _ model: DatabaseModel) async throws -> Response
 }
 
-public extension ApiUpdateController {
+extension ApiUpdateController {
 
     func updateApi(_ req: Request) async throws -> Response {
         let model = try await findBy(identifier(req), on: req.db)

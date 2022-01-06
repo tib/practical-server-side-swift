@@ -11,11 +11,9 @@ extension Blog.Post.List: Content {}
 extension Blog.Post.Detail: Content {}
 
 struct BlogPostApiController: ApiController {
+    typealias ApiModel = Blog.Post
     typealias DatabaseModel = BlogPostModel
     
-    var modelName: Name = .init(singular: "Post", plural: "categories")
-    var parameterId: String = "PostId"
-
     func listOutput(_ req: Request, _ models: [BlogPostModel]) async throws -> [Blog.Post.List] {
         models.map { model in
             .init(id: model.id!,
