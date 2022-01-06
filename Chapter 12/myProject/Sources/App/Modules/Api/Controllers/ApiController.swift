@@ -14,7 +14,7 @@ protocol ApiController: ApiListController,
                         ApiPatchController,
                         ApiDeleteController
 {
-    
+    func setupRoutes(_ routes: RoutesBuilder)
 }
 
 extension ApiController {
@@ -29,5 +29,14 @@ extension ApiController {
 
     func patchResponse(_ req: Request, _ model: DatabaseModel) async throws -> Response {
         try await detailOutput(req, model).encodeResponse(for: req)
+    }
+    
+    func setupRoutes(_ routes: RoutesBuilder) {
+        setupListRoutes(routes)
+        setupDetailRoutes(routes)
+        setupCreateRoutes(routes)
+        setupUpdateRoutes(routes)
+        setupPatchRoutes(routes)
+        setupDeleteRoutes(routes)
     }
 }
