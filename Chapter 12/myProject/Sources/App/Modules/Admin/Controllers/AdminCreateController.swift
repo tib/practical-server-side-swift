@@ -15,6 +15,7 @@ protocol AdminCreateController: CreateController {
     func createAction(_ req: Request) async throws -> Response
     func createContext(_ req: Request, _ editor: CreateModelEditor) -> AdminEditorPageContext
     func createBreadcrumbs(_ req: Request) -> [LinkContext]
+    func setupCreateRoutes(_ routes: RoutesBuilder)
 }
 
 extension AdminCreateController {
@@ -65,5 +66,11 @@ extension AdminCreateController {
             LinkContext(label: Self.moduleName.capitalized, dropLast: 2),
             LinkContext(label: Self.modelName.plural.capitalized, dropLast: 1),
         ]
+    }
+    
+    func setupCreateRoutes(_ routes: RoutesBuilder) {
+        let baseRoutes = getBaseRoutes(routes)
+        baseRoutes.get("create", use: createView)
+        baseRoutes.post("create", use: createAction)
     }
 }

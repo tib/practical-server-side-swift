@@ -17,6 +17,7 @@ protocol AdminListController: ListController {
     func listBreadcrumbs(_ req: Request) -> [LinkContext]
     func listContext(_ req: Request, _ list: [DatabaseModel]) -> AdminListPageContext
     func listTemplate(_ req: Request, _ list: [DatabaseModel]) -> TemplateRepresentable
+    func setupListRoutes(_ routes: RoutesBuilder)
 }
 
 extension AdminListController {
@@ -56,5 +57,11 @@ extension AdminListController {
 
     func listTemplate(_ req: Request, _ list: [DatabaseModel]) -> TemplateRepresentable {
         AdminListPageTemplate(listContext(req, list))
+    }
+    
+    func setupListRoutes(_ routes: RoutesBuilder) {
+        let baseRoutes = getBaseRoutes(routes)
+        
+        baseRoutes.get(use: listView)
     }
 }

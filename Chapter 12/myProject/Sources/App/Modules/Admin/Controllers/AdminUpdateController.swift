@@ -17,6 +17,7 @@ protocol AdminUpdateController: UpdateController {
     func updateContext(_ req: Request, _ editor: UpdateModelEditor) async -> AdminEditorPageContext
     func updateBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
     func updateNavigation(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
+    func setupUpdateRoutes(_ routes: RoutesBuilder)
 }
 
 extension AdminUpdateController {
@@ -77,5 +78,13 @@ extension AdminUpdateController {
         [
             LinkContext(label: "Details", dropLast: 1),
         ]
+    }
+    func setupUpdateRoutes(_ routes: RoutesBuilder) {
+        let baseRoutes = getBaseRoutes(routes)
+
+        let existingModelRoutes = baseRoutes.grouped(ApiModel.pathIdComponent)
+        
+        existingModelRoutes.get("update", use: updateView)
+        existingModelRoutes.post("update", use: updateAction)
     }
 }

@@ -15,6 +15,7 @@ protocol AdminDetailController: DetailController {
     func detailContext(_ req: Request, _ model: DatabaseModel) -> AdminDetailPageContext
     func detailBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
     func detailNavigation(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
+    func setupDetailRoutes(_ routes: RoutesBuilder)
 }
 
 extension AdminDetailController {
@@ -50,5 +51,13 @@ extension AdminDetailController {
         [
             LinkContext(label: "Update", path: "update"),
         ]
+    }
+    
+    func setupDetailRoutes(_ routes: RoutesBuilder) {
+        let baseRoutes = getBaseRoutes(routes)
+                
+        let existingModelRoutes = baseRoutes.grouped(ApiModel.pathIdComponent)
+        
+        existingModelRoutes.get(use: detailView)
     }
 }
