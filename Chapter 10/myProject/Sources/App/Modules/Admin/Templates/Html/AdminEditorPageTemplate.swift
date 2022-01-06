@@ -22,8 +22,7 @@ struct AdminEditorPageTemplate: TemplateRepresentable {
             Div {
                 Div {
                     H1(context.title)
-                    
-                    context.links.map { LinkTemplate($0).render(req) }
+                    context.navigation.map { LinkTemplate($0).render(req) }
                 }
                 .class("lead")
                

@@ -16,7 +16,7 @@ protocol AdminUpdateController: ModelController {
     func updateTemplate(_ req: Request, _ editor: UpdateModelEditor) async -> TemplateRepresentable
     func updateContext(_ req: Request, _ editor: UpdateModelEditor) async -> AdminEditorPageContext
     func updateBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
-    func updateLinks(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
+    func updateNavigation(_ req: Request, _ model: DatabaseModel) -> [LinkContext]
 }
 
 extension AdminUpdateController {
@@ -57,8 +57,8 @@ extension AdminUpdateController {
     func updateContext(_ req: Request, _ editor: UpdateModelEditor) async -> AdminEditorPageContext {
        .init(title: "Update",
              form: editor.form.getContext(req),
+             navigation: updateNavigation(req, editor.model as! DatabaseModel),
              breadcrumbs: updateBreadcrumbs(req, editor.model as! DatabaseModel),
-             links: updateLinks(req, editor.model as! DatabaseModel),
              actions: [
                 LinkContext(label: "Delete",
                             path: "delete/?redirect=" + req.url.path.pathComponents.dropLast(2).string + "&cancel=" + req.url.path,
@@ -73,7 +73,7 @@ extension AdminUpdateController {
         ]
     }
     
-    func updateLinks(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
+    func updateNavigation(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
         [
             LinkContext(label: "Details", dropLast: 1),
         ]

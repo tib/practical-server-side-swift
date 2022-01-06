@@ -11,20 +11,17 @@ public struct AdminEditorPageContext {
     public let form: FormContext
     public let navigation: [LinkContext]
     public let breadcrumbs: [LinkContext]
-    public let links: [LinkContext]
     public let actions: [LinkContext]
 
     public init(title: String,
                 form: FormContext,
                 navigation: [LinkContext] = [],
                 breadcrumbs: [LinkContext] = [],
-                links: [LinkContext] = [],
                 actions: [LinkContext] = []) {
         self.title = title
         self.form = form
         self.navigation = navigation
         self.breadcrumbs = breadcrumbs
-        self.links = links
         self.actions = actions
     }
     
