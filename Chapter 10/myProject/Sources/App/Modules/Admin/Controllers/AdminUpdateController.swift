@@ -60,16 +60,16 @@ extension AdminUpdateController {
              breadcrumbs: updateBreadcrumbs(req, editor.model as! DatabaseModel),
              links: updateLinks(req, editor.model as! DatabaseModel),
              actions: [
-//                LinkContext(label: "Delete",
-//                            path: "delete/?redirect=" + req.url.path.pathComponents.dropLast(2).path + "&cancel=" + req.url.path,
-//                            dropLast: 1),
+                LinkContext(label: "Delete",
+                            path: "delete/?redirect=" + req.url.path.pathComponents.dropLast(2).string + "&cancel=" + req.url.path,
+                            dropLast: 1),
              ])
     }
     
     func updateBreadcrumbs(_ req: Request, _ model: DatabaseModel) -> [LinkContext] {
         [
             LinkContext(label: DatabaseModel.Module.identifier.capitalized, dropLast: 3),
-            LinkContext(label: "model", dropLast: 2),
+            LinkContext(label: modelName.plural.capitalized, dropLast: 2),
         ]
     }
     

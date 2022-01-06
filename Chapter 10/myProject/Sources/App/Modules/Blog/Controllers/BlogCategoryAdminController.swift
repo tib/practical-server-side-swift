@@ -18,6 +18,7 @@ struct BlogCategoryAdminController: AdminListController,
     typealias CreateModelEditor = BlogCategoryEditor
     typealias UpdateModelEditor = BlogCategoryEditor
     
+    let modelName: Name = .init(singular: "category", plural: "categories")
     let parameterId: String = "categoryId"
 
     func listColumns() -> [ColumnContext] {

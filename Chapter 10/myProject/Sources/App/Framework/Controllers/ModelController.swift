@@ -8,9 +8,21 @@
 import Vapor
 import Fluent
 
+public struct Name {
+   
+    let singular: String
+    let plural: String
+    
+    internal init(singular: String, plural: String? = nil) {
+        self.singular = singular
+        self.plural = plural ?? singular + "s"
+    }
+}
+
 public protocol ModelController {
     associatedtype DatabaseModel: DatabaseModelInterface
     
+    var modelName: Name { get }
     var parameterId: String { get }
     func identifier(_ req: Request) throws -> UUID
     func findBy(_ id: UUID, on: Database) async throws -> DatabaseModel

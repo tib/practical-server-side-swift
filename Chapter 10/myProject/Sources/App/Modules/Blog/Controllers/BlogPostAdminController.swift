@@ -17,7 +17,8 @@ struct BlogPostAdminController: AdminListController,
 
     typealias CreateModelEditor = BlogPostEditor
     typealias UpdateModelEditor = BlogPostEditor
-    
+
+    let modelName: Name = .init(singular: "post")
     let parameterId: String = "postId"
 
     func find(_ req: Request) async throws -> DatabaseModel {
