@@ -1,9 +1,17 @@
-import Vapor
-import Fluent
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2022. 01. 02..
+//
 
-struct AdminModule: ViperModule {
-    
-    static var name: String = "admin"
-    
-    var router: ViperRouter? { AdminRouter() }
+import Vapor
+
+struct AdminModule: ModuleInterface {
+
+    let router = AdminRouter()
+
+    func boot(_ app: Application) throws {
+        try router.boot(routes: app.routes)
+    }
 }

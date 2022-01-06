@@ -1,33 +1,32 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2022. 01. 03..
+//
+
 import Vapor
-import Fluent
 
-struct BlogPostApiController: ApiController {
-    typealias Model = BlogPostModel
+struct BlogPostApiController {
     
-    func setValidCategory(req: Request, model: Model, categoryId: String) -> EventLoopFuture<Model> {
-        guard let uuid = UUID(uuidString: categoryId) else {
-            return req.eventLoop.future(error: Abort(.badRequest))
-        }
-        return BlogCategoryModel.find(uuid, on: req.db)
-            .unwrap(or: Abort(.badRequest))
-            .map { category  in
-                model.$category.id = category.id!
-                return model
-            }
-    }
-
-    func beforeCreate(req: Request, model: Model, content: Model.CreateContent) -> EventLoopFuture<Model> {
-        setValidCategory(req: req, model: model, categoryId: content.categoryId)
+    func mapList(_ model: BlogPostModel) -> Blog.Post.List {
+        .init(id: model.id!,
+              title: model.title,
+              slug: model.slug,
+              image: model.imageKey,
+              excerpt: model.excerpt,
+              date: model.date)
     }
     
-    func beforeUpdate(req: Request, model: Model, content: Model.UpdateContent) -> EventLoopFuture<Model> {
-        setValidCategory(req: req, model: model, categoryId: content.categoryId)
-    }
-
-    func beforePatch(req: Request, model: Model, content: Model.PatchContent) -> EventLoopFuture<Model> {
-        if let categoryId = content.categoryId {
-            return setValidCategory(req: req, model: model, categoryId: categoryId)
-        }
-        return req.eventLoop.future(model)
+    func mapDetail(_ model: BlogPostModel) -> Blog.Post.Detail {
+        .init(id: model.id!,
+              title: model.title,
+              slug: model.slug,
+              image: model.imageKey,
+              excerpt: model.excerpt,
+              date: model.date,
+              category: .init(id: model.category.id!,
+                              title: model.category.title),
+              content: model.content)
     }
 }
