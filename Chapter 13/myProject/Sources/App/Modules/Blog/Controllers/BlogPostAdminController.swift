@@ -38,5 +38,9 @@ struct BlogPostAdminController: AdminController {
     func deleteInfo(_ model: DatabaseModel) -> String {
         model.title
     }
+    
+    func beforeDelete(_ req: Request, _ model: BlogPostModel) async throws {
+        try await req.fs.delete(key: model.imageKey)
+    }
 }
 
