@@ -19,9 +19,18 @@ enum UserMigrations {
                 .field(UserAccountModel.FieldKeys.v1.password, .string, .required)
                 .unique(on: UserAccountModel.FieldKeys.v1.email)
                 .create()
+            
+            try await db.schema(UserTokenModel.schema)
+                .id()
+                .field(UserTokenModel.FieldKeys.v1.value, .string, .required)
+                .field(UserTokenModel.FieldKeys.v1.userId, .uuid, .required)
+                .foreignKey(UserTokenModel.FieldKeys.v1.userId, references: UserAccountModel.schema, .id)
+                .unique(on: UserTokenModel.FieldKeys.v1.value)
+                .create()
         }
 
         func revert(on db: Database) async throws  {
+            try await db.schema(UserTokenModel.schema).delete()
             try await db.schema(UserAccountModel.schema).delete()
         }
     }
