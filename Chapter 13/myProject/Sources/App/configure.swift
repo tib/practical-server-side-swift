@@ -42,6 +42,7 @@ public func configure(_ app: Application) throws {
         WebModule(),
         UserModule(),
         AdminModule(),
+        ApiModule(),
         BlogModule(),
     ]
     for module in modules {

@@ -46,7 +46,7 @@ extension AdminUpdateController {
             return await render(req, editor: editor)
         }
         try await editor.write(req: req)
-        try await editor.model.update(on: req.db)
+        try await update(req, editor.model as! DatabaseModel)
         try await editor.save(req: req)
         return req.redirect(to: req.url.path)
     }

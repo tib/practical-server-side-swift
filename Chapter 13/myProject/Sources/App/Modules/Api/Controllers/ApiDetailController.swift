@@ -18,7 +18,7 @@ protocol ApiDetailController: DetailController {
 extension ApiDetailController {
 
     func detailApi(_ req: Request) async throws -> DetailObject {
-        let model = try await findBy(identifier(req), on: req.db)
+        let model = try await detail(req)
         return try await detailOutput(req, model)
     }
     

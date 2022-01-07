@@ -21,7 +21,7 @@ protocol AdminDetailController: DetailController {
 extension AdminDetailController {
     
     func detailView(_ req: Request) async throws -> Response {
-        let model = try await findBy(identifier(req), on: req.db)
+        let model = try await detail(req)
         return req.templates.renderHtml(detailTemplate(req, model))
     }
 

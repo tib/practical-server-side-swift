@@ -42,7 +42,7 @@ extension AdminCreateController {
             return render(req, editor: editor)
         }
         try await editor.write(req: req)
-        try await editor.model.create(on: req.db)
+        try await create(req, editor.model as! DatabaseModel)
         try await editor.save(req: req)
         var components = req.url.path.pathComponents.dropLast()
         components += editor.model.id!.uuidString.pathComponents

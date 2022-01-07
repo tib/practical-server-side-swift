@@ -14,10 +14,28 @@ protocol ApiController: ApiListController,
                         ApiPatchController,
                         ApiDeleteController
 {
+    func validators(optional: Bool) -> [AsyncValidator]
+    
     func setupRoutes(_ routes: RoutesBuilder)
 }
 
 extension ApiController {
+    
+    func validators(optional: Bool) -> [AsyncValidator] {
+        []
+    }
+    
+    func createValidators() -> [AsyncValidator] {
+        validators(optional: false)
+    }
+    
+    func updateValidators() -> [AsyncValidator] {
+        validators(optional: false)
+    }
+    
+    func patchValidators() -> [AsyncValidator] {
+        validators(optional: true)
+    }
     
     func createResponse(_ req: Request, _ model: DatabaseModel) async throws -> Response {
         try await detailOutput(req, model).encodeResponse(status: .created, for: req)

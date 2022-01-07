@@ -14,6 +14,11 @@ struct BlogCategoryApiController: ApiController {
     typealias ApiModel = Blog.Category
     typealias DatabaseModel = BlogCategoryModel
     
+    @AsyncValidatorBuilder
+    func validators(optional: Bool) -> [AsyncValidator] {
+        KeyedContentValidator<String>.required("title", optional: optional)
+    }
+
     func listOutput(_ req: Request, _ models: [DatabaseModel]) async throws -> [Blog.Category.List] {
         models.map { .init(id: $0.id!, title: $0.title) }
     }

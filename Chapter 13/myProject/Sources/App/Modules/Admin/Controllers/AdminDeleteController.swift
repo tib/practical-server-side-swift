@@ -37,7 +37,7 @@ extension AdminDeleteController {
     
     func deleteAction(_ req: Request) async throws -> Response {
         let model = try await findBy(identifier(req), on: req.db)
-        try await model.delete(on: req.db)
+        try await delete(req, model)
 
         var url = req.url.path
         if let redirect = try? req.query.get(String.self, at: "redirect") {

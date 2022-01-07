@@ -17,7 +17,7 @@ extension ApiDeleteController {
 
     func deleteApi(_ req: Request) async throws -> HTTPStatus {
         let model = try await findBy(identifier(req), on: req.db)
-        try await model.delete(on: req.db)
+        try await delete(req, model)
         return .noContent
     }
     

@@ -10,6 +10,7 @@ import Vapor
 protocol ApiUpdateController: UpdateController {
     associatedtype UpdateObject: Decodable
     
+    func updateValidators() -> [AsyncValidator]
     func updateInput(_ req: Request, _ model: DatabaseModel, _ input: UpdateObject) async throws
     func updateApi(_ req: Request) async throws -> Response
     func updateResponse(_ req: Request, _ model: DatabaseModel) async throws -> Response
@@ -18,11 +19,16 @@ protocol ApiUpdateController: UpdateController {
 
 extension ApiUpdateController {
 
+    func updateValidators() -> [AsyncValidator] {
+        []
+    }
+    
     func updateApi(_ req: Request) async throws -> Response {
+        try await RequestValidator(updateValidators()).validate(req)
         let model = try await findBy(identifier(req), on: req.db)
         let input = try req.content.decode(UpdateObject.self)
         try await updateInput(req, model, input)
-        try await model.update(on: req.db)
+        try await update(req, model)
         return try await updateResponse(req, model)
     }
     
