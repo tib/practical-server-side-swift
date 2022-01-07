@@ -1,33 +1,51 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2022. 01. 03..
+//
+
 import Vapor
-import Fluent
+
+extension Blog.Post.List: Content {}
+extension Blog.Post.Detail: Content {}
 
 struct BlogPostApiController: ApiController {
-    typealias Model = BlogPostModel
+    typealias ApiModel = Blog.Post
+    typealias DatabaseModel = BlogPostModel
     
-    func setValidCategory(req: Request, model: Model, categoryId: String) -> EventLoopFuture<Model> {
-        guard let uuid = UUID(uuidString: categoryId) else {
-            return req.eventLoop.future(error: Abort(.badRequest))
+    func listOutput(_ req: Request, _ models: [DatabaseModel]) async throws -> [Blog.Post.List] {
+        models.map { model in
+            .init(id: model.id!,
+                  title: model.title,
+                  slug: model.slug,
+                  image: model.imageKey,
+                  excerpt: model.excerpt,
+                  date: model.date)
         }
-        return BlogCategoryModel.find(uuid, on: req.db)
-            .unwrap(or: Abort(.badRequest))
-            .map { category  in
-                model.$category.id = category.id!
-                return model
-            }
-    }
-
-    func beforeCreate(req: Request, model: Model, content: Model.CreateContent) -> EventLoopFuture<Model> {
-        setValidCategory(req: req, model: model, categoryId: content.categoryId)
     }
     
-    func beforeUpdate(req: Request, model: Model, content: Model.UpdateContent) -> EventLoopFuture<Model> {
-        setValidCategory(req: req, model: model, categoryId: content.categoryId)
+    func detailOutput(_ req: Request, _ model: DatabaseModel) async throws -> Blog.Post.Detail {
+        .init(id: model.id!,
+              title: model.title,
+              slug: model.slug,
+              image: model.imageKey,
+              excerpt: model.excerpt,
+              date: model.date,
+              category: .init(id: model.category.id!,
+                          title: model.category.title),
+              content: model.content)
+    }
+    
+    func createInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Create) async throws {
+        model.title = input.title
+    }
+    
+    func updateInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Update) async throws {
+        model.title = input.title
     }
 
-    func beforePatch(req: Request, model: Model, content: Model.PatchContent) -> EventLoopFuture<Model> {
-        if let categoryId = content.categoryId {
-            return setValidCategory(req: req, model: model, categoryId: categoryId)
-        }
-        return req.eventLoop.future(model)
+    func patchInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Patch) async throws {
+        model.title = input.title ?? model.title
     }
 }

@@ -1,67 +1,54 @@
+//
+//  configure.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Vapor
-import Leaf
-import LeafFoundation
 import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
-@_exported import ContentApi
-@_exported import ViewKit
-@_exported import ViperKit
-
-protocol ViperAdminViewController: AdminViewController where Model: ViperModel  {
-    associatedtype Module: ViperModule
-}
-
-extension ViperAdminViewController {
-
-    var listView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/List" }
-    var editView: String { "\(Module.name.capitalized)/Admin/\(Model.name.capitalized)/Edit" }
-}
 
 public func configure(_ app: Application) throws {
-
-    app.databases.use(.sqlite(.file("db.sqlite")), as: .sqlite)
     
-    app.routes.defaultMaxBodySize = "10mb"
+    /// setup Fluent with a SQLite database under the Resources directory
+    let dbPath = app.directory.resourcesDirectory + "db.sqlite"
+    app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
+    
+    /// setup Liquid using the local file storage driver
     app.fileStorages.use(.local(publicUrl: "http://localhost:8080",
                                 publicPath: app.directory.publicDirectory,
                                 workDirectory: "assets"), as: .local)
-
+    
+    /// set the max file upload limit
+    app.routes.defaultMaxBodySize = "10mb"
+    
+    /// use the Public directory to serve public files
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    
+    /// extend paths to always contain a trailing slash
+    app.middleware.use(ExtendPathMiddleware())
+    
+    /// setup sessions
     app.sessions.use(.fluent)
     app.migrations.add(SessionRecord.migration)
     app.middleware.use(app.sessions.middleware)
 
-    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-    app.middleware.use(ExtendPathMiddleware())
-
-    let detected = LeafEngine.rootDirectory ?? app.directory.viewsDirectory
-    LeafEngine.rootDirectory = detected
-    LeafEngine.useLeafFoundation()
-
-    if !app.environment.isRelease {
-        LeafRenderer.Option.caching = .bypass
-    }
-
-    try LeafEngine.useViperViews(viewsDirectory: app.directory.viewsDirectory,
-                                 workingDirectory: app.directory.workingDirectory,
-                                 modulesLocation: "Sources/App/Modules",
-                                 moduleViewsLocation: "Views",
-                                 fileExtension: "html",
-                                 fileio: app.fileio)
-    app.views.use(.leaf)
-
-    let modules: [ViperModule] = [
+    
+    /// setup modules
+    let modules: [ModuleInterface] = [
+        WebModule(),
         UserModule(),
-        FrontendModule(),
         AdminModule(),
         BlogModule(),
-        UtilityModule(),
     ]
-
     for module in modules {
-        try module.configure(app)
+        try module.boot(app)
     }
-
+    
+    /// use automatic database migration
     try app.autoMigrate().wait()
 }
+
