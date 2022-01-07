@@ -18,7 +18,7 @@ protocol ApiListController: ListController {
 extension ApiListController {
     
     func listApi(_ req: Request) async throws -> [ListObject] {
-        let models = try await DatabaseModel.query(on: req.db).all()
+        let models = try await list(req)
         return try await listOutput(req, models)
     }
     

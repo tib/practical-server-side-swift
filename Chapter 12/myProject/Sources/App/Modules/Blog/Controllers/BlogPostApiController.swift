@@ -14,7 +14,7 @@ struct BlogPostApiController: ApiController {
     typealias ApiModel = Blog.Post
     typealias DatabaseModel = BlogPostModel
     
-    func listOutput(_ req: Request, _ models: [BlogPostModel]) async throws -> [Blog.Post.List] {
+    func listOutput(_ req: Request, _ models: [DatabaseModel]) async throws -> [Blog.Post.List] {
         models.map { model in
             .init(id: model.id!,
                   title: model.title,
@@ -25,7 +25,7 @@ struct BlogPostApiController: ApiController {
         }
     }
     
-    func detailOutput(_ req: Request, _ model: BlogPostModel) async throws -> Blog.Post.Detail {
+    func detailOutput(_ req: Request, _ model: DatabaseModel) async throws -> Blog.Post.Detail {
         .init(id: model.id!,
               title: model.title,
               slug: model.slug,
@@ -37,15 +37,15 @@ struct BlogPostApiController: ApiController {
               content: model.content)
     }
     
-    func createInput(_ req: Request, _ model: BlogPostModel, _ input: Blog.Post.Create) async throws {
+    func createInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Create) async throws {
         model.title = input.title
     }
     
-    func updateInput(_ req: Request, _ model: BlogPostModel, _ input: Blog.Post.Update) async throws {
+    func updateInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Update) async throws {
         model.title = input.title
     }
 
-    func patchInput(_ req: Request, _ model: BlogPostModel, _ input: Blog.Post.Patch) async throws {
+    func patchInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Patch) async throws {
         model.title = input.title ?? model.title
     }
 }
