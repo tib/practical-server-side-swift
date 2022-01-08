@@ -6,6 +6,7 @@
 //
 
 import Vapor
+import SwiftHtml
 
 struct UserModule: ModuleInterface {
 
@@ -21,3 +22,4 @@ struct UserModule: ModuleInterface {
         try router.boot(routes: app.routes)
     }
 }
+

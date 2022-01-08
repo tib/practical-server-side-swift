@@ -25,20 +25,12 @@ struct AdminDashboardTemplate: TemplateRepresentable {
                     H1(context.title)
                     P(context.message)
                 }
-                
-                Nav {
-                    H2("Blog")
-                    Ul {
-                        Li {
-                            A("Posts")
-                                .href("/admin/blog/posts/")
-                        }
-                        Li {
-                            A("Categories")
-                                .href("/admin/blog/categories/")
-                        }
-                    }
+          
+                Div {
+                    let widgets: [TemplateRepresentable] = req.invokeAll("admin-widget")
+                    widgets.map { $0.render(req) }    
                 }
+                .class("widgets")
             }
             .id("dashboard")
             .class("container")

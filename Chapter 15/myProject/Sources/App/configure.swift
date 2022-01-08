@@ -48,6 +48,9 @@ public func configure(_ app: Application) throws {
     for module in modules {
         try module.boot(app)
     }
+    for module in modules {
+        try module.setUp(app)
+    }
     
     /// use automatic database migration
     try app.autoMigrate().wait()

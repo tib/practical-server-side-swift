@@ -20,18 +20,19 @@ struct BlogRouter: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         routes.get("blog", use: frontendController.blogView)
         routes.get(.anything, use: frontendController.postView)
-        
-        let admin = routes
-                    .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
-                    .grouped("admin")
+    }
+    
+    func adminRoutesHook(_ args: HookArguments) -> Void {
+        let routes = args["routes"] as! RoutesBuilder
 
-        postAdminController.setupRoutes(admin)
-        categoryAdminController.setupRoutes(admin)
-        
-        let api = routes
-            .grouped(AuthenticatedUser.guardMiddleware())
-            .grouped("api")
-        postApiController.setupRoutes(api)
-        categoryApiController.setupRoutes(api)
+        postAdminController.setupRoutes(routes)
+        categoryAdminController.setupRoutes(routes)
+    }
+    
+    func apiRoutesHook(_ args: HookArguments) -> Void {
+        let routes = args["routes"] as! RoutesBuilder
+
+        postApiController.setupRoutes(routes)
+        categoryApiController.setupRoutes(routes)
     }
 }
