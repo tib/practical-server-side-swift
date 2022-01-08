@@ -19,6 +19,8 @@ struct BlogModule: ModuleInterface {
         app.hooks.register("admin-routes", use: router.adminRoutesHook)
         app.hooks.register("api-routes", use: router.apiRoutesHook)
         
+        app.hooks.registerAsync("response", use: router.responseHook)
+
         try router.boot(routes: app.routes)
     }
     

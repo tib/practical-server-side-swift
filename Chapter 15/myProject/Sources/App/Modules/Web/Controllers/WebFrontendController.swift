@@ -23,4 +23,12 @@ struct WebFrontendController {
 
         return req.templates.renderHtml(WebHomeTemplate(ctx))
     }
+    
+    func anyResponse(req: Request) async throws -> Response {
+        let result: [Response?] = try await req.invokeAllAsync("response")
+        guard let response = result.compactMap({ $0 }).first else {
+            throw Abort(.notFound)
+        }
+        return response
+    }
 }

@@ -19,7 +19,6 @@ struct BlogRouter: RouteCollection {
     
     func boot(routes: RoutesBuilder) throws {
         routes.get("blog", use: frontendController.blogView)
-        routes.get(.anything, use: frontendController.postView)
     }
     
     func adminRoutesHook(_ args: HookArguments) -> Void {
@@ -35,4 +34,10 @@ struct BlogRouter: RouteCollection {
         postApiController.setupRoutes(routes)
         categoryApiController.setupRoutes(routes)
     }
+    
+    func responseHook(_ args: HookArguments) async throws -> Response? {
+        let req = args["req"] as! Request
+        return try await frontendController.postView(req: req)
+    }
+    
 }

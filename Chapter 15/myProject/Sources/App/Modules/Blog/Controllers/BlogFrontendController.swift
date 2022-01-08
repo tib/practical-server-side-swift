@@ -26,16 +26,15 @@ struct BlogFrontendController {
         return req.templates.renderHtml(BlogPostsTemplate(ctx))
     }
 
-    func postView(req: Request) async throws -> Response {
+    func postView(req: Request) async throws -> Response? {
         let slug = req.url.path.trimmingCharacters(in: .init(charactersIn: "/"))
         guard
             let post = try await BlogPostModel
                 .query(on: req.db)
                 .filter(\.$slug == slug)
-//                .with(\.$category)
                 .first()
         else {
-            return req.redirect(to: "/")
+            return nil
         }
         let model = try await BlogPostApiController().detailOutput(req, post)
         let context = BlogPostContext(post: model)
