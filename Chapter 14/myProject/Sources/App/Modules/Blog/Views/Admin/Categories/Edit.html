@@ -1,8 +1,0 @@
-#define(fields):
-    #var(field = nil)
-    #(field = ["id": "title", "required": true, "data": edit.title])
-    #inline("Admin/Fields/Text")
-#enddefine
-#let(title = "Blog categories")
-#let(form = ["key": "categories", "id": edit.id, "url": "admin/blog/categories"])
-#inline("Admin/Form")

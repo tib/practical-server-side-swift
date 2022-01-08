@@ -1,25 +1,27 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
 
-struct UserRouter: ViperRouter {
+struct UserRouter: RouteCollection {
     
-    let controller = UserFrontendController()
+    let frontendController = UserFrontendController()
     let apiController = UserApiController()
+    
+    func boot(routes: RoutesBuilder) throws {
+        routes.get("sign-in", use: frontendController.signInView)
+        routes
+            .grouped(UserCredentialsAuthenticator())
+            .post("sign-in", use: frontendController.signInAction)
 
-    func boot(routes: RoutesBuilder, app: Application) throws {
-        routes.get("sign-in", use: controller.loginView)
+        routes.get("sign-out", use: frontendController.signOut)
         
-        routes.grouped(UserModelCredentialsAuthenticator())
-            .post("sign-in", use: controller.login)
-        
-        routes.grouped(UserModelSessionAuthenticator())
-            .get("logout", use: controller.logout)
-        
-        let api = routes.grouped("api", "user")
-
-        api.grouped(UserModelCredentialsAuthenticator())
-            .post("login", use: apiController.login)
-        
-        routes.post("redirect", use: self.controller.signInWithApple)
-        api.post("sign-in-with-apple", use: self.apiController.signInWithApple)
+        routes.grouped("api")
+            .grouped(UserCredentialsAuthenticator())
+            .post("sign-in", use: apiController.signInApi)
     }
 }

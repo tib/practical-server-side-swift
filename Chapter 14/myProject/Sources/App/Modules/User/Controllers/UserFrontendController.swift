@@ -1,61 +1,43 @@
+//
+//  File.swift
+//  
+//
+//  Created by Tibor Bodecs on 2021. 12. 31..
+//
+
 import Vapor
-import Fluent
-import Leaf
 
 struct UserFrontendController {
     
-    func loginView(req: Request) throws -> EventLoopFuture<View> {
-        let state = [UInt8].random(count: 16).base64
-        req.session.data["state"] = state
-        return req.leaf.render(template: "User/Frontend/Login", context: [
-            "title": "myPage - Sign in",
-            "siwa": .dictionary([
-                "clientId": Environment.SignInWithApple.id,
-                "redirectUrl": Environment.SignInWithApple.redirectUrl,
-                "scope": "name email",
-                "state": state,
-                "popup": false,
-            ])
-        ])
+    private func renderSignInView(_ req: Request, _ form: UserLoginForm) -> Response {
+        let template = UserLoginTemplate(.init(icon: "⬇️",
+                                               title: "Sign in",
+                                               message: "Please log in with your existing account",
+                                               form: form.render(req: req)))
+        return req.templates.renderHtml(template)
     }
     
-    func login(req: Request) throws -> Response {
-        guard let user = req.auth.get(UserModel.self) else {
-            throw Abort(.unauthorized)
+    func signInView(_ req: Request) async throws -> Response {
+        renderSignInView(req, .init())
+    }
+
+    func signInAction(_ req: Request) async throws -> Response {
+        /// the user is authenticated, we can store the user data inside the session too
+        if let user = req.auth.get(AuthenticatedUser.self) {
+            req.session.authenticate(user)
+            return req.redirect(to: "/")
         }
-        req.session.authenticate(user)
+        let form = UserLoginForm()
+        try await form.process(req: req)
+        if try await form.validate(req: req) {
+            form.error = "Invalid email or password."
+        }
+        return renderSignInView(req, form)
+    }
+    
+    func signOut(req: Request) throws -> Response {
+        req.auth.logout(AuthenticatedUser.self)
+        req.session.unauthenticate(AuthenticatedUser.self)
         return req.redirect(to: "/")
-    }
-    
-    func logout(req: Request) throws -> Response {
-        req.auth.logout(UserModel.self)
-        req.session.unauthenticate(UserModel.self)
-        return req.redirect(to: "/")
-    }
-    
-    func signInWithApple(req: Request) throws -> EventLoopFuture<Response> {
-        struct AuthResponse: Decodable {
-            enum CodingKeys: String, CodingKey {
-                case code
-                case state
-                case idToken = "id_token"
-                case user
-            }
-            let code: String
-            let state: String
-            let idToken: String
-            let user: String
-        }
-        
-        let state = req.session.data["state"] ?? ""
-        let auth = try req.content.decode(AuthResponse.self)
-        guard !state.isEmpty, state == auth.state else {
-            throw Abort(.badRequest)
-        }
-        return UserModel.siwa(req: req, idToken: auth.idToken, appId: Environment.SignInWithApple.id)
-            .map { user -> Response in
-                req.session.authenticate(user)
-                return req.redirect(to: "/")
-            }
     }
 }

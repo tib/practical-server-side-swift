@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/swift-server/async-http-client.git",
         "state": {
           "branch": null,
-          "revision": "4b4d6605aa2e4f0c2ae3c7563795ae3bec259fff",
-          "version": "1.2.1"
+          "revision": "70826d038d5bdc3142a386b735792d87ef7a5dfc",
+          "version": "1.8.1"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/vapor/async-kit.git",
         "state": {
           "branch": null,
-          "revision": "7457413e57dbfac762b32dd30c1caf2c55a02a3d",
-          "version": "1.2.0"
+          "revision": "3b1e7e9069a62295151c6c1609050cd38a0a7af5",
+          "version": "1.11.0"
         }
       },
       {
@@ -24,17 +24,8 @@
         "repositoryURL": "https://github.com/vapor/console-kit.git",
         "state": {
           "branch": null,
-          "revision": "7454e839bc5ae0e75c3946d2613e442fd342fe6b",
-          "version": "4.2.4"
-        }
-      },
-      {
-        "package": "content-api",
-        "repositoryURL": "https://github.com/binarybirds/content-api",
-        "state": {
-          "branch": null,
-          "revision": "c1971a7617b6dbd9ee6b2f6abc54c883ed617063",
-          "version": "1.0.5"
+          "revision": "75ea3b627d88221440b878e5dfccc73fd06842ed",
+          "version": "4.2.7"
         }
       },
       {
@@ -42,8 +33,8 @@
         "repositoryURL": "https://github.com/vapor/fluent",
         "state": {
           "branch": null,
-          "revision": "e681c93df3201a2d8ceef15e8a9a0634578df233",
-          "version": "4.0.0"
+          "revision": "ea707ee318066a073c95b2b2df1aa640fcb67f9e",
+          "version": "4.4.0"
         }
       },
       {
@@ -51,8 +42,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "f0cc72ab101b88dfbdbe0b042da62386e1aa8195",
-          "version": "1.8.0"
+          "revision": "2f1af22f4d495bc6f35365e537c4bb5eb60c5f17",
+          "version": "1.18.0"
         }
       },
       {
@@ -60,53 +51,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-sqlite-driver",
         "state": {
           "branch": null,
-          "revision": "6f29f6f182c812075f09c7575c18ac5535c26824",
-          "version": "4.0.1"
-        }
-      },
-      {
-        "package": "jwt",
-        "repositoryURL": "https://github.com/vapor/jwt",
-        "state": {
-          "branch": null,
-          "revision": "46eddb526fa70fd9d765a3bdffac73b2be487cfc",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "jwt-kit",
-        "repositoryURL": "https://github.com/vapor/jwt-kit.git",
-        "state": {
-          "branch": null,
-          "revision": "6055fe8439769aa3646a3c797d573ce7305849c8",
-          "version": "4.2.0"
-        }
-      },
-      {
-        "package": "leaf",
-        "repositoryURL": "https://github.com/vapor/leaf",
-        "state": {
-          "branch": null,
-          "revision": "a8348b682ec14a863cc470a2da8f0ebc262c6088",
-          "version": "4.0.0-tau.1"
-        }
-      },
-      {
-        "package": "leaf-foundation",
-        "repositoryURL": "https://github.com/binarybirds/leaf-foundation",
-        "state": {
-          "branch": null,
-          "revision": "5e20acb3a376c19d15d0b73edc6bdd477f09e410",
-          "version": "1.0.0-beta.1.1"
-        }
-      },
-      {
-        "package": "leaf-kit",
-        "repositoryURL": "https://github.com/vapor/leaf-kit",
-        "state": {
-          "branch": null,
-          "revision": "8b965e6e2eadfe5914ea133669368aceb2b89ccb",
-          "version": "1.0.0-tau.1.1"
+          "revision": "9ca34be792979fb0f1dbd8e45b8af9f1e1440474",
+          "version": "4.1.0"
         }
       },
       {
@@ -114,8 +60,8 @@
         "repositoryURL": "https://github.com/binarybirds/liquid",
         "state": {
           "branch": null,
-          "revision": "daf9dee3a5aa7e056603a454c183999a3c0fde92",
-          "version": "1.1.0"
+          "revision": "865eca0fd64273fd4352c26db6f0019d254102cb",
+          "version": "1.3.2"
         }
       },
       {
@@ -123,8 +69,8 @@
         "repositoryURL": "https://github.com/binarybirds/liquid-kit.git",
         "state": {
           "branch": null,
-          "revision": "7784afbeed9a86f672f99453dd0c80941000c323",
-          "version": "1.1.1"
+          "revision": "1bd90b3170cefecd3460f00e1c9725bb42c23c01",
+          "version": "1.3.3"
         }
       },
       {
@@ -132,17 +78,17 @@
         "repositoryURL": "https://github.com/binarybirds/liquid-local-driver",
         "state": {
           "branch": null,
-          "revision": "92f64afaab979e2c11543164fc661c66982a7f2a",
-          "version": "1.1.0"
+          "revision": "b068a1ab399d21f5d4b60eb4b0568fad4c398a59",
+          "version": "1.3.2"
         }
       },
       {
-        "package": "LoremSwiftum",
-        "repositoryURL": "https://github.com/lukaskubanek/LoremSwiftum",
+        "package": "multipart-kit",
+        "repositoryURL": "https://github.com/vapor/multipart-kit.git",
         "state": {
           "branch": null,
-          "revision": "eef89bf8b9937462f9c493789609897763b383e2",
-          "version": "2.2.1"
+          "revision": "2dd9368a3c9580792b77c7ef364f3735909d9996",
+          "version": "4.5.1"
         }
       },
       {
@@ -150,17 +96,8 @@
         "repositoryURL": "https://github.com/vapor/routing-kit.git",
         "state": {
           "branch": null,
-          "revision": "4cf052b78aebaf1b23f2264ce04d57b4b6eb5254",
-          "version": "4.2.0"
-        }
-      },
-      {
-        "package": "spec",
-        "repositoryURL": "https://github.com/binarybirds/spec",
-        "state": {
-          "branch": null,
-          "revision": "fcdb546690908d834750c53509893210f3917813",
-          "version": "1.1.0"
+          "revision": "5603b81ceb744b8318feab1e60943704977a866b",
+          "version": "4.3.1"
         }
       },
       {
@@ -168,8 +105,8 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "ea9928b7f4a801b175a00b982034d9c54ecb6167",
-          "version": "3.7.0"
+          "revision": "9cc30f8cef132e91a07e36005612b37f918731fc",
+          "version": "3.16.0"
         }
       },
       {
@@ -177,8 +114,8 @@
         "repositoryURL": "https://github.com/vapor/sqlite-kit.git",
         "state": {
           "branch": null,
-          "revision": "2ec279b9c845cec254646834b66338551a024561",
-          "version": "4.0.2"
+          "revision": "0b3b12b032991de3ab5999b428a652ec29139746",
+          "version": "4.1.0"
         }
       },
       {
@@ -195,8 +132,8 @@
         "repositoryURL": "https://github.com/swift-server/swift-backtrace.git",
         "state": {
           "branch": null,
-          "revision": "f2fd8c4845a123419c348e0bc4b3839c414077d5",
-          "version": "1.2.0"
+          "revision": "d3e04a9d4b3833363fb6192065b763310b156d54",
+          "version": "1.3.1"
         }
       },
       {
@@ -204,8 +141,17 @@
         "repositoryURL": "https://github.com/apple/swift-crypto.git",
         "state": {
           "branch": null,
-          "revision": "9680b7251cd2be22caaed8f1468bd9e8915a62fb",
-          "version": "1.1.2"
+          "revision": "9c53b7a758bb849a7df1bd2314395f5f0c14306f",
+          "version": "2.0.3"
+        }
+      },
+      {
+        "package": "swift-html",
+        "repositoryURL": "https://github.com/binarybirds/swift-html",
+        "state": {
+          "branch": null,
+          "revision": "bab316ec543503a02ac88f85fbf5998ea7292ef5",
+          "version": "1.2.1"
         }
       },
       {
@@ -213,8 +159,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "173f567a2dfec11d74588eea82cecea555bdc0bc",
-          "version": "1.4.0"
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
         }
       },
       {
@@ -222,8 +168,8 @@
         "repositoryURL": "https://github.com/apple/swift-metrics.git",
         "state": {
           "branch": null,
-          "revision": "f5ed78cb26019b2b85b016f8aa5b1a3427c8251a",
-          "version": "2.1.0"
+          "revision": "3edd2f57afc4e68e23c3e4956bc8b65ca6b5b2ff",
+          "version": "2.2.0"
         }
       },
       {
@@ -231,8 +177,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "c3e2359c55cd8b47207ab7363b77c9c398a95294",
-          "version": "2.23.0"
+          "revision": "213eb6887e526e0dfac526a2eae559a1893ebbac",
+          "version": "2.36.0"
         }
       },
       {
@@ -240,8 +186,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-extras.git",
         "state": {
           "branch": null,
-          "revision": "e5b5d191a80667a14827bfeb0ae4a511f7677942",
-          "version": "1.7.0"
+          "revision": "f73ca5ee9c6806800243f1ac415fcf82de9a4c91",
+          "version": "1.10.2"
         }
       },
       {
@@ -249,8 +195,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-http2.git",
         "state": {
           "branch": null,
-          "revision": "78ddbdfca10f64e4399da37c63372fd8db232152",
-          "version": "1.15.0"
+          "revision": "6e94a7be32891d1b303a3fcfde8b5bf64d162e74",
+          "version": "1.19.1"
         }
       },
       {
@@ -258,8 +204,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
         "state": {
           "branch": null,
-          "revision": "eb102ad32add8638410e37a69bc815ea11379813",
-          "version": "2.10.0"
+          "revision": "2b329e37e9dd34fb382655181a680261d58cbbf1",
+          "version": "2.17.1"
         }
       },
       {
@@ -267,8 +213,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
         "state": {
           "branch": null,
-          "revision": "bb56586c4cab9a79dce6ec4738baddb5802c5de7",
-          "version": "1.9.0"
+          "revision": "e7f5278a26442dc46783ba7e063643d524e414a0",
+          "version": "1.11.3"
         }
       },
       {
@@ -276,26 +222,8 @@
         "repositoryURL": "https://github.com/vapor/vapor",
         "state": {
           "branch": null,
-          "revision": "be07ff46f2730f730e03522696900966d75b4c2e",
-          "version": "4.34.0"
-        }
-      },
-      {
-        "package": "view-kit",
-        "repositoryURL": "https://github.com/binarybirds/view-kit",
-        "state": {
-          "branch": null,
-          "revision": "e17b75c6e07a49ad22d2dc43f0214accbda18a4f",
-          "version": "1.2.0-rc.3.2"
-        }
-      },
-      {
-        "package": "viper-kit",
-        "repositoryURL": "https://github.com/binarybirds/viper-kit",
-        "state": {
-          "branch": null,
-          "revision": "f666bdeea9286a522468e40f7f95bcec856d7826",
-          "version": "1.4.0-beta.4"
+          "revision": "34bf1b303623de04801d2b9bef5b2ed48b3e9319",
+          "version": "4.54.0"
         }
       },
       {
@@ -303,8 +231,8 @@
         "repositoryURL": "https://github.com/vapor/websocket-kit.git",
         "state": {
           "branch": null,
-          "revision": "2b06a70dfcfa76a2e5079f60e3ae911511f09db0",
-          "version": "2.1.2"
+          "revision": "ff8fbce837ef01a93d49c6fb49a72be0f150dac7",
+          "version": "2.3.0"
         }
       }
     ]
