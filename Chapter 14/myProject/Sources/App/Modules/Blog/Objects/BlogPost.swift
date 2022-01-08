@@ -43,6 +43,7 @@ extension Blog.Post {
         let excerpt: String
         let date: Date
         let content: String
+        let categoryId: UUID
     }
     
     struct Update: Codable {
@@ -52,6 +53,7 @@ extension Blog.Post {
         let excerpt: String
         let date: Date
         let content: String
+        let categoryId: UUID
     }
 
     struct Patch: Codable {
@@ -61,5 +63,6 @@ extension Blog.Post {
         let excerpt: String?
         let date: Date?
         let content: String?
+        let categoryId: UUID?
     }
 }

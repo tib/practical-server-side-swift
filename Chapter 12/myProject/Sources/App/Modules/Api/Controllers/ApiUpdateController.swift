@@ -29,6 +29,6 @@ extension ApiUpdateController {
     func setupUpdateRoutes(_ routes: RoutesBuilder) {
         let baseRoutes = getBaseRoutes(routes)
         let existingModelRoutes = baseRoutes.grouped(ApiModel.pathIdComponent)
-        existingModelRoutes.post(use: updateApi)
+        existingModelRoutes.put(use: updateApi)
     }
 }

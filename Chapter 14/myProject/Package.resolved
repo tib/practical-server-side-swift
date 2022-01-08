@@ -101,6 +101,15 @@
         }
       },
       {
+        "package": "spec",
+        "repositoryURL": "https://github.com/binarybirds/spec",
+        "state": {
+          "branch": null,
+          "revision": "aecab17649ac83133daa98e54620911773227946",
+          "version": "1.2.2"
+        }
+      },
+      {
         "package": "sql-kit",
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {

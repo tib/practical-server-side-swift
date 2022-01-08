@@ -39,14 +39,19 @@ struct BlogPostApiController: ApiController {
     }
     
     func detailOutput(_ req: Request, _ model: DatabaseModel) async throws -> Blog.Post.Detail {
-        .init(id: model.id!,
+        guard
+            let categoryModel = try await BlogCategoryModel.find(model.$category.id, on: req.db),
+            let category = try await BlogCategoryApiController().listOutput(req, [categoryModel]).first
+        else {
+            throw Abort(.internalServerError)
+        }
+        return .init(id: model.id!,
               title: model.title,
               slug: model.slug,
               image: model.imageKey,
               excerpt: model.excerpt,
               date: model.date,
-              category: .init(id: model.category.id!,
-                          title: model.category.title),
+              category: category,
               content: model.content)
     }
     
@@ -55,7 +60,9 @@ struct BlogPostApiController: ApiController {
         model.slug = input.slug
         model.imageKey = input.image
         model.excerpt = input.excerpt
+        model.date = input.date
         model.content = input.content
+        model.$category.id = input.categoryId
     }
     
     func updateInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Update) async throws {
@@ -63,7 +70,9 @@ struct BlogPostApiController: ApiController {
         model.slug = input.slug
         model.imageKey = input.image
         model.excerpt = input.excerpt
+        model.date = input.date
         model.content = input.content
+        model.$category.id = input.categoryId
     }
 
     func patchInput(_ req: Request, _ model: DatabaseModel, _ input: Blog.Post.Patch) async throws {
@@ -71,6 +80,8 @@ struct BlogPostApiController: ApiController {
         model.slug = input.slug ?? model.slug
         model.imageKey = input.image ?? model.imageKey
         model.excerpt = input.excerpt ?? model.excerpt
+        model.date = input.date ?? model.date
         model.content = input.content ?? model.content
+        model.$category.id = input.categoryId ?? model.$category.id
     }
 }

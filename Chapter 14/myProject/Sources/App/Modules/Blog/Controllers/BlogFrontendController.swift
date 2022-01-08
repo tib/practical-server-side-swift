@@ -32,7 +32,7 @@ struct BlogFrontendController {
             let post = try await BlogPostModel
                 .query(on: req.db)
                 .filter(\.$slug == slug)
-                .with(\.$category)
+//                .with(\.$category)
                 .first()
         else {
             return req.redirect(to: "/")

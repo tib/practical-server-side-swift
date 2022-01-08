@@ -1,23 +1,35 @@
+//
+//  FILE.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 @testable import App
 import XCTVapor
 
-final class AppTests: XCTestCase {
-
-    func testRoutes() throws {
-        let app = Application(.testing)
+final class AppTests: AppTestCase {
+        
+    func testHomePage() throws {
+        let app = try createTestApp()
         defer { app.shutdown() }
-        try configure(app)
-
-        try app.test(.GET, "") { res in
+        
+        try app.testable(method: .inMemory).test(.GET, "") { res in
             XCTAssertEqual(res.status, .ok)
-        }
-
-        try app.test(.GET, "/blog/") { res in
-            XCTAssertEqual(res.status, .ok)
-        }
-
-        try app.test(.GET, "/blog") { res in
-            XCTAssertEqual(res.status, .movedPermanently)
+            
+            let contentType = try XCTUnwrap(res.headers.contentType)
+            XCTAssertEqual(contentType, .html)
+            XCTAssertTrue(res.body.string.contains("Home"))
         }
     }
+    
+    func testAuth() throws {
+        let app = try createTestApp()
+        defer { app.shutdown() }
+        
+        let email = "root@localhost.com"
+        let token = try authenticate(.init(email: email, password: "ChangeMe1"), app)
+        XCTAssertEqual(token.user.email, email)
+    }
 }
+

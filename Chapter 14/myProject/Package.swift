@@ -13,6 +13,7 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/liquid", from: "1.3.0"),
         .package(url: "https://github.com/binarybirds/liquid-local-driver", from: "1.3.0"),
         .package(url: "https://github.com/binarybirds/swift-html", from: "1.2.0"),
+        .package(url: "https://github.com/binarybirds/spec", from: "1.2.0"),
     ],
     targets: [
         .target(name: "App", dependencies: [
@@ -28,6 +29,7 @@ let package = Package(
         .testTarget(name: "AppTests", dependencies: [
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),
+            .product(name: "Spec", package: "spec"),
         ])
     ]
 )
