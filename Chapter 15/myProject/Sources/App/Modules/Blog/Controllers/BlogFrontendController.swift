@@ -1,39 +1,44 @@
+//
+//  BlogFrontendController.swift
+//
+//
+//  Created by Tibor Bodecs on 2021. 12. 25..
+//
+
 import Vapor
 import Fluent
-import Leaf
 
 struct BlogFrontendController {
-
-    func blogView(req: Request) throws -> EventLoopFuture<View> {
-        BlogPostModel.query(on: req.db)
+    
+    func blogView(req: Request) async throws -> Response {
+        let posts = try await BlogPostModel
+            .query(on: req.db)
             .sort(\.$date, .descending)
-            .with(\.$category)
             .all()
-            .mapEach(\.leafData)
-            .flatMap {
-                req.leaf.render(template: "Blog/Frontend/Blog", context: [
-                    "title": .string("myPage - Blog"),
-                    "posts": .array($0),
-                ])
-            }
+
+        let list = try await BlogPostApiController().listOutput(req, posts)
+        
+        let ctx = BlogPostsContext(icon: "🔥",
+                                   title: "Blog",
+                                   message: "Hot news and stories about everything.",
+                                   posts: list)
+
+        return req.templates.renderHtml(BlogPostsTemplate(ctx))
     }
 
-    func postView(req: Request) throws -> EventLoopFuture<Response> {
+    func postView(req: Request) async throws -> Response {
         let slug = req.url.path.trimmingCharacters(in: .init(charactersIn: "/"))
-        
-        return BlogPostModel.query(on: req.db)
-            .filter(\.$slug == slug)
-            .with(\.$category)
-            .first()
-            .flatMap { post in
-                guard let post = post else {
-                    return req.eventLoop.future(req.redirect(to: "/"))
-                }
-                let context: LeafRenderer.Context = [
-                    "title": .string("myPage - \(post.title)"),
-                    "post": post.leafData,
-                ]
-                return req.leaf.render(template: "Blog/Frontend/Post", context: context).encodeResponse(for: req)
-            }
+        guard
+            let post = try await BlogPostModel
+                .query(on: req.db)
+                .filter(\.$slug == slug)
+//                .with(\.$category)
+                .first()
+        else {
+            return req.redirect(to: "/")
+        }
+        let model = try await BlogPostApiController().detailOutput(req, post)
+        let context = BlogPostContext(post: model)
+        return req.templates.renderHtml(BlogPostTemplate(context))
     }
 }
