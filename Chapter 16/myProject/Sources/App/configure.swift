@@ -10,6 +10,7 @@ import Fluent
 import FluentSQLiteDriver
 import Liquid
 import LiquidLocalDriver
+@_exported import AppApi
 
 public func configure(_ app: Application) throws {
     

@@ -5,6 +5,6 @@
 //  Created by Tibor Bodecs on 2022. 01. 07..
 //
 
-enum User: ApiModuleInterface {
+public enum User: ApiModuleInterface {
     
 }

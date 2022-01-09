@@ -6,6 +6,9 @@ let package = Package(
     platforms: [
        .macOS(.v12)
     ],
+    products: [
+        
+    ],
     dependencies: [
         .package(url: "https://github.com/vapor/vapor", from: "4.54.0"),
         .package(url: "https://github.com/vapor/fluent", from: "4.4.0"),
@@ -16,6 +19,9 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/spec", from: "1.2.0"),
     ],
     targets: [
+        .target(name: "AppApi", dependencies: [
+            
+        ]),
         .target(name: "App", dependencies: [
             .product(name: "Vapor", package: "vapor"),
             .product(name: "Fluent", package: "fluent"),
@@ -24,6 +30,8 @@ let package = Package(
             .product(name: "LiquidLocalDriver", package: "liquid-local-driver"),
             .product(name: "SwiftHtml", package: "swift-html"),
             .product(name: "SwiftSvg", package: "swift-html"),
+
+            .target(name: "AppApi")
         ]),
         .executableTarget(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [
