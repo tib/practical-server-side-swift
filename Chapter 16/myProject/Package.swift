@@ -7,7 +7,7 @@ let package = Package(
        .macOS(.v12)
     ],
     products: [
-        
+        .library(name: "AppApi", targets: ["AppApi"]),
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/vapor", from: "4.54.0"),
@@ -19,9 +19,7 @@ let package = Package(
         .package(url: "https://github.com/binarybirds/spec", from: "1.2.0"),
     ],
     targets: [
-        .target(name: "AppApi", dependencies: [
-            
-        ]),
+        .target(name: "AppApi", dependencies: []),
         .target(name: "App", dependencies: [
             .product(name: "Vapor", package: "vapor"),
             .product(name: "Fluent", package: "fluent"),
@@ -38,6 +36,9 @@ let package = Package(
             .target(name: "App"),
             .product(name: "XCTVapor", package: "vapor"),
             .product(name: "Spec", package: "spec"),
+        ]),
+        .testTarget(name: "AppApiTests", dependencies: [
+            .target(name: "AppApi"),
         ])
     ]
 )
