@@ -54,7 +54,6 @@ final class AppApiTests: XCTestCase {
         guard let response = response as? HTTPURLResponse else {
             throw HTTPError.invalidResponse
         }
-        print(response.statusCode)
         guard 200...299 ~= response.statusCode else {
             throw HTTPError.invalidStatusCode(response.statusCode)
         }
@@ -62,5 +61,7 @@ final class AppApiTests: XCTestCase {
         let categories = try JSONDecoder().decode([Blog.Category.List].self, from: data)
         XCTAssertFalse(categories.isEmpty)
     }
+    
+   
 }
 
