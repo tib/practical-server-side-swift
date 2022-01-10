@@ -1,70 +1,38 @@
-# 📖 Practical Server Side Swift 
+# 📖 Practical Server Side Swift
 
 Vapor 4 code samples for the [Practical Server Side Swift book](https://gumroad.com/l/practical-server-side-swift) available on [Gumroad](https://gumroad.com/l/practical-server-side-swift).  
 
-## Chapter 1: Introduction
+**Chapter 1: Introduction** is an introduction to the Server side Swift world, explaining the evolution of Swift as a universal programming language. We'll talk about both the strengths and weaknesses of the language and discuss why Swift is a good choice to build backend applications. We'll explore the Swift ecosystem and the open-source movement that made it possible to create the necessary tools on Linux to turn Swift into a server side language. You'll get introduced to Vapor, the most popular web application framework that we're going to use in this book.
 
-This chapter is an introduction to the Server side Swift world, explaining the evolution of Swift as a universal programming language. We'll talk about both the strengths and weaknesses of the language and discuss why Swift is a good choice to build backend applications. We'll explore the Swift ecosystem and the open-source movement that made it possible to create the necessary tools on Linux to turn Swift into a server side language. You'll get introduced to Vapor, the most popular web application framework that we're going to use in this book.
+**Chapter 2: Getting started with Vapor** contains detailed instructions about how to install all the required components to build server side Swift applications both on Linux and macOS. You'll meet some command line tools that can help your every day life as a backend developer and we'll create our very first Vapor project using the Swift Package Manager. We'll also set up Vapor toolbox a handy little tool that can help you to bootstrap projects based on a template. In the very last section we will briefly take a look at the architecture of a Vapor application.
 
-## Chapter 2: Hello Vapor
+**In Chapter 3: Getting started with SwiftHtml**, we're going to build our first website using the SwiftHtml library. We are going to generate HTML code through Swift by creating template files using a Domain Specific Language (DSL). You'll learn about how to connect SwiftHtml with Vapor and how to render HTML by using context variables to provide additional template data. You'll learn about the syntax of SwiftHtml, how to iterate through objects, how to check optional variables and how to extend a base template and provide a reusable frame for our website. We'll build a simple blog layout with post list and detail pages.
 
-This chapter contains detailed instructions about how to install all the required components to build server side Swift applications both on Linux and macOS. You'll meet some command line tools that can help your every day life as a backend developer and we'll create our very first Vapor project using the Swift Package Manager. We'll also set up Vapor toolbox a handy little tool that can help you to bootstrap projects based on a template. In the very last section we will briefly take a look at the architecture of a Vapor application.
+**In Chapter 4: Getting started with Fluent**, you'll learn about the Fluent ORM framework and the advantages of using such tool instead of writing raw database queries. We'll setup Fluent powered by the SQLite driver, and model our database fields using property wrappers in Swift. We are going to provide a seed for our database, get familiar with migration scripts and make some changes on the website, so it can query blog posts from the local database and render them using view templates.
 
-## Chapter 3: Building a website using Leaf
+**In Chapter 5: Sessions and user authentication**, we are going to focus on building a session based web authentication layer. Users will be able to sign in using a form, and already logged in users will be detected with the help of a session cookie and a persistent session storage using Fluent. In the second half of this chapter I'll show you how to create custom authenticator middlewares that'll allow you to authenticate users based on sessions or credentials. 
 
-In this chapter we're going to build our first website using the Leaf template engine. We are going to write some basic HTML and CSS code and learn how to connect Swift objects with the template engine using contexts. You'll learn about the syntax of Leaf files using variables, conditions, how to iterate through objects and we will extend a base template to provide a reusable frame for our website. We'll build a blog layout with post list and detail pages.
+**Chapter 6: Abstract forms and form fields**, is all about creating an abstract form builder that we can use to generate HTML forms. We're going to define reusable from fields with corresponding context objects using a model view view-model like architecture. This will allow us to compose all kind of input forms by reusing the generic fields. In the second half of the chapter we're going to talk about processing user input, loading and persisting data using a protocol oriented solution. Finally we're going to rebuild our already existing user login form by using the components.
 
-## Chapter 4: Creating a blog database
+**In Chapter 7: Form events and async validation**, we're going to work a little bit on our form components. We're going to implement more event handler methods and you're going to learn the preferred way of calling them in order to build a proper create or update workflow flow. The second half of the chapter is all about building an asynchronous validation mechanism for the abstract forms. We're going to build several form field validators and finally you'll see how to work with these validators and display user errors to improve the overall experience.
 
-You'll learn about the Fluent ORM framework and the advantages of using such tool instead of writing raw database queries. We'll setup Fluent powered by the SQLite driver, and model our database fields using property wrappers in Swift. We are going to provide a seed for our database, get familiar with migration scripts and make some changes on the website, so it can query blog posts from the local database and render them using Leaf.
+**In Chapter 8: Advanced form fields**, is all about building new form fields that we're going to use later on. You'll learn how to build custom form fields based on the abstract form field class, so by the end of this chapter you should be able to create even more form fields to fit your needs. We're also going to introduce a brand new Swift package called Liquid, which is a file storage driver made for Vapor. By using this library we're going to be able to create a form field for uploading images.
 
-## Chapter 5: User authentication using sessions
+**In Chapter 9: Content Management System**, you'll learn abut how to build a basic content management system with an admin interface. We are going to create a standalone module for the admin views, which will be completely separated from the web frontend. The CMS will support list, detail, create, update and delete functionality. Models are going to be persisted to the database and we'll secure the admin endpoints by using a new built-in middleware.
 
-In this chapter we are going to focus on building a session based web authentication layer. Users will be able to sign in using a form, and already logged in users will be detected with the help of a session cookie and a persistent session storage using Fluent. The final part of this chapter is about refactoring our view layer and preparing everything for a more robust form building solution that we will implement in the next chapter.
+**Chapter 10: Building a generic admin interface**, is about turning our basic CMS into a generic solution. By leveraging the power of Swift protocols we're going to be able to come up with several base controllers that can be used to manage database models through the admin interface. This methodology allows us to easily define list, create, update and delete controllers. By the end of this chapter we're going to have a completely working admin solution for the blog module.
 
-## Chapter 6: Content Management System
+**Chapter 11: A basic REST API layer**, you'll learn abut building a standard JSON based API service. In the first section we will discuss how to design a REST API, then we will build the CRUD endpoints for the category controller. We'll talk a bit about the HTTP layer, learn how to use the cURL command line utility to test the endpoints. You'll discover why it is a better practice to use standalone data transfer objects instead of exposing database models to the public.
 
-This chapter is all about building a content management tool with an admin interface. We are going to create a module for the admin views completely separated from the web frontend. The CMS will support list, create, update and delete functionality with reusable forms based on Leaf templates and validated using Swift code. Models are going to be persisted to the database and we'll secure the admin endpoints by using middlewares.
+**Chapter 12: Building a generic REST API**, this chapter contains useful materials about how to turn our REST API layer into a reusable generic solution. We're going to define common protocols that'll allow us to share some of the logic between the admin and API controllers. The first part is going to be all about the controller updates, but later on this chapter we're also going to improve the routing mechanism by introducing new setup methods for the route handlers.
 
-## Chapter 7: Content relations and file uploads
+**Chapter 13: API protection and validation**, is about making the backend service more secure by introducing better API protection and validation methods. The first part is about user authentication through bearer tokens. We're going to create a new token based authenticator and guard the API endpoints from unauthenticated requests. The second part is going to be all about data validation by using the async validator logic that we've created a few chapters before. In the very last section of this chapter we're going to introduce some additional lifecycle methods for the controllers.
 
-We are going to extend the capabilities of the CMS by implementing a relationship selector for post categories and a file uploader. You will learn how to use the multipart-form-data type and write a basic asset manager using the non-blocking API from the SwiftNIO package. This time we'll store and host files in the public folder of the application. You can also learn a bit more details about event loops, route handlers and other form fields.
+**Chapter 14: System under testing**, is about learning the brand new **XCTVapor** framework. First we'll set up the test environment, write some basic unit tests for our application and run them. Next we are going to dig a little bit deeper in the **XCTVapor** framework so you can see how to write more complex tests. In the last part you will meet with a super lightweight and clean testing tool. The **Spec** library will allow us to write declarative specifications for our test cases.
 
-## Chapter 8: Reusable web admin interfaces
+**Chapter 15: Event driven hook functions**, in this chapter we're going to eliminate the dependencies between the modules by introducing a brand new event-driven architecture. By using hook functions we're going to be able to build connections without the need of importing the interface of a module into another. The EDA design pattern allows us to create loosely coupled software components and services without forming an actual dependency between the participants.
 
-In this chapter we will apply the same principles for the category model that we used to build our CMS for the blog posts. By observing the patterns in our code we are going to refactor all the code duplications. We will create a generic protocol oriented solution that we can use in the future if it comes to building admin views. In the very end of this chapter we are going to replace what we've made with an even better third party solution.
-
-## Chapter 9: Building a generic REST API
-
-You'll learn abut building a standard JSON based API service. In the first section we will discuss how to design a REST API, then we will build some building CRUD endpoints in a generic, protocol oriented way. We'll talk a lot about the HTTP layer, learn how to use the cURL command line utility to test the endpoints. You'll discover why it is a bad practice to use database models as API objects and, finally, we will protect the routes using a token based auth system. 
-
-## Chapter 10: Shared libraries & API design
-
-In this chapter we are going to split up some of our code into a separate library. This will allow us to use the library in other applications as well. You will learn how to create a new Swift Package from scratch and use it as a local dependency. We will move some of the API layer into the newly created package and reconnect it as a dependency. We are also going to talk about Data Transfer Objects. In the very last part I'll show you how to perform a HTTP request on the server side using the built-in async HTTP client.
-
-## Chapter 11: System under testing
-
-This chapter is about learning the brand new XCTVapor framework. First we'll set up the test environment, write some basic unit tests for our application and run them. Next we are going to dig a little bit deeper in the XCTVapor framework so you can see how to write more complex tests. In the last part you will meet with a super lightweight and clean testing tool. The Spec library will allow us to write declarative specifications for our test cases.
-
-## Chapter 12: Don't repeat yourself
-
-In this chapter we are going to replace the content API and view related files with external Swift packages, this way we can focus more on our business logic and worry less about building reusable components. It is also a great opportunity to refactor Leaf files and take advantage of the new features, so we don't have to copy & paste template snippets again. We'll also refactor the existing modules by using ViperKit and learn how to quickly bootstrap a new one using templates and a small command line utility tool written in Swift.
-
-## Chapter 13: A modular iOS client
-
-This time we are going to build a small iOS application in a modular fashion using Xcode. First, we will build a communication service layer using the previously created MyProjectApi package and the brand new Combine framework as a dependency. We will also learn how to generate VIPER modules using the Swift template tool. We will display a basic list of posts using the UIKit framework with the help of a table view. We are going to programmatically create all of the user interface, including auto layout constraints and custom views.
-
-## Chapter 14: Sign in with Apple
-
-This chapter is about integrating the Sign in with Apple service into the website and the iOS client application. You'll learn about how to set up identifiers and keys using the Apple developer portal. We are going to talk about the fundamental concepts of the sign in flow. We will configure the JWT library to sign and verify JSON Web Tokens as part of the Vapor framework. We are also going to use the public JWKS validation service by Apple and extend our user module.
-
-## Chapter 15: Push notifications
-
-In this chapter we are going to integrate the Apple Push Notification Service (APNs) both on the client and the server side. We are going to learn how to register for remote notifications, send device tokens to the backend and request for authorization using the UserNotifications framework. We are going to create a very basic admin interface for sending push messages using the Vapor APNS package.
-
-## Chapter 16: Infrastructures
-
-In this chapter we're going to upgrade our infrastructure. We'll learn how to move away from the file based SQLite database and connect to a PostgreSQL database server. We'll also use a new Liquid driver to store files on AWS S3. Next we will containerize our backend server by using Docker. After that we'll setup GitHub Actions (a continuous integration service) to run automated unit tests. Finally we configure a container repository service (ECR) on AWS to push the container images of the project and we will create a fully automated delivery system to deploy our application to the cloud with the help of ECR, Fargate (ECS) and the RDS infrastructure. As you can see we have a lot to do, so let's get started.
+**Chapter 16: Shared API library packages**, teaches you how to separate the data transfer object layer into a standalone Swift package product, this way you'll be able to share server side Swift code with client apps. In the first part of the chapter I am going to show you how to setup the project and we're going to add access control modifiers to allow other modules to see our DTOs. The second half of the chapter is going to give you some really basic examples about how to perform HTTP requests using the modern Swift concurrency APIs.
 
 
 ## Do you have any questions?
