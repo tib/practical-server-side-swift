@@ -2,7 +2,13 @@
 
 Don't forget to check the sample code repository on [GitHub](https://github.com/tib/practical-server-side-swift).
 
-### Second edition - v1.4.0
+### Third edition - v1.5.0
+
+- Swift 5.6+
+- Vapor 4.65.0+
+- Xcode 14 beta support
+
+### Third edition - v1.4.0
 
 - Swift async / await support
 - Xcode 13 support
