@@ -38,7 +38,6 @@ enum BlogMigrations {
         func revert(on db: Database) async throws  {
             try await db.schema(BlogCategoryModel.schema).delete()
             try await db.schema(BlogPostModel.schema).delete()
-            try await db.schema(BlogPostModel.schema).delete()
         }
     }
     
