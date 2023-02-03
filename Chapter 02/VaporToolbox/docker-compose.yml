@@ -16,10 +16,10 @@ version: '3.7'
 
 x-shared_environment: &shared_environment
   LOG_LEVEL: ${LOG_LEVEL:-debug}
-
+  
 services:
   app:
-    image: myProject:latest
+    image: vapor-toolbox:latest
     build:
       context: .
     environment:

@@ -1,7 +1,7 @@
 # ================================
 # Build image
 # ================================
-FROM swift:5.4-focal as build
+FROM swift:5.6-focal as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -22,8 +22,8 @@ RUN swift package resolve
 # Copy entire repo into container
 COPY . .
 
-# Build everything, with optimizations and test discovery
-RUN swift build --enable-test-discovery -c release
+# Build everything, with optimizations
+RUN swift build -c release --static-swift-stdlib
 
 # Switch to the staging area
 WORKDIR /staging
@@ -31,18 +31,31 @@ WORKDIR /staging
 # Copy main executable to staging area
 RUN cp "$(swift build --package-path /build -c release --show-bin-path)/Run" ./
 
-# Uncomment the next line if you need to load resources from the `Public` directory.
+# Copy resources bundled by SPM to staging area
+RUN find -L "$(swift build --package-path /build -c release --show-bin-path)/" -regex '.*\.resources$' -exec cp -Ra {} ./ \;
+
+# Copy any resources from the public directory and views directory if the directories exist
 # Ensure that by default, neither the directory nor any of its contents are writable.
-#RUN mv /build/Public ./Public && chmod -R a-w ./Public
+RUN [ -d /build/Public ] && { mv /build/Public ./Public && chmod -R a-w ./Public; } || true
+RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w ./Resources; } || true
 
 # ================================
 # Run image
 # ================================
-FROM swift:5.4-focal-slim
+FROM ubuntu:focal
 
-# Make sure all system packages are up to date.
-RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && \
-    apt-get -q update && apt-get -q dist-upgrade -y && rm -r /var/lib/apt/lists/*
+# Make sure all system packages are up to date, and install only essential packages.
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+    && apt-get -q update \
+    && apt-get -q dist-upgrade -y \
+    && apt-get -q install -y \
+      ca-certificates \
+      tzdata \
+# If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
+      # libcurl4 \
+# If your app or its dependencies import FoundationXML, also install `libxml2`.
+      # libxml2 \
+    && rm -r /var/lib/apt/lists/*
 
 # Create a vapor user and group with /app as its home directory
 RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app vapor
