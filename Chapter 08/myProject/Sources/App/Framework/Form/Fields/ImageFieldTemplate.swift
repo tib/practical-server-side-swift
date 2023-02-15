@@ -20,7 +20,9 @@ public struct ImageFieldTemplate: TemplateRepresentable {
     public func render(_ req: Request) -> Tag {
         
         if let url = context.previewUrl {
-            Img(src: url, alt: context.key)
+            Img(src: req.fs.resolve(key: url), alt: context.key)
+        } else {
+            Img(src: "/img/logo.png", alt: "default post image")
         }
 
         LabelTemplate(context.label).render(req)

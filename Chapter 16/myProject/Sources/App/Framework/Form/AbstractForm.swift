@@ -22,6 +22,8 @@ open class AbstractForm: FormComponent {
         self.fields = fields
         self.error = error
         self.submit = submit
+        
+        self.action.enctype = .multipart
     }
     
     // MARK: - FromComponent
