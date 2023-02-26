@@ -1,12 +1,12 @@
 # ================================
 # Build image
 # ================================
-FROM swift:5.6-focal as build
+FROM swift:5.7-jammy as build
 
 # Install OS updates and, if needed, sqlite3
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
-    && apt-get -q dist-upgrade -y \
+    && apt-get -q dist-upgrade -y\
     && rm -rf /var/lib/apt/lists/*
 
 # Set up a build area
@@ -42,7 +42,7 @@ RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w
 # ================================
 # Run image
 # ================================
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 # Make sure all system packages are up to date, and install only essential packages.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \

@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "VaporToolbox",
+    name: "myProject",
     platforms: [
        .macOS(.v12)
     ],

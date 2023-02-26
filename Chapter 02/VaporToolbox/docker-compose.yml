@@ -19,7 +19,7 @@ x-shared_environment: &shared_environment
   
 services:
   app:
-    image: vapor-toolbox:latest
+    image: my-project:latest
     build:
       context: .
     environment:

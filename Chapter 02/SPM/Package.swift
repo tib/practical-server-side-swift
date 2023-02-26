@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -10,7 +10,7 @@ let package = Package(
         .executable(name: "myProject", targets: ["myProject"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor", from: "4.65.0"),
+        .package(url: "https://github.com/vapor/vapor", from: "4.70.0"),
     ],
     targets: [
         .executableTarget(name: "myProject", dependencies: [
