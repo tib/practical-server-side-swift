@@ -1,12 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 struct UserLoginContext {
-
+    
     let icon: String
     let title: String
     let message: String
@@ -14,12 +7,14 @@ struct UserLoginContext {
     let password: String?
     let error: String?
     
-    init(icon: String,
-         title: String,
-         message: String,
-         email: String? = nil,
-         password: String? = nil,
-         error: String? = nil) {
+    init(
+        icon: String,
+        title: String,
+        message: String,
+        email: String? = nil,
+        password: String? = nil,
+        error: String? = nil
+    ) {
         self.icon = icon
         self.title = title
         self.message = message
@@ -28,4 +23,3 @@ struct UserLoginContext {
         self.error = error
     }
 }
-

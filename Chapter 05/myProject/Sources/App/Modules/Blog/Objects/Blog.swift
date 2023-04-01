@@ -1,10 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
+/// FILE: Sources/App/Modules/Blog/Objects/Blog.swift
 
 enum Blog {
-    
+    enum Post {
+        
+    }
 }

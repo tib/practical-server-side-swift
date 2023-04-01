@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -7,10 +7,22 @@ let package = Package(
        .macOS(.v12)
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor", from: "4.54.0"),
-        .package(url: "https://github.com/vapor/fluent", from: "4.4.0"),
-        .package(url: "https://github.com/vapor/fluent-sqlite-driver", from: "4.1.0"),
-        .package(url: "https://github.com/binarybirds/swift-html", from: "1.2.0"),
+        .package(
+            url: "https://github.com/vapor/vapor",
+            from: "4.70.0"
+        ),
+        .package(
+            url: "https://github.com/vapor/fluent",
+            from: "4.4.0"
+        ),
+        .package(
+            url: "https://github.com/vapor/fluent-sqlite-driver",
+            from: "4.1.0"
+        ),
+        .package(
+            url: "https://github.com/binarybirds/swift-html",
+            from: "1.2.0"
+        ),
     ],
     targets: [
         .target(name: "App", dependencies: [

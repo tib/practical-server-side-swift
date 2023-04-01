@@ -1,24 +1,23 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Vapor
 import SwiftHtml
 
 struct UserLoginTemplate: TemplateRepresentable {
-
+    
     var context: UserLoginContext
     
-    init(_ context: UserLoginContext) {
+    init(
+        _ context: UserLoginContext
+    ) {
         self.context = context
     }
-
+    
     @TagBuilder
-    func render(_ req: Request) -> Tag {
-        WebIndexTemplate(.init(title: context.title)) {
+    func render(
+        _ req: Request
+    ) -> Tag {
+        WebIndexTemplate(
+            .init(title: context.title)
+        ) {
             Div {
                 Section {
                     P(context.icon)
@@ -26,7 +25,7 @@ struct UserLoginTemplate: TemplateRepresentable {
                     P(context.message)
                 }
                 .class("lead")
-
+                
                 Form {
                     if let error = context.error {
                         Section {
@@ -34,24 +33,23 @@ struct UserLoginTemplate: TemplateRepresentable {
                                 .class("error")
                         }
                     }
-
                     Section {
                         Label("Email:")
                             .for("email")
-                        Input()
-                            .key("email")
-                            .type(.email)
-                            .value(context.email)
-                            .class("field")
+                                    Input()
+                                .key("email")
+                                .type(.email)
+                                .value(context.email)
+                                .class("field")
                     }
                     Section {
                         Label("Password:")
                             .for("password")
-                        Input()
-                            .key("password")
-                            .type(.password)
-                            .value(context.password)
-                            .class("field")
+                                    Input()
+                                .key("password")
+                                .type(.password)
+                                .value(context.password)
+                                .class("field")
                     }
                     Section {
                         Input()

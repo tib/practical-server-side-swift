@@ -1,10 +1,3 @@
-//
-//  BlogPostTemplate.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 import SwiftHtml
 
@@ -12,7 +5,9 @@ struct BlogPostTemplate: TemplateRepresentable {
 
     var context: BlogPostContext
     
-    init(_ context: BlogPostContext) {
+    init(
+        _ context: BlogPostContext
+    ) {
         self.context = context
     }
     
@@ -24,8 +19,12 @@ struct BlogPostTemplate: TemplateRepresentable {
     }()
 
     @TagBuilder
-    func render(_ req: Request) -> Tag {
-        WebIndexTemplate(.init(title: context.post.title)) {
+    func render(
+        _ req: Request
+    ) -> Tag {
+        WebIndexTemplate(
+            .init(title: context.post.title)
+        ) {
             Div {
                 Section {
                     P(dateFormatter.string(from: context.post.date))
