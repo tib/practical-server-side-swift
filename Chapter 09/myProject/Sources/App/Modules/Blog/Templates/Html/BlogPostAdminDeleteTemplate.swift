@@ -1,24 +1,23 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 03..
-//
-
 import Vapor
 import SwiftHtml
 
 struct BlogPostAdminDeleteTemplate: TemplateRepresentable {
-
+    
     var context: BlogPostAdminDeleteContext
-
-    init(_ context: BlogPostAdminDeleteContext) {
+    
+    init(
+        _ context: BlogPostAdminDeleteContext
+    ) {
         self.context = context
     }
-
+    
     @TagBuilder
-    func render(_ req: Request) -> Tag {
-        AdminIndexTemplate(.init(title: context.title)) {
+    func render(
+        _ req: Request
+    ) -> Tag {
+        AdminIndexTemplate(
+            .init(title: context.title)
+        ) {
             Div {
                 Span("🗑")
                     .class("icon")
@@ -44,5 +43,3 @@ struct BlogPostAdminDeleteTemplate: TemplateRepresentable {
         .render(req)
     }
 }
-
-

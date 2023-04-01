@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 
 public protocol AsyncValidator {
@@ -12,7 +5,9 @@ public protocol AsyncValidator {
     var key: String { get }
     var message: String { get }
 
-    func validate(_ req: Request) async throws -> ValidationErrorDetail?
+    func validate(
+        _ req: Request
+    ) async throws -> ValidationErrorDetail?
 }
 
 public extension AsyncValidator {
