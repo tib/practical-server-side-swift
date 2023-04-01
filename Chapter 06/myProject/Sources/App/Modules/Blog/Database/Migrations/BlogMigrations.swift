@@ -36,8 +36,6 @@ enum BlogMigrations {
         }
     }
     
-    // ...
-    
     struct seed: AsyncMigration {
         
         func prepare(on db: Database) async throws {

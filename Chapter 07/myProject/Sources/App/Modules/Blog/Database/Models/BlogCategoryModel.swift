@@ -6,8 +6,6 @@ final class BlogCategoryModel: DatabaseModelInterface {
 
     static let identifier = "categories"
     
-    // ...
-    
     struct FieldKeys {
         struct v1 {
             static var title: FieldKey { "title" }

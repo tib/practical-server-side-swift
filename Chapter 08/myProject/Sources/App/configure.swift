@@ -19,9 +19,6 @@ public func configure(
     
     app.routes.defaultMaxBodySize = "10mb"
     
-    // ...
-    
-    
     let dbPath = app.directory.resourcesDirectory + "db.sqlite"
     app.databases.use(.sqlite(.file(dbPath)), as: .sqlite)
     

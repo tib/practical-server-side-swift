@@ -35,7 +35,7 @@ struct BlogPostAdminDetailTemplate: TemplateRepresentable {
                     Dt("Image")
                     Dd {
                         Img(
-                            src: req.fs.resolve(key: context.detail.image),
+                            src: context.detail.image,
                             alt: context.detail.title
                         )
                     }
