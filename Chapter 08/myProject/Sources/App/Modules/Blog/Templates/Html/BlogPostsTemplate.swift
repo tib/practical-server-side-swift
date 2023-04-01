@@ -1,23 +1,23 @@
-//
-//  BlogPostsTemplate.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 import SwiftHtml
 
 struct BlogPostsTemplate: TemplateRepresentable {
+    
     var context: BlogPostsContext
     
-    init(_ context: BlogPostsContext) {
+    init(
+        _ context: BlogPostsContext
+    ) {
         self.context = context
     }
 
     @TagBuilder
-    func render(_ req: Request) -> Tag {
-        WebIndexTemplate(.init(title: context.title)) {
+    func render(
+        _ req: Request
+    ) -> Tag {
+        WebIndexTemplate(
+            .init(title: context.title)
+        ) {
             Div {
                 Section {
                     P(context.icon)
@@ -39,7 +39,6 @@ struct BlogPostsTemplate: TemplateRepresentable {
                     }
                 }
                 .class("grid-221")
-                
             }
             .id("blog")
         }
