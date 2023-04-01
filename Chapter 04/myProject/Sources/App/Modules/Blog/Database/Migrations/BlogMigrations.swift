@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Foundation
 import Fluent
 
@@ -27,19 +20,23 @@ enum BlogMigrations {
                 .field(BlogPostModel.FieldKeys.v1.date, .datetime, .required)
                 .field(BlogPostModel.FieldKeys.v1.content, .data, .required)
                 .field(BlogPostModel.FieldKeys.v1.categoryId, .uuid)
-                .foreignKey(BlogPostModel.FieldKeys.v1.categoryId,
-                            references: BlogCategoryModel.schema, .id,
-                            onDelete: DatabaseSchema.ForeignKeyAction.setNull,
-                            onUpdate: .cascade)
+                .foreignKey(
+                    BlogPostModel.FieldKeys.v1.categoryId,
+                    references: BlogCategoryModel.schema, .id,
+                    onDelete: DatabaseSchema.ForeignKeyAction.setNull,
+                    onUpdate: .cascade
+                )
                 .unique(on: BlogPostModel.FieldKeys.v1.slug)
                 .create()
         }
-
+        
         func revert(on db: Database) async throws  {
             try await db.schema(BlogCategoryModel.schema).delete()
             try await db.schema(BlogPostModel.schema).delete()
         }
     }
+    
+    // ...
     
     struct seed: AsyncMigration {
         
@@ -49,23 +46,24 @@ enum BlogMigrations {
                 BlogCategoryModel(title: "Sample category #\(index)")
             }
             try await categories.create(on: db)
-
+            
             try await (1...9).map { index in
-                BlogPostModel(id: nil, title: "Sample post #\(index)",
-                              slug: "sample-post-\(index)",
-                              imageKey: "/img/posts/\(String(format: "%02d", index + 1)).jpg",
-                              excerpt: "Lorem ipsum",
-                              date: Date().addingTimeInterval(-Double.random(in: 0...(86400 * 60))),
-                              content: "Lorem ipsum dolor sit amet.",
-                              categoryId: categories[Int.random(in: 0..<categories.count)].id!)
+                BlogPostModel(
+                    id: nil, title: "Sample post #\(index)",
+                    slug: "sample-post-\(index)",
+                    imageKey: "/img/posts/\(String(format: "%02d", index + 1)).jpg",
+                    excerpt: "Lorem ipsum",
+                    date: Date().addingTimeInterval(-Double.random(in: 0...(86400 * 60))),
+                    content: "Lorem ipsum dolor sit amet.",
+                    categoryId: categories[Int.random(in: 0..<categories.count)].id!
+                )
             }
             .create(on: db)
         }
-
+        
         func revert(on db: Database) async throws {
             try await BlogPostModel.query(on: db).delete()
             try await BlogCategoryModel.query(on: db).delete()
         }
     }
-    
 }

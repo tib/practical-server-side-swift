@@ -1,9 +1,4 @@
-//
-//  TemplateRepresentable.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
+/// FILE: Sources/App/Template/TemplateRepresentable.swift
 
 import Vapor
 import SwiftSgml
