@@ -4,9 +4,10 @@ Don't forget to check the sample code repository on [GitHub](https://github.com/
 
 ### Third edition - v1.5.0
 
-- Swift 5.7+
+- Swift 5.8+
 - Vapor 4.70.0+
-- Xcode 14 support
+- SwiftHtml 1.7.0
+- Xcode 14.3 support
 - Reworked some parts of the book
 - Added some helpful notes & commands
 - Fixed some grammar mistakes & type-o-s

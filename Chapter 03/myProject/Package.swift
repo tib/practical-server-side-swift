@@ -13,7 +13,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/binarybirds/swift-html",
-            from: "1.2.0"
+            from: "1.7.0"
         ),
     ],
     targets: [
