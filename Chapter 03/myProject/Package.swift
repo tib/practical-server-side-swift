@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
@@ -7,14 +7,20 @@ let package = Package(
        .macOS(.v12)
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/vapor", from: "4.65.0"),
-        .package(url: "https://github.com/binarybirds/swift-html", from: "1.6.0"),
+        .package(
+            url: "https://github.com/vapor/vapor",
+            from: "4.70.0"
+        ),
+        .package(
+            url: "https://github.com/binarybirds/swift-html",
+            from: "1.2.0"
+        ),
     ],
     targets: [
         .target(name: "App", dependencies: [
+            .product(name: "Vapor", package: "vapor"),
             .product(name: "SwiftHtml", package: "swift-html"),
             .product(name: "SwiftSvg", package: "swift-html"),
-            .product(name: "Vapor", package: "vapor"),
         ]),
         .executableTarget(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: [
