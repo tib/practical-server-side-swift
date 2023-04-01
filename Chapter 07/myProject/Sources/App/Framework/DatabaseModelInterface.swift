@@ -1,15 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Vapor
 import Fluent
 
-public protocol DatabaseModelInterface: Fluent.Model where Self.IDValue == UUID {
-    
+public protocol DatabaseModelInterface: Fluent.Model
+    where Self.IDValue == UUID
+{    
     associatedtype Module: ModuleInterface
 
     static var identifier: String { get }
@@ -17,9 +11,14 @@ public protocol DatabaseModelInterface: Fluent.Model where Self.IDValue == UUID 
 
 public extension DatabaseModelInterface {
 
-    static var schema: String { Module.identifier + "_" + identifier }
+    static var schema: String {
+        Module.identifier + "_" + identifier
+    }
     
     static var identifier: String {
-        String(describing: self).dropFirst(Module.identifier.count).dropLast(5).lowercased() + "s"
+        String(describing: self)
+            .dropFirst(Module.identifier.count)
+            .dropLast(5)
+            .lowercased() + "s"
     }
 }

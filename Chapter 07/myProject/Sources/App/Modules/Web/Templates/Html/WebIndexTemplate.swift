@@ -1,15 +1,9 @@
-//
-//  WebIndexTemplate.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 import SwiftHtml
 import SwiftSvg
 
 extension Svg {
+    
     static func menuIcon() -> Svg {
         Svg {
             Line(x1: 3, y1: 12, x2: 21, y2: 12)
@@ -32,13 +26,18 @@ public struct WebIndexTemplate: TemplateRepresentable {
     public var context: WebIndexContext
     var body: Tag
 
-    public init(_ context: WebIndexContext, @TagBuilder _ builder: () -> Tag) {
+    public init(
+        _ context: WebIndexContext,
+        @TagBuilder _ builder: () -> Tag
+    ) {
         self.context = context
         self.body = builder()
     }
 
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         Html {
             Head {
                 Meta()
@@ -48,7 +47,7 @@ public struct WebIndexTemplate: TemplateRepresentable {
                     .content("width=device-width, initial-scale=1")
 
                 Link(rel: .shortcutIcon)
-                    .href("/images/favicon.ico")
+                    .href("/img/favicon.ico")
                     .type("image/x-icon")
                 Link(rel: .stylesheet)
                     .href("https://cdn.jsdelivr.net/gh/feathercms/feather-core@1.0.0-beta.44/feather.min.css")
@@ -132,5 +131,4 @@ public struct WebIndexTemplate: TemplateRepresentable {
         }
         .lang("en-US")
     }
-    
 }
