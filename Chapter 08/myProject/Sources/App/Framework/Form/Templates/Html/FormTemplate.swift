@@ -22,7 +22,7 @@ public struct FormTemplate: TemplateRepresentable {
                         .class("error")
                 }
             }
-            context.fields.map { field in
+            for field in context.fields {
                 Section {
                     field.render(req)
                 }
