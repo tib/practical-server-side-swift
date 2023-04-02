@@ -1,13 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 05..
-//
-
 import Vapor
 
 struct BlogPostEditor: ModelEditorInterface {
+    
     let model: BlogPostModel
     let form: AbstractForm
 
@@ -30,7 +24,9 @@ struct BlogPostEditor: ModelEditorInterface {
                 $1.output.context.previewUrl = model.imageKey
                 ($1 as! ImageField).imageKey = model.imageKey
             }
-            .write { model.imageKey = ($1 as! ImageField).imageKey ?? "" }
+            .write {
+                model.imageKey = ($1 as! ImageField).imageKey ?? ""
+            }
         
         InputField("slug")
             .config {
@@ -39,8 +35,12 @@ struct BlogPostEditor: ModelEditorInterface {
             .validators {
                 FormFieldValidator.required($1)
             }
-            .read { $1.output.context.value = model.slug }
-            .write { model.slug = $1.input }
+            .read {
+                $1.output.context.value = model.slug
+            }
+            .write {
+                model.slug = $1.input
+            }
         
         InputField("title")
             .config {
@@ -49,8 +49,12 @@ struct BlogPostEditor: ModelEditorInterface {
             .validators {
                 FormFieldValidator.required($1)
             }
-            .read { $1.output.context.value = model.title }
-            .write { model.title = $1.input }
+            .read {
+                $1.output.context.value = model.title
+            }
+            .write {
+                model.title = $1.input
+            }
         
         InputField("date")
             .config {
@@ -60,8 +64,12 @@ struct BlogPostEditor: ModelEditorInterface {
             .validators {
                 FormFieldValidator.required($1)
             }
-            .read { $1.output.context.value = dateFormatter.string(from: model.date) }
-            .write { model.date = dateFormatter.date(from: $1.input) ?? Date() }
+            .read {
+                $1.output.context.value = dateFormatter.string(from: model.date)
+            }
+            .write {
+                model.date = dateFormatter.date(from: $1.input) ?? Date()
+            }
         
         TextareaField("excerpt")
             .read { $1.output.context.value = model.excerpt }
@@ -73,8 +81,12 @@ struct BlogPostEditor: ModelEditorInterface {
         
         SelectField("category")
             .load { req, field in
-                let categories = try await BlogCategoryModel.query(on: req.db).all()
-                field.output.context.options = categories.map { OptionContext(key: $0.id!.uuidString, label: $0.title) }
+                let categories = try await BlogCategoryModel
+                    .query(on: req.db)
+                    .all()
+                field.output.context.options = categories.map {
+                    OptionContext(key: $0.id!.uuidString, label: $0.title)
+                }
             }
             .read { req, field in
                 field.output.context.value = model.$category.id.uuidString
@@ -82,7 +94,8 @@ struct BlogPostEditor: ModelEditorInterface {
             .write { req, field in
                 if
                     let uuid = UUID(uuidString: field.input),
-                    let category = try await BlogCategoryModel.find(uuid, on: req.db)
+                    let category = try await BlogCategoryModel
+                        .find(uuid, on: req.db)
                 {
                     model.$category.id = category.id!
                 }

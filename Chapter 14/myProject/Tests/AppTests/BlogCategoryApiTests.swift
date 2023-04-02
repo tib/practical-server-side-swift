@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 08..
-//
-
 @testable import App
 import XCTVapor
 
@@ -41,9 +34,12 @@ final class BlogCategoryApiTests: AppTestCase {
         
         let newCategory = Blog.Category.Create(title: "Test category")
         
-        try app.test(.POST, "/api/blog/categories/",
-                     headers: headers,
-                     content: newCategory) { res in
+        try app.test(
+            .POST,
+            "/api/blog/categories/",
+            headers: headers,
+            content: newCategory
+        ) { res in
             XCTAssertEqual(res.status, .created)
             let contentType = try XCTUnwrap(res.headers.contentType)
             XCTAssertEqual(contentType, .json)
@@ -63,9 +59,12 @@ final class BlogCategoryApiTests: AppTestCase {
         let newCategory = Blog.Category.Create(title: "Test category")
         
         try app
-            .test(.POST, "/api/blog/categories/",
-                  headers: headers,
-                  content: newCategory) { res in
+            .test(
+                .POST,
+                "/api/blog/categories/",
+                headers: headers,
+                content: newCategory
+            ) { res in
                 XCTAssertEqual(res.status, .created)
                 let contentType = try XCTUnwrap(res.headers.contentType)
                 XCTAssertEqual(contentType, .json)
@@ -73,7 +72,11 @@ final class BlogCategoryApiTests: AppTestCase {
                     XCTAssertEqual(content.title, newCategory.title)
                 }
             }
-            .test(.GET, "/api/blog/categories/", headers: headers) { res in
+            .test(
+                .GET,
+                "/api/blog/categories/",
+                headers: headers
+            ) { res in
                 XCTAssertEqual(res.status, .ok)
                 let contentType = try XCTUnwrap(res.headers.contentType)
                 XCTAssertEqual(contentType, .json)
@@ -83,4 +86,3 @@ final class BlogCategoryApiTests: AppTestCase {
             }
     }
 }
-

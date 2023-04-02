@@ -49,6 +49,6 @@ public extension ApiUpdateController {
         let existingModelRoutes = baseRoutes
             .grouped(ApiModel.pathIdComponent)
         
-        existingModelRoutes.post(use: updateApi)
+        existingModelRoutes.put(use: updateApi)
     }
 }

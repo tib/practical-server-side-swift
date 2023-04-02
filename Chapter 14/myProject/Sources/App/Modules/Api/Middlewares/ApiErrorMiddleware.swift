@@ -1,15 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 07..
-//
-
 import Vapor
 
 struct ApiErrorMiddleware: AsyncMiddleware {
-
-    func respond(to req: Request, chainingTo next: AsyncResponder) async throws -> Response {
+    
+    func respond(
+        to req: Request,
+        chainingTo next: AsyncResponder
+    ) async throws -> Response {
         do {
             return try await next.respond(to: req)
         }
@@ -18,7 +14,7 @@ struct ApiErrorMiddleware: AsyncMiddleware {
             let headers: HTTPHeaders
             let message: String?
             let details: [ValidationErrorDetail]
-
+            
             switch error {
             case let abort as ValidationAbort:
                 status = abort.abort.status
@@ -33,21 +29,42 @@ struct ApiErrorMiddleware: AsyncMiddleware {
             default:
                 status = .internalServerError
                 headers = [:]
-                message = req.application.environment.isRelease ? "Something went wrong." : error.localizedDescription
-                details = []
+                if req.application.environment.isRelease {
+                    message = "Something went wrong."
+                }
+                else {
+                    message = error.localizedDescription
+                }
+                details = []   
             }
-
+            
             req.logger.report(error: error)
-
-            let response = Response(status: status, headers: headers)
-
+            
+            let response = Response(
+                status: status,
+                headers: headers
+            )
+            
             do {
-                response.body = try .init(data: JSONEncoder().encode(ValidationError(message: message, details: details)))
-                response.headers.replaceOrAdd(name: .contentType, value: "application/json; charset=utf-8")
+                let encoder = JSONEncoder()
+                let data = try encoder.encode(
+                    ValidationError(
+                        message: message,
+                        details: details
+                    )
+                )
+                response.body = .init(data: data)
+                response.headers.replaceOrAdd(
+                    name: .contentType,
+                    value: "application/json; charset=utf-8"
+                )
             }
             catch {
                 response.body = .init(string: "Oops: \(error)")
-                response.headers.replaceOrAdd(name: .contentType, value: "text/plain; charset=utf-8")
+                response.headers.replaceOrAdd(
+                    name: .contentType,
+                    value: "text/plain; charset=utf-8"
+                )
             }
             return response
         }

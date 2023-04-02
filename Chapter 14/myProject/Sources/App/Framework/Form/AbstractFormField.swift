@@ -1,13 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 01..
-//
-
 import Vapor
 
-open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: FormComponent {
+open class AbstractFormField<
+    Input: Decodable,
+    Output: TemplateRepresentable
+>: FormComponent {
     
     public var key: String
     public var input: Input
@@ -16,8 +12,10 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
     
     // MARK: - event blocks
     
-    public typealias FormFieldBlock = (Request, AbstractFormField<Input, Output>) async throws -> Void
-    public typealias FormFieldValidatorsBlock = ((Request, AbstractFormField<Input, Output>) -> [AsyncValidator])
+    public typealias FormFieldBlock =
+        (Request, AbstractFormField<Input, Output>) async throws -> Void
+    public typealias FormFieldValidatorsBlock =
+        ((Request, AbstractFormField<Input, Output>) -> [AsyncValidator])
     
     private var readBlock: FormFieldBlock?
     private var writeBlock: FormFieldBlock?
@@ -27,14 +25,21 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
     
     // MARK: - init & config
 
-    public init(key: String, input: Input, output: Output, error: String? = nil) {
+    public init(
+        key: String,
+        input: Input,
+        output: Output,
+        error: String? = nil
+    ) {
         self.key = key
         self.input = input
         self.output = output
         self.error = error
     }
 
-    open func config(_ block: (AbstractFormField<Input, Output>) -> Void) -> Self {
+    open func config(
+        _ block: (AbstractFormField<Input, Output>) -> Void
+    ) -> Self {
         block(self)
         return self
     }
@@ -61,7 +66,9 @@ open class AbstractFormField<Input: Decodable, Output: TemplateRepresentable>: F
         return self
     }
     
-    open func validators(@AsyncValidatorBuilder _ block: @escaping FormFieldValidatorsBlock) -> Self {
+    open func validators(
+        @AsyncValidatorBuilder _ block: @escaping FormFieldValidatorsBlock
+    ) -> Self {
         validatorsBlock = block
         return self
     }
