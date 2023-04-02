@@ -37,8 +37,6 @@ struct BlogRouter: RouteCollection {
         postId.get("delete", use: postAdminController.deleteView)
         postId.post("delete", use: postAdminController.deleteAction)
         
-        // ...
-        
         let blogApi = routes.grouped("api", "blog")
         let categoriesApi = blogApi.grouped("categories")
         categoriesApi.get(use: categoryApiController.listApi)

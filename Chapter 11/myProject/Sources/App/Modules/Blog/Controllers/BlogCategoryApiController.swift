@@ -104,8 +104,6 @@ struct BlogCategoryApiController: ModelController {
             .encodeResponse(for: req)
     }
     
-    // ...
-    
     func deleteApi(
         _ req: Request
     ) async throws -> HTTPStatus {

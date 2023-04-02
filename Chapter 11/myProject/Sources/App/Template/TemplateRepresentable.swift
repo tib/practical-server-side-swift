@@ -1,5 +1,3 @@
-/// FILE: Sources/App/Template/TemplateRepresentable.swift
-
 import Vapor
 import SwiftSgml
 
