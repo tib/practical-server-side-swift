@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 08..
-//
-
 @testable import App
 import XCTVapor
 
@@ -26,7 +19,10 @@ class AppTestCase: XCTestCase {
         return app
     }
     
-    func authenticate(_ user: UserLogin, _ app: Application) throws -> User.Token.Detail {
+    func authenticate(
+        _ user: UserLogin,
+        _ app: Application
+    ) throws -> User.Token.Detail {
         var token: User.Token.Detail?
         try app.test(.POST, "/api/sign-in/", beforeRequest: { req in
             try req.content.encode(user)
@@ -42,8 +38,15 @@ class AppTestCase: XCTestCase {
         return result
     }
     
-    func authenticateRoot(_ app: Application) throws -> User.Token.Detail {
-        try authenticate(.init(email: "root@localhost.com", password: "ChangeMe1"), app)
+    func authenticateRoot(
+        _ app: Application
+    ) throws -> User.Token.Detail {
+        try authenticate(
+            .init(
+                email: "root@localhost.com",
+                password: "ChangeMe1"
+            ),
+            app
+        )
     }
 }
-

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 08..
-//
-
 @testable import App
 import XCTVapor
 import Spec
@@ -13,12 +6,12 @@ extension Blog.Post.Create: Content {}
 extension Blog.Post.Update: Content {}
 
 final class BlogPostApiTests: AppTestCase {
-
+    
     func testList() throws {
         let app = try createTestApp()
         let token = try authenticateRoot(app)
         defer { app.shutdown() }
-                
+        
         try app
             .describe("Blog posts list API should be fine")
             .get("/api/blog/posts/")
@@ -41,15 +34,17 @@ final class BlogPostApiTests: AppTestCase {
             XCTFail("Missing default category")
             throw Abort(.notFound)
         }
-
-        let newPost = Blog.Post.Create(title: "Dummy post",
-                                       slug: "dummy-slug",
-                                       image: "/dummy/image.jpg",
-                                       excerpt: "Lorem ipsum",
-                                       date: Date(),
-                                       content: "Lorem ipsum",
-                                       categoryId: category.id!)
-
+        
+        let newPost = Blog.Post.Create(
+            title: "Dummy post",
+            slug: "dummy-slug",
+            image: "/dummy/image.jpg",
+            excerpt: "Lorem ipsum",
+            date: Date(),
+            content: "Lorem ipsum",
+            categoryId: category.id!
+        )
+        
         try app
             .describe("Create post should be fine")
             .post("/api/blog/posts/")
@@ -67,21 +62,27 @@ final class BlogPostApiTests: AppTestCase {
         let app = try self.createTestApp()
         let token = try authenticateRoot(app)
         defer { app.shutdown() }
-
-        guard let post = try await BlogPostModel.query(on: app.db).with(\.$category).first() else {
+        
+        guard let post = try await BlogPostModel
+            .query(on: app.db)
+            .with(\.$category)
+            .first()
+        else {
             XCTFail("Missing blog post")
             throw Abort(.notFound)
         }
-
+        
         let suffix = " updated"
-
-        let newPost = Blog.Post.Update(title: post.title + suffix,
-                                       slug: post.slug + suffix,
-                                       image: post.imageKey + suffix,
-                                       excerpt: post.excerpt + suffix,
-                                       date: post.date,
-                                       content: post.content + suffix,
-                                       categoryId: post.category.id!)
+        
+        let newPost = Blog.Post.Update(
+            title: post.title + suffix,
+            slug: post.slug + suffix,
+            image: post.imageKey + suffix,
+            excerpt: post.excerpt + suffix,
+            date: post.date,
+            content: post.content + suffix,
+            categoryId: post.category.id!
+        )
         
         try app
             .describe("Update post should be fine")
@@ -101,4 +102,3 @@ final class BlogPostApiTests: AppTestCase {
             .test()
     }
 }
-

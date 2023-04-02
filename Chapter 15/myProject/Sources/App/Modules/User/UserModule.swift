@@ -1,12 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Vapor
-import SwiftHtml
 
 struct UserModule: ModuleInterface {
 
@@ -22,4 +14,3 @@ struct UserModule: ModuleInterface {
         try router.boot(routes: app.routes)
     }
 }
-

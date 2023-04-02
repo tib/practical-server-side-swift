@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 08..
-//
-
 import Vapor
 import SwiftHtml
 
