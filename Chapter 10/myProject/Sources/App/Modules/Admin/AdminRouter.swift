@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 
 struct AdminRouter: RouteCollection {
@@ -13,7 +6,11 @@ struct AdminRouter: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
         routes
-            .grouped(AuthenticatedUser.redirectMiddleware(path: "/sign-in/"))
+            .grouped(
+                AuthenticatedUser.redirectMiddleware(
+                    path: "/sign-in/"
+                )
+            )
             .get("admin", use: controller.dashboardView)
     }
 }

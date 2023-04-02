@@ -1,23 +1,18 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 01..
-//
-
 import Vapor
 
 open class AbstractForm: FormComponent {
-
+    
     open var action: FormAction
     open var fields: [FormComponent]
     open var error: String?
     open var submit: String?
     
-    public init(action: FormAction = .init(),
-                fields: [FormComponent] = [],
-                error: String? = nil,
-                submit: String? = nil) {
+    public init(
+        action: FormAction = .init(),
+        fields: [FormComponent] = [],
+        error: String? = nil,
+        submit: String? = nil
+    ) {
         self.action = action
         self.fields = fields
         self.error = error
@@ -25,8 +20,6 @@ open class AbstractForm: FormComponent {
         
         self.action.enctype = .multipart
     }
-    
-    // MARK: - FromComponent
     
     open func load(req: Request) async throws {
         for field in fields {
@@ -69,11 +62,13 @@ open class AbstractForm: FormComponent {
     open func render(req: Request) -> TemplateRepresentable {
         FormTemplate(getContext(req))
     }
-
+    
     func getContext(_ req: Request) -> FormContext {
-        .init(action: action,
-              fields: fields.map { $0.render(req: req)},
-              error: error,
-              submit: submit)
+        .init(
+            action: action,
+            fields: fields.map { $0.render(req: req)},
+            error: error,
+            submit: submit
+        )
     }
 }

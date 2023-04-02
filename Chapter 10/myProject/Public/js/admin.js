@@ -4,3 +4,4 @@ document.addEventListener("keydown", function(e) {
         document.forms[0].submit();
     }
 }, false);
+

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 04..
-//
-
 import Vapor
 import SwiftHtml
 
@@ -12,14 +5,19 @@ public struct CellTemplate: TemplateRepresentable {
     
     var context: CellContext
     var rowId: String
-
-    public init(_ context: CellContext, rowId: String) {
+    
+    public init(
+        _ context: CellContext,
+        rowId: String
+    ) {
         self.context = context
         self.rowId = rowId
     }
-
+    
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         Td {
             switch context.type {
             case .text:
@@ -44,5 +42,3 @@ public struct CellTemplate: TemplateRepresentable {
         .class("field")
     }
 }
-
-

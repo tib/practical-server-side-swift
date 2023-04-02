@@ -1,24 +1,26 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 04..
-//
-
 import Vapor
 import SwiftHtml
 
 public struct AdminListPageTemplate: TemplateRepresentable {
     
     var context: AdminListPageContext
-
-    public init(_ context: AdminListPageContext) {
+    
+    public init(
+        _ context: AdminListPageContext
+    ) {
         self.context = context
     }
-
+    
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
-        AdminIndexTemplate(.init(title: context.title, breadcrumbs: context.breadcrumbs)) {
+    public func render(
+        _ req: Request
+    ) -> Tag {
+        AdminIndexTemplate(
+            .init(
+                title: context.title,
+                breadcrumbs: context.breadcrumbs
+            )
+        ) {
             Div {
                 H1(context.title)
                 P {

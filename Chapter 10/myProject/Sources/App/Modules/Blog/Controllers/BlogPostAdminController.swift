@@ -1,26 +1,20 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 03..
-//
-
 import Vapor
 import Fluent
 
-struct BlogPostAdminController: AdminListController,
-                                AdminDetailController,
-                                AdminCreateController,
-                                AdminUpdateController,
-                                AdminDeleteController {
+struct BlogPostAdminController:
+    AdminListController,
+    AdminDetailController,
+    AdminCreateController,
+    AdminUpdateController,
+    AdminDeleteController
+{
     typealias DatabaseModel = BlogPostModel
-
     typealias CreateModelEditor = BlogPostEditor
     typealias UpdateModelEditor = BlogPostEditor
-
+    
     let modelName: Name = .init(singular: "post")
     let parameterId: String = "postId"
-
+    
     func listColumns() -> [ColumnContext] {
         [
             .init("image"),
@@ -34,7 +28,7 @@ struct BlogPostAdminController: AdminListController,
             .init(model.title, link: .init(label: model.title)),
         ]
     }
-
+    
     func detailFields(for model: DatabaseModel) -> [DetailContext] {
         [
             .init("image", model.imageKey, type: .image),
@@ -42,8 +36,9 @@ struct BlogPostAdminController: AdminListController,
         ]
     }
     
-    func deleteInfo(_ model: DatabaseModel) -> String {
+    func deleteInfo(
+        _ model: DatabaseModel
+    ) -> String {
         model.title
     }
 }
-

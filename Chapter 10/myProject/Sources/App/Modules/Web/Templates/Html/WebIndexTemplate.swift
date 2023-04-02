@@ -1,10 +1,3 @@
-//
-//  WebIndexTemplate.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 import SwiftHtml
 import SwiftSvg
@@ -14,13 +7,18 @@ public struct WebIndexTemplate: TemplateRepresentable {
     public var context: WebIndexContext
     var body: Tag
 
-    public init(_ context: WebIndexContext, @TagBuilder _ builder: () -> Tag) {
+    public init(
+        _ context: WebIndexContext,
+        @TagBuilder _ builder: () -> Tag
+    ) {
         self.context = context
         self.body = builder()
     }
 
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         Html {
             Head {
                 Meta()
@@ -117,5 +115,4 @@ public struct WebIndexTemplate: TemplateRepresentable {
         }
         .lang("en-US")
     }
-    
 }

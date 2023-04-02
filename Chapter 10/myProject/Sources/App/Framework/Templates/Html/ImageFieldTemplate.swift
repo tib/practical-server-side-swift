@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 import SwiftHtml
 
@@ -12,12 +5,16 @@ public struct ImageFieldTemplate: TemplateRepresentable {
 
     public var context: ImageFieldContext
     
-    public init(_ context: ImageFieldContext) {
+    public init(
+        _ context: ImageFieldContext
+    ) {
         self.context = context
     }
     
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         
         if let url = context.previewUrl {
             Img(src: req.fs.resolve(key: url), alt: context.key)
