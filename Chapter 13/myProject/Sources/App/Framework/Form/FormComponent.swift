@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 01..
-//
-
 import Vapor
 
 public protocol FormComponent {

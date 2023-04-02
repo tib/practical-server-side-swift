@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 05..
-//
-
 import Vapor
 
 public protocol ModelEditorInterface: FormComponent {

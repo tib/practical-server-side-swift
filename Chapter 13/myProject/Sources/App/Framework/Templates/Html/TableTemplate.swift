@@ -1,23 +1,20 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 04..
-//
-
 import Vapor
 import SwiftHtml
 
 public struct TableTemplate: TemplateRepresentable {
     
     var context: TableContext
-
-    public init(_ context: TableContext) {
+    
+    public init(
+        _ context: TableContext
+    ) {
         self.context = context
     }
-
+    
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         Table {
             Thead {
                 Tr {
@@ -49,5 +46,3 @@ public struct TableTemplate: TemplateRepresentable {
         }
     }
 }
-
-
