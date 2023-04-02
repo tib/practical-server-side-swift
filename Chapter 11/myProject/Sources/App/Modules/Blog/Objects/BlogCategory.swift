@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Foundation
 
 extension Blog {
@@ -25,7 +18,7 @@ extension Blog.Category {
         let id: UUID
         let title: String
     }
-    
+
     struct Create: Codable {
         let title: String
     }

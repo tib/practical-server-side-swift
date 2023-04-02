@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 04..
-//
-
 import Vapor
 
 protocol AdminListController: ModelController {
@@ -16,8 +9,16 @@ protocol AdminListController: ModelController {
     func listCells(for model: DatabaseModel) -> [CellContext]
     func listNavigation(_ req: Request) -> [LinkContext]
     func listBreadcrumbs(_ req: Request) -> [LinkContext]
-    func listContext(_ req: Request, _ list: [DatabaseModel]) -> AdminListPageContext
-    func listTemplate(_ req: Request, _ list: [DatabaseModel]) -> TemplateRepresentable
+    
+    func listContext(
+        _ req: Request,
+        _ list: [DatabaseModel]
+    ) -> AdminListPageContext
+    
+    func listTemplate(
+        _ req: Request,
+        _ list: [DatabaseModel]
+    ) -> TemplateRepresentable
 }
 
 extension AdminListController {
@@ -40,11 +41,17 @@ extension AdminListController {
     
     func listBreadcrumbs(_ req: Request) -> [LinkContext] {
         [
-            LinkContext(label: DatabaseModel.Module.identifier.capitalized, dropLast: 1)
+            LinkContext(
+                label: DatabaseModel.Module.identifier.capitalized,
+                dropLast: 1
+            )
         ]
     }
     
-    func listContext(_ req: Request, _ list: [DatabaseModel]) -> AdminListPageContext {
+    func listContext(
+        _ req: Request,
+        _ list: [DatabaseModel]
+    ) -> AdminListPageContext {
         let rows = list.map {
             RowContext(id: $0.id!.uuidString, cells: listCells(for: $0))
         }
@@ -52,13 +59,18 @@ extension AdminListController {
             LinkContext(label: "Update", path: "update"),
             LinkContext(label: "Delete", path: "delete")
         ])
-        return .init(title: "List",
-                     table: table,
-                     navigation: listNavigation(req),
-                     breadcrumbs: listBreadcrumbs(req))
+        return .init(
+            title: "List",
+            table: table,
+            navigation: listNavigation(req),
+            breadcrumbs: listBreadcrumbs(req)
+        )
     }
 
-    func listTemplate(_ req: Request, _ list: [DatabaseModel]) -> TemplateRepresentable {
+    func listTemplate(
+        _ req: Request,
+        _ list: [DatabaseModel]
+    ) -> TemplateRepresentable {
         AdminListPageTemplate(listContext(req, list))
     }
 }

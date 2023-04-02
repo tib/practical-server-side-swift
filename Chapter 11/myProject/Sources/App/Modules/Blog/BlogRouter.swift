@@ -1,10 +1,3 @@
-//
-//  BlogRouter.swift
-//
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 
 struct BlogRouter: RouteCollection {
@@ -43,6 +36,8 @@ struct BlogRouter: RouteCollection {
         postId.post("update", use: postAdminController.updateAction)
         postId.get("delete", use: postAdminController.deleteView)
         postId.post("delete", use: postAdminController.deleteAction)
+        
+        // ...
         
         let blogApi = routes.grouped("api", "blog")
         let categoriesApi = blogApi.grouped("categories")
