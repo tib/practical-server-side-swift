@@ -1,12 +1,5 @@
 import Foundation
 
-extension Blog {
-
-    enum Category {
-        
-    }
-}
-
 extension Blog.Category {
     
     struct List: Codable {
