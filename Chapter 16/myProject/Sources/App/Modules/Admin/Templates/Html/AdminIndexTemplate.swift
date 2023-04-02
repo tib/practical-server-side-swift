@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 import SwiftHtml
 import SwiftSvg
@@ -14,13 +7,18 @@ public struct AdminIndexTemplate: TemplateRepresentable {
     public var context: AdminIndexContext
     var body: Tag
 
-    public init(_ context: AdminIndexContext, @TagBuilder _ builder: () -> Tag) {
+    public init(
+        _ context: AdminIndexContext,
+        @TagBuilder _ builder: () -> Tag
+    ) {
         self.context = context
         self.body = builder()
     }
 
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         Html {
             Head {
                 Meta()
@@ -76,30 +74,15 @@ public struct AdminIndexTemplate: TemplateRepresentable {
                         A("Admin")
                             .href("/admin/")
 
-                        context.breadcrumbs.map { LinkTemplate($0).render(req) }
+                        for breadcrumb in context.breadcrumbs {
+                            LinkTemplate(breadcrumb).render(req)
+                        }
                     }
                 }
                 .class("breadcrumb")
-
+                
                 Main {
                     body
-                }
-                
-                Footer {
-                    Section {
-                        P {
-                            Text("This site is powered by ")
-                            A("Swift")
-                                .href("https://swift.org")
-                                .target(.blank)
-                            Text(" & ")
-                            A("Vapor")
-                                .href("https://vapor.codes")
-                                .target(.blank)
-                            Text(".")
-                        }
-                        P("myPage &copy; 2020-2022")
-                    }
                 }
 
                 Script()
@@ -110,6 +93,4 @@ public struct AdminIndexTemplate: TemplateRepresentable {
         }
         .lang("en-US")
     }
-    
 }
-

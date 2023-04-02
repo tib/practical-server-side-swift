@@ -1,10 +1,3 @@
-//
-//  FILE.swift
-//
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 @testable import App
 import XCTVapor
 
@@ -28,8 +21,13 @@ final class AppTests: AppTestCase {
         defer { app.shutdown() }
         
         let email = "root@localhost.com"
-        let token = try authenticate(.init(email: email, password: "ChangeMe1"), app)
+        let token = try authenticate(
+            .init(
+                email: email,
+                password: "ChangeMe1"
+            ),
+            app
+        )
         XCTAssertEqual(token.user.email, email)
     }
 }
-

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 03..
-//
-
 public struct CellContext {
 
     public enum `Type`: String {
@@ -16,7 +9,11 @@ public struct CellContext {
     public let link: LinkContext?
     public let type: `Type`
 
-    public init(_ value: String, link: LinkContext? = nil, type: `Type` = .text) {
+    public init(
+        _ value: String,
+        link: LinkContext? = nil,
+        type: `Type` = .text
+    ) {
         self.type = type
         self.value = value
         self.link = link

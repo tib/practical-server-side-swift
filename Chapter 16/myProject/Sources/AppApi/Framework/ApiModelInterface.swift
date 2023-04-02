@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 06..
-//
-
 public protocol ApiModelInterface {
     associatedtype Module: ApiModuleInterface
     
@@ -13,7 +6,12 @@ public protocol ApiModelInterface {
 }
 
 public extension ApiModelInterface {
-    static var pathKey: String { String(describing: self).lowercased() + "s" }
-    static var pathIdKey: String { String(describing: self).lowercased() + "Id" }
+    
+    static var pathKey: String {
+        String(describing: self).lowercased() + "s"
+    }
+    
+    static var pathIdKey: String {
+        String(describing: self).lowercased() + "Id"
+    }
 }
-

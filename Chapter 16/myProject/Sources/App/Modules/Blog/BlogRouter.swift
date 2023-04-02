@@ -1,10 +1,3 @@
-//
-//  BlogRouter.swift
-//
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 
 struct BlogRouter: RouteCollection {
@@ -35,9 +28,10 @@ struct BlogRouter: RouteCollection {
         categoryApiController.setupRoutes(routes)
     }
     
-    func responseHook(_ args: HookArguments) async throws -> Response? {
+    func responseHook(
+        _ args: HookArguments
+    ) async throws -> Response? {
         let req = args["req"] as! Request
-        return try await frontendController.postView(req: req)
+        return try await frontendController.postView(req)
     }
-    
 }

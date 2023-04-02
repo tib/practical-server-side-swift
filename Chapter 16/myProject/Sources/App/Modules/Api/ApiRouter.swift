@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 08..
-//
-
 import Vapor
 
 struct ApiRouter: RouteCollection {
@@ -16,8 +9,9 @@ struct ApiRouter: RouteCollection {
             .grouped(AuthenticatedUser.guardMiddleware())
             .grouped("api")
 
-        let _: [Void] = app.invokeAll("api-routes", args: ["routes": apiRoutes])
+        let _: [Void] = app.invokeAll(
+            "api-routes",
+            args: ["routes": apiRoutes]
+        )
     }
-    
-    
 }

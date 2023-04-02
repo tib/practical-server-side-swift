@@ -1,10 +1,12 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 public enum Blog: ApiModuleInterface {
-    
+
+    public enum Post: ApiModelInterface {
+        public typealias Module = Blog
+    }
+
+    public enum Category: ApiModelInterface {
+        public typealias Module = Blog
+
+        public static let pathKey: String = "categories"
+    }
 }

@@ -1,14 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 09..
-//
-
 import Vapor
+import AppApi
 
 extension ApiModelInterface {
 
-    static var pathIdComponent: PathComponent { .init(stringLiteral: ":" + pathIdKey) }
+    static var pathIdComponent: PathComponent {
+        .init(stringLiteral: ":" + pathIdKey)
+    }
 }
-
