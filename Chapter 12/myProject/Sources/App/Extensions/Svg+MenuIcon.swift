@@ -1,13 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 03..
-//
-
 import SwiftSvg
 
 extension Svg {
+
     static func menuIcon() -> Svg {
         Svg {
             Line(x1: 3, y1: 12, x2: 21, y2: 12)

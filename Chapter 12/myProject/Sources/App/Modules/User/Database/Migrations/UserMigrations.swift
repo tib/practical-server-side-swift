@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2021. 12. 31..
-//
-
 import Vapor
 import Fluent
 
@@ -31,7 +24,10 @@ enum UserMigrations {
         func prepare(on db: Database) async throws {
             let email = "root@localhost.com"
             let password = "ChangeMe1"
-            let user = UserAccountModel(email: email, password: try Bcrypt.hash(password))
+            let user = UserAccountModel(
+                email: email,
+                password: try Bcrypt.hash(password)
+            )
             try await user.create(on: db)
         }
 
@@ -39,5 +35,4 @@ enum UserMigrations {
             try await UserAccountModel.query(on: db).delete()
         }
     }
-    
 }

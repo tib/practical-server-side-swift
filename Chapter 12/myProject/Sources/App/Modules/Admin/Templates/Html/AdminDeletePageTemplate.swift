@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 05..
-//
-
 import Vapor
 import SwiftHtml
 
@@ -12,13 +5,22 @@ public struct AdminDeletePageTemplate: TemplateRepresentable {
 
     var context: AdminDeletePageContext
 
-    public init(_ context: AdminDeletePageContext) {
+    public init(
+        _ context: AdminDeletePageContext
+    ) {
         self.context = context
     }
 
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
-        AdminIndexTemplate(.init(title: context.title, breadcrumbs: context.breadcrumbs)) {
+    public func render(
+        _ req: Request
+    ) -> Tag {
+        AdminIndexTemplate(
+            .init(
+                title: context.title,
+                breadcrumbs: context.breadcrumbs
+            )
+        ) {
             Div {
                 Span("🗑")
                     .class("icon")
@@ -36,5 +38,3 @@ public struct AdminDeletePageTemplate: TemplateRepresentable {
         .render(req)
     }
 }
-
-

@@ -1,16 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 06..
-//
-
 import Vapor
 
-protocol DeleteController: ModelController {
+public protocol DeleteController: ModelController {
     
 }
 
-extension DeleteController {
+public extension DeleteController {
     
 }

@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 06..
-//
-
 import Foundation
 
 public protocol ApiModuleInterface {
@@ -13,5 +6,7 @@ public protocol ApiModuleInterface {
 
 public extension ApiModuleInterface {
 
-    static var pathKey: String { String(describing: self).lowercased() }
+    static var pathKey: String {
+        String(describing: self).lowercased()
+    }
 }

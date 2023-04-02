@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 import SwiftHtml
 
@@ -12,12 +5,16 @@ public struct SelectFieldTemplate: TemplateRepresentable {
 
     public var context: SelectFieldContext
     
-    public init(_ context: SelectFieldContext) {
+    public init(
+        _ context: SelectFieldContext
+    ) {
         self.context = context
     }
     
     @TagBuilder
-    public func render(_ req: Request) -> Tag {
+    public func render(
+        _ req: Request
+    ) -> Tag {
         LabelTemplate(context.label).render(req)
         
         Select {

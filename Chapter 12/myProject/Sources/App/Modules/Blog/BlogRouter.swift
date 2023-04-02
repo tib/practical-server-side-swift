@@ -1,10 +1,3 @@
-//
-//  BlogRouter.swift
-//
-//
-//  Created by Tibor Bodecs on 2021. 12. 25..
-//
-
 import Vapor
 
 struct BlogRouter: RouteCollection {
@@ -22,7 +15,11 @@ struct BlogRouter: RouteCollection {
         routes.get(.anything, use: frontendController.postView)
         
         let admin = routes
-                    .grouped(AuthenticatedUser.redirectMiddleware(path: "/"))
+                    .grouped(
+                        AuthenticatedUser.redirectMiddleware(
+                            path: "/"
+                        )
+                    )
                     .grouped("admin")
 
         postAdminController.setupRoutes(admin)

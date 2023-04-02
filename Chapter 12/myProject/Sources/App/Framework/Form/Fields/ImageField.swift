@@ -1,13 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 02..
-//
-
 import Vapor
 
-public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTemplate> {
+public final class ImageField: AbstractFormField<
+    FormImageInput,
+    ImageFieldTemplate
+> {
 
     public var imageKey: String? {
         didSet {
@@ -17,22 +13,50 @@ public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTempl
 
     public var path: String
 
-    public init(_ key: String, path: String) {
+    public init(
+        _ key: String,
+        path: String
+    ) {
         self.path = path
-        super.init(key: key, input: .init(key: key), output: .init(.init(key: key)))
+        super.init(
+            key: key,
+            input: .init(key: key),
+            output: .init(.init(key: key))
+        )
     }
 
-    public override func process(req: Request) async throws {
+    public override func process(
+        req: Request
+    ) async throws {
         /// process input
-        input.file = try? req.content.get(File.self, at: key)
-        input.data.originalKey = try? req.content.get(String.self, at: key + "OriginalKey")
+        input.file = try? req.content.get(
+            File.self,
+            at: key
+        )
+        
+        input.data.originalKey = try? req.content.get(
+            String.self,
+            at: key + "OriginalKey"
+        )
         if
-            let temporaryFileKey = try? req.content.get(String.self, at: key + "TemporaryFileKey"),
-            let temporaryFileName = try? req.content.get(String.self, at: key + "TemporaryFileName")
+            let temporaryFileKey = try? req.content.get(
+                String.self,
+                at: key + "TemporaryFileKey"
+            ),
+            let temporaryFileName = try? req.content.get(
+                String.self,
+                at: key + "TemporaryFileName"
+            )
         {
-            input.data.temporaryFile = .init(key: temporaryFileKey, name: temporaryFileName)
+            input.data.temporaryFile = .init(
+                key: temporaryFileKey,
+                name: temporaryFileName
+            )
         }
-        input.data.shouldRemove = (try? req.content.get(Bool.self, at: key + "ShouldRemove")) ?? false
+        input.data.shouldRemove = (try? req.content.get(
+            Bool.self,
+            at: key + "ShouldRemove"
+        )) ?? false
 
         /// remove & upload file
         if input.data.shouldRemove {
@@ -40,7 +64,11 @@ public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTempl
                 try? await req.fs.delete(key: originalKey)
             }
         }
-        else if let file = input.file, let data = file.byteBuffer.data, !data.isEmpty {
+        else if
+            let file = input.file,
+            let data = file.byteBuffer.data,
+            !data.isEmpty
+        {
             if let tmpKey = input.data.temporaryFile?.key {
                 try? await req.fs.delete(key: tmpKey)
             }
@@ -48,14 +76,19 @@ public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTempl
 
             _ = try await req.fs.upload(key: key, data: data)
             /// update the temporary image
-            input.data.temporaryFile = .init(key: key, name: file.filename)
+            input.data.temporaryFile = .init(
+                key: key,
+                name: file.filename
+            )
         }
         /// update output values
         output.context.data = input.data
 
     }
     
-    public override func write(req: Request) async throws {
+    public override func write(
+        req: Request
+    ) async throws {
         imageKey = input.data.originalKey
         if input.data.shouldRemove {
             if let key = input.data.originalKey {
@@ -83,7 +116,9 @@ public final class ImageField: AbstractFormField<FormImageInput, ImageFieldTempl
     }
     
 
-    public override func render(req: Request) -> TemplateRepresentable {
+    public override func render(
+        req: Request
+    ) -> TemplateRepresentable {
         output.context.error = error
         return super.render(req: req)
     }

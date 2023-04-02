@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 03..
-//
-
 import Vapor
 import Fluent
 
@@ -13,7 +6,7 @@ struct BlogPostAdminController: AdminController {
     typealias DatabaseModel = BlogPostModel
     typealias CreateModelEditor = BlogPostEditor
     typealias UpdateModelEditor = BlogPostEditor
-
+    
     func listColumns() -> [ColumnContext] {
         [
             .init("image"),
@@ -27,7 +20,7 @@ struct BlogPostAdminController: AdminController {
             .init(model.title, link: .init(label: model.title)),
         ]
     }
-
+    
     func detailFields(for model: DatabaseModel) -> [DetailContext] {
         [
             .init("image", model.imageKey, type: .image),
@@ -35,8 +28,9 @@ struct BlogPostAdminController: AdminController {
         ]
     }
     
-    func deleteInfo(_ model: DatabaseModel) -> String {
+    func deleteInfo(
+        _ model: DatabaseModel
+    ) -> String {
         model.title
     }
 }
-

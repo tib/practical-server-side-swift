@@ -1,17 +1,15 @@
-//
-//  File.swift
-//  
-//
-//  Created by Tibor Bodecs on 2022. 01. 01..
-//
-
 import Vapor
 
 final class UserLoginForm: AbstractForm {
     
     public convenience init() {
-        self.init(action: .init(method: .post, url: "/sign-in/"),
-                  submit: "Sign in")
+        self.init(
+            action: .init(
+                method: .post,
+                url: "/sign-in/"
+            ),
+            submit: "Sign in"
+        )
         self.fields = createFields()
     }
 
