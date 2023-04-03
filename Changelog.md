@@ -10,7 +10,7 @@ Don't forget to check the sample code repository on [GitHub](https://github.com/
 - SwiftHtml 1.7.0
 - Reworked some parts of the book
 - Added some helpful notes & commands
-- Fixed some grammar mistakes & type-o-s
+- Fixed some grammar mistakes & typos
 - Thanks to Ferenc (reviewer) & Michael (editor)
 
 ### Third edition - v1.4.0
@@ -40,7 +40,7 @@ Don't forget to check the sample code repository on [GitHub](https://github.com/
 - It is now easier to follow the chapters
 - Pagination support for admin lists
 - Smaller fixes and improvements
-- New grammar mistakes & type-o-s
+- New grammar mistakes & typos
 
 
 ### First edition - v1.2.0
