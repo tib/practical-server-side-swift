@@ -1,32 +1,36 @@
-// swift-tools-version:5.6
+// swift-tools-version:6.0
 import PackageDescription
 
 let package = Package(
     name: "myProject",
     platforms: [
-       .macOS(.v12)
+       .macOS(.v13),
     ],
     dependencies: [
-        // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/vapor", from: "4.115.0"),
+        .package(url: "https://github.com/apple/swift-nio", from: "2.84.0"),
     ],
     targets: [
-        .target(
-            name: "App",
+        .executableTarget(
+            name: "myProject",
             dependencies: [
-                .product(name: "Vapor", package: "vapor")
+                .product(name: "Vapor", package: "vapor"),
+                .product(name: "NIOCore", package: "swift-nio"),
+                .product(name: "NIOPosix", package: "swift-nio"),
             ],
-            swiftSettings: [
-                // Enable better optimizations when building in Release configuration. Despite the use of
-                // the `.unsafeFlags` construct required by SwiftPM, this flag is recommended for Release
-                // builds. See <https://github.com/swift-server/guides/blob/main/docs/building.md#building-for-production> for details.
-                .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
-            ]
+            swiftSettings: swiftSettings
         ),
-        .executableTarget(name: "Run", dependencies: [.target(name: "App")]),
-        .testTarget(name: "AppTests", dependencies: [
-            .target(name: "App"),
-            .product(name: "XCTVapor", package: "vapor"),
-        ])
+        .testTarget(
+            name: "myProjectTests",
+            dependencies: [
+                .target(name: "myProject"),
+                .product(name: "VaporTesting", package: "vapor"),
+            ],
+            swiftSettings: swiftSettings
+        )
     ]
 )
+
+var swiftSettings: [SwiftSetting] { [
+    .enableUpcomingFeature("ExistentialAny"),
+] }
