@@ -50,7 +50,7 @@ public struct WebIndexTemplate: TemplateRepresentable {
                     .href("/img/favicon.ico")
                     .type("image/x-icon")
                 Link(rel: .stylesheet)
-                    .href("https://cdn.jsdelivr.net/gh/feathercms/feather-core@1.0.0-beta.44/feather.min.css")
+                    .href("/css/peacock.min.css")
                 Link(rel: .stylesheet)
                     .href("/css/web.css")
                 

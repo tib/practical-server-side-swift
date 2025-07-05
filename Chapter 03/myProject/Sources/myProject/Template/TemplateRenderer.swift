@@ -10,7 +10,7 @@ public struct TemplateRenderer {
     }
 
     public func renderHtml(
-        _ template: TemplateRepresentable,
+        _ template: any TemplateRepresentable,
         minify: Bool = false,
         indent: Int = 4
     ) -> Response {

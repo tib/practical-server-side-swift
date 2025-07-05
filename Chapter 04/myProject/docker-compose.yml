@@ -8,18 +8,17 @@
 #
 # Learn more: https://docs.docker.com/compose/reference/
 #
-#   Build images: docker-compose build
-#      Start app: docker-compose up app
-#       Stop all: docker-compose down
+#   Build images: docker compose build
+#      Start app: docker compose up app
+#       Stop all: docker compose down
 #
-version: '3.7'
 
 x-shared_environment: &shared_environment
   LOG_LEVEL: ${LOG_LEVEL:-debug}
   
 services:
   app:
-    image: my-project:latest
+    image: myproject:latest
     build:
       context: .
     environment:

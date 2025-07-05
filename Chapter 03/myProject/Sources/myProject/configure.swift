@@ -2,7 +2,7 @@ import Vapor
 
 public func configure(
     _ app: Application
-) throws {
+) async throws {
 
     app.middleware.use(
         FileMiddleware(
@@ -12,7 +12,7 @@ public func configure(
 
     app.middleware.use(ExtendPathMiddleware())
 
-    let routers: [RouteCollection] = [
+    let routers: [any RouteCollection] = [
         WebRouter(),
         BlogRouter(),
     ]
